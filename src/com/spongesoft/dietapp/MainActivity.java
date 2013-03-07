@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.RelativeLayout;
+
+
 
 public class MainActivity extends FragmentActivity {
 
@@ -72,7 +75,12 @@ public class MainActivity extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment;
+			if(position == 0){
+				fragment = new MainSectionFragment();
+			}else{
+				fragment = new DummySectionFragment();
+			}
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
@@ -126,4 +134,40 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	/**
+	 * A dummy fragment representing the main.xml layout
+	 */
+	public static class MainSectionFragment extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public MainSectionFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			// Create a new TextView and set its text to the fragment's section
+			// number argument value.
+			View view = inflater.inflate(R.layout.main, container, false);
+			
+			RelativeLayout rl = (RelativeLayout)view.findViewById(R.id.relayout);
+
+			rl.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			 });
+//			TextView textView = new TextView(getActivity());
+//			textView.setGravity(Gravity.CENTER);
+//			textView.setText(Integer.toString(getArguments().getInt(
+//					ARG_SECTION_NUMBER)));
+			return view;
+		}
+	}
 }
