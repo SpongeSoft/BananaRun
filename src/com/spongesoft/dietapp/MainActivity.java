@@ -50,6 +50,9 @@ public class MainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		/* Initial tab is the HOME section */
+		mViewPager.setCurrentItem(1);
 
 	}
 
@@ -76,7 +79,7 @@ public class MainActivity extends FragmentActivity {
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment;
-			if(position == 0){
+			if(position == 1){
 				fragment = new MainSectionFragment();
 			}else{
 				fragment = new DummySectionFragment();
@@ -97,11 +100,11 @@ public class MainActivity extends FragmentActivity {
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase();
+				return getString(R.string.title_section1);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase();
+				return getString(R.string.title_section2);
 			case 2:
-				return getString(R.string.title_section3).toUpperCase();
+				return getString(R.string.title_section3);
 			}
 			return null;
 		}

@@ -13,33 +13,7 @@
         android:focusableInTouchMode="true"
         android:longClickable="true" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:scaleType="fitEnd"
-            android:src="@drawable/ic_launcher" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageView1"
-            android:text="Jorge Lavín"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_toRightOf="@+id/imageView1"
-            android:text="Peso: 45kg"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+        
     </RelativeLayout>
 
 </LinearLayout>
