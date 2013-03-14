@@ -2,6 +2,10 @@ package com.spongesoft.dietapp;
 
 //Hello, DietApp!
 
+
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -32,11 +36,13 @@ public class MainActivity extends FragmentActivity {
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
+	//https://gist.github.com/petedoyle/977234
+	View mMapViewContainer;
+	MapView mMapView;
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,9 +56,9 @@ public class MainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
 		/* Initial tab is the HOME section */
 		mViewPager.setCurrentItem(1);
+		mViewPager.setOffscreenPageLimit(3);
 	}
 
 	@Override
@@ -79,7 +85,7 @@ public class MainActivity extends FragmentActivity {
 			// below) with the page number as its lone argument.
 			Fragment fragment;
 			if(position == 1){
-				fragment = new MainSectionFragment();
+				fragment = new MapSectionFragment();
 			}else{
 				fragment = new DummySectionFragment();
 			}
@@ -133,43 +139,6 @@ public class MainActivity extends FragmentActivity {
 			textView.setText(Integer.toString(getArguments().getInt(
 					ARG_SECTION_NUMBER)));
 			return textView;
-		}
-	}
-
-	/**
-	 * A dummy fragment representing the main.xml layout
-	 */
-	public static class MainSectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public MainSectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			View view = inflater.inflate(R.layout.main, container, false);
-			
-			RelativeLayout rl = (RelativeLayout)view.findViewById(R.id.relayout);
-
-			rl.setOnClickListener(new View.OnClickListener(){
-				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-			 });
-//			TextView textView = new TextView(getActivity());
-//			textView.setGravity(Gravity.CENTER);
-//			textView.setText(Integer.toString(getArguments().getInt(
-//					ARG_SECTION_NUMBER)));
-			return view;
 		}
 	}
 }
