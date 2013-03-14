@@ -2,6 +2,7 @@ package com.spongesoft.dietapp;
 
 //Hello, DietApp!
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ public class MainActivity extends FragmentActivity {
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
+	private static ShareActionProvider mShareActionProvider; //For share button
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
@@ -61,8 +64,26 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
+		
+		// Locate MenuItem with ShareActionProvider
+	    MenuItem item = menu.findItem(R.id.menu_item_share);
+
+	    // Fetch and store ShareActionProvider
+	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+	    mShareActionProvider.setShareHistoryFileName(
+	    	       ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+	    	     mShareActionProvider.setShareIntent(createShareIntent("Wii! I am using the Banana Run app!"));
+
 		return true;
 	}
+	
+	private Intent createShareIntent(String share_message) {
+		  Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		        shareIntent.setType("text/plain");
+		        shareIntent.putExtra(Intent.EXTRA_TEXT, 
+		          share_message);
+		        return shareIntent;
+		    }
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -174,4 +195,8 @@ public class MainActivity extends FragmentActivity {
 			return view;
 		}
 	}
+	
+	
+	
+
 }
