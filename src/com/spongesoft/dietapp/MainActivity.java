@@ -15,8 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 
@@ -154,15 +156,15 @@ public class MainActivity extends FragmentActivity {
 				Bundle savedInstanceState) {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
-			View view = inflater.inflate(R.layout.main, container, false);
+			View view = inflater.inflate(R.layout.home_tab, container, false);
 			
-			RelativeLayout rl = (RelativeLayout)view.findViewById(R.id.relayout);
-
-			rl.setOnClickListener(new View.OnClickListener(){
+			//RelativeLayout rl = (RelativeLayout)view.findViewById(R.id.relayout);
+			//Color textos #b45d1d 
+			ImageView startButton = (ImageView) view.findViewById(R.id.startbutton);
+			startButton.setOnClickListener(new View.OnClickListener(){
 				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					
+				public void onClick(View v) {
+					Toast.makeText(getActivity().getApplication(), "Lavin", Toast.LENGTH_SHORT).show();
 				}
 			 });
 //			TextView textView = new TextView(getActivity());

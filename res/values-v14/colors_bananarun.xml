@@ -18,4 +18,8 @@
 
 <resources>
     <color name="pressed_bananarun">#CCFFFFFF</color>
+    <color name="gradient_background_1">#41a7ac</color>
+    <color name="gradient_background_2">#d3f8e7</color>
+    <color name="tab_colours">#68e36e</color>
+    <color name="text_colour">#60d555</color>
 </resources>

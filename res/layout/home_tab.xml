@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relayout"
+        android:background="@drawable/gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:longClickable="true" >
+        
+        <ImageView
+    		android:src="@drawable/start_button"
+    		android:id="@+id/startbutton"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_centerHorizontal="true"
+		    android:contentDescription="@string/logo_description">
+        </ImageView>
+        
+        <TextView
+             android:id="@+id/time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_above="@+id/startbutton"
+             android:layout_centerHorizontal="true"
+    		 android:textStyle="bold"
+             android:shadowColor="#000000"
+             android:shadowDx="0"
+             android:shadowDy="0"
+             android:shadowRadius="5"
+             android:text="14:45"
+             android:layout_weight="0.25"
+             android:textColor="@color/text_colour"
+             android:textSize="60sp" />
+        
+         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_colour"
+    		android:textStyle="bold"
+            android:layout_above="@id/time"
+            android:layout_centerHorizontal="true"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:layout_weight="0.25"
+            android:textSize="60sp"
+            android:text="3.09 Km"
+            
+            />
+
+         
+        
+    </RelativeLayout>
+
