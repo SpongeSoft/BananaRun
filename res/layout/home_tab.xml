@@ -12,45 +12,74 @@
         <ImageView
     		android:src="@drawable/start_button"
     		android:id="@+id/startbutton"
-    		android:layout_width="fill_parent"
+    		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_centerHorizontal="true"
+    		android:adjustViewBounds="true"
+		    android:layout_above="@+id/preferencesbutton"
 		    android:contentDescription="@string/logo_description">
         </ImageView>
+        
+        
+        <TextView
+             android:id="@+id/lastsession"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentTop="true"
+             android:layout_marginTop="30dp"
+             android:layout_alignParentLeft="true"
+             android:layout_marginLeft="30dp"
+    		 android:textStyle="bold"
+             android:shadowColor="#000000"
+             android:shadowDx="0"
+             android:shadowDy="0"
+             android:shadowRadius="5"
+             android:textColor="@color/text_colour"
+             android:textSize="20sp"
+             android:text="@string/last_session"
+             />
+        
+        <ImageView
+    		android:src="@drawable/preferences_button"
+    		android:id="@+id/preferencesbutton"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentLeft="true"
+		    android:contentDescription="@string/logo_prefs_description">
+        </ImageView>
+
+        
+         <TextView
+             android:id="@+id/distance"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textColor="@color/text_colour"
+    		 android:textStyle="bold"
+             android:layout_below="@id/lastsession"
+             android:layout_centerHorizontal="true"
+             android:shadowColor="#000000"
+             android:shadowDx="0"
+             android:shadowDy="0"
+             android:shadowRadius="5"
+             android:textSize="60sp"
+             android:text="@string/last_distance" 
+             />
         
         <TextView
              android:id="@+id/time"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_above="@+id/startbutton"
+             android:layout_below="@id/distance"
              android:layout_centerHorizontal="true"
     		 android:textStyle="bold"
              android:shadowColor="#000000"
              android:shadowDx="0"
              android:shadowDy="0"
              android:shadowRadius="5"
-             android:text="14:45"
-             android:layout_weight="0.25"
              android:textColor="@color/text_colour"
-             android:textSize="60sp" />
-        
-         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_colour"
-    		android:textStyle="bold"
-            android:layout_above="@id/time"
-            android:layout_centerHorizontal="true"
-            android:shadowColor="#000000"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:layout_weight="0.25"
-            android:textSize="60sp"
-            android:text="3.09 Km"
-            
-            />
+             android:textSize="60sp"
+             android:text="@string/last_time"
+             />
 
          
         
