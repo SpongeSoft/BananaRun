@@ -28,10 +28,16 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_bananarun</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_bananarun</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bananarun</item>
+        <item name="android:itemTextAppearance">@style/MyTheme.ActionBar.TitleTextStyle</item>
+        
         
         
         
     </style>
+
+    <style name="Theme.TextAppearance" parent="@android:style/TextAppearance.Widget.TextView.PopupMenu">
+    	<item name="android:textColor">#ffffff</item>
+	</style>
 
     <style name="ActionBar.Solid.Bananarun" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <item name="android:background">@drawable/ab_solid_bananarun</item>
@@ -57,7 +63,8 @@
   	</style>
 
     <style name="PopupMenu.Bananarun" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_bananarun</item>	        
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_bananarun</item>	
+        <item name="android:textColor">#ffffff</item> 
     </style>
 
     <style name="DropDownListView.Bananarun" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
@@ -87,5 +94,5 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Bananarun</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Bananarun</item>
     </style>
-    
+   
 </resources>
