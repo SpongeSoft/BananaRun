@@ -2,7 +2,9 @@ package com.spongesoft.dietapp;
 
 //Hello, DietApp!
 
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -72,7 +74,7 @@ public class MainActivity extends FragmentActivity {
 	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 	    mShareActionProvider.setShareHistoryFileName(
 	    	       ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-	    	     mShareActionProvider.setShareIntent(createShareIntent("Wii! I am using the Banana Run app!"));
+	    	     mShareActionProvider.setShareIntent(createShareIntent("Ignore:\n Here is the Banana Run Share button testing. It works!"));
 
 		return true;
 	}
@@ -188,6 +190,19 @@ public class MainActivity extends FragmentActivity {
 					Toast.makeText(getActivity().getApplication(), "Lavin", Toast.LENGTH_SHORT).show();
 				}
 			 });
+			
+			TextView lastSession =(TextView) view.findViewById(R.id.lastsession);
+			Typeface lSessiontypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
+			lastSession.setTypeface(lSessiontypeFace);
+			
+			TextView lastDistance =(TextView) view.findViewById(R.id.distance);
+			Typeface lDistancetypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
+			lastDistance.setTypeface(lDistancetypeFace);
+			
+			TextView lastTime =(TextView) view.findViewById(R.id.time);
+			Typeface lTimetypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
+			lastTime.setTypeface(lTimetypeFace);
+			
 //			TextView textView = new TextView(getActivity());
 //			textView.setGravity(Gravity.CENTER);
 //			textView.setText(Integer.toString(getArguments().getInt(
