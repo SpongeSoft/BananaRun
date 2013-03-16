@@ -8,5 +8,6 @@
     <string name="menu_settings">Settings</string>
     <string name="logo_description">Start Button</string>
     <string name="logo_prefs_description">Preferences Button</string>
-
+	<string name="logo_wback_description">Weather Background</string>
+    
 </resources>
