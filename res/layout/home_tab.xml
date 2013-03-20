@@ -15,7 +15,7 @@
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
     		android:adjustViewBounds="true"
-		    android:layout_above="@+id/preferencesbutton"
+		    android:layout_above="@+id/weatherbackground"
 		    android:contentDescription="@string/logo_description">
         </ImageView>
         
@@ -38,16 +38,26 @@
              android:text="@string/last_session"
              />
         
-        <ImageView
-            android:id="@+id/preferencesbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/weatherbackground"
-            android:contentDescription="@string/logo_prefs_description"
-            android:src="@drawable/preferences_button" >
 
+		<ImageView
+    		android:src="@drawable/preferences_background"
+    		android:id="@+id/preferencesbackground"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/preferencesbutton"
+		    android:layout_alignLeft="@+id/preferencesbutton"
+		    android:visibility="invisible"
+		    android:contentDescription="@string/logo_prefs_description">
+        </ImageView>
+        
+        <ImageView
+    		android:src="@drawable/preferences_button"
+    		android:id="@+id/preferencesbutton"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentLeft="true"
+		    android:contentDescription="@string/logo_prefs_description">
         </ImageView>
         
         <ImageView
