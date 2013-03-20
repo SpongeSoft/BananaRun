@@ -18,6 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -38,7 +41,7 @@ public class MainActivity extends FragmentActivity {
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	private static ShareActionProvider mShareActionProvider; //For share button
-
+	private static String message = "Bananarun here! Share! Share! SHARE!!!";
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -69,12 +72,12 @@ public class MainActivity extends FragmentActivity {
 		
 		// Locate MenuItem with ShareActionProvider
 	    MenuItem item = menu.findItem(R.id.menu_item_share);
-
+	    
 	    // Fetch and store ShareActionProvider
 	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 	    mShareActionProvider.setShareHistoryFileName(
 	    	       ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-	    	     mShareActionProvider.setShareIntent(createShareIntent("Ignore:\n Here is the Banana Run Share button testing. It works!"));
+	    	     mShareActionProvider.setShareIntent(createShareIntent(message));
 
 		return true;
 	}
@@ -104,7 +107,7 @@ public class MainActivity extends FragmentActivity {
 			// below) with the page number as its lone argument.
 			Fragment fragment;
 			if(position == 1){
-				fragment = new MainSectionFragment();
+				fragment = new HomeFragment();
 			}else{
 				fragment = new DummySectionFragment();
 			}
@@ -161,55 +164,7 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
-	/**
-	 * A dummy fragment representing the main.xml layout
-	 */
-	public static class MainSectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public MainSectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			View view = inflater.inflate(R.layout.home_tab, container, false);
-			
-			//RelativeLayout rl = (RelativeLayout)view.findViewById(R.id.relayout);
-			//Color textos #b45d1d 
-			ImageView startButton = (ImageView) view.findViewById(R.id.startbutton);
-			startButton.setOnClickListener(new View.OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(getActivity().getApplication(), "Lavin", Toast.LENGTH_SHORT).show();
-				}
-			 });
-			
-			TextView lastSession =(TextView) view.findViewById(R.id.lastsession);
-			Typeface lSessiontypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
-			lastSession.setTypeface(lSessiontypeFace);
-			
-			TextView lastDistance =(TextView) view.findViewById(R.id.distance);
-			Typeface lDistancetypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
-			lastDistance.setTypeface(lDistancetypeFace);
-			
-			TextView lastTime =(TextView) view.findViewById(R.id.time);
-			Typeface lTimetypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
-			lastTime.setTypeface(lTimetypeFace);
-			
-//			TextView textView = new TextView(getActivity());
-//			textView.setGravity(Gravity.CENTER);
-//			textView.setText(Integer.toString(getArguments().getInt(
-//					ARG_SECTION_NUMBER)));
-			return view;
-		}
-	}
+	
 	
 	
 	
