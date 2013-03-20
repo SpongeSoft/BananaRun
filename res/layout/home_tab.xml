@@ -47,6 +47,16 @@
 		    android:layout_alignParentLeft="true"
 		    android:contentDescription="@string/logo_prefs_description">
         </ImageView>
+        
+        <ImageView
+    		android:src="@drawable/weather_background"
+    		android:id="@+id/weatherbackground"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentRight="true"
+		    android:contentDescription="@string/logo_wback_description">
+        </ImageView>
 
         
          <TextView
