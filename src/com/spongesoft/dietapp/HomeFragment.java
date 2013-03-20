@@ -38,6 +38,9 @@ import android.widget.Toast;
 			//Color textos #b45d1d 
 			ImageView startButton = (ImageView) HomeView.findViewById(R.id.startbutton);
 			
+			ImageView prefsBackground = (ImageView) HomeView.findViewById(R.id.preferencesbackground);
+			prefsBackground.setVisibility(View.VISIBLE);
+			
 			/* Button is pressed */
 			startButton.setOnClickListener(new View.OnClickListener(){
 				@Override
