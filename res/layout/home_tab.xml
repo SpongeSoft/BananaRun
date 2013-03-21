@@ -38,7 +38,8 @@
              android:text="@string/last_session"
              />
         
-        <ImageView
+
+		<ImageView
     		android:src="@drawable/preferences_background"
     		android:id="@+id/preferencesbackground"
     		android:layout_width="wrap_content"
