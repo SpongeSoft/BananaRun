@@ -5,6 +5,7 @@ package com.spongesoft.dietapp;
 
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
+import com.google.android.maps.MapActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -85,6 +86,8 @@ public class MainActivity extends FragmentActivity {
 			// below) with the page number as its lone argument.
 			Fragment fragment;
 			if(position == 1){
+				fragment = new MyMapFragment();
+			}else if(position == 2){
 				fragment = new MapSectionFragment();
 			}else{
 				fragment = new DummySectionFragment();
@@ -141,4 +144,5 @@ public class MainActivity extends FragmentActivity {
 			return textView;
 		}
 	}
+
 }
