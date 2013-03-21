@@ -42,7 +42,7 @@
    		android:layout_marginRight="20dp"
    		android:layout_alignTop="@+id/limit_group"
    		android:layout_alignParentRight="true"
-   		android:visibility="invisible"
+
    		/>
     
     <ImageView
