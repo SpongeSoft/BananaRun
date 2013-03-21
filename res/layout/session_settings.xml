@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient" >
+    
+    <RadioGroup
+        android:id="@+id/limit_group"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" 
+    	android:layout_alignParentTop="true"
+    	android:layout_marginTop="20dp"
+    	android:layout_marginLeft="20dp" >
+    	<RadioButton 
+    	    android:id="@+id/time_limit"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/timelimit"
+    	    android:onClick="onRadioButtonClicked"/>
+    	<RadioButton 
+    	    android:id="@+id/distance_limit"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/distancelimit"
+    	    android:onClick="onRadioButtonClicked"/>
+    	<RadioButton 
+    	    android:id="@+id/free_running"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/freerunning"
+    	    android:onClick="onRadioButtonClicked"
+    	    android:checked="true"/>
+    	</RadioGroup>
+    	
+    <NumberPicker 
+        android:id="@+id/limit_picker"
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:background="@color/picker_background"
+   		android:layout_marginRight="20dp"
+   		android:layout_alignTop="@+id/limit_group"
+   		android:layout_alignParentRight="true"
+   		android:visibility="invisible"
+   		/>
+    
+    <ImageView
+    		android:src="@drawable/start_button"
+    		android:id="@+id/startsessionbutton"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:adjustViewBounds="true"
+    		android:layout_alignParentBottom="true"
+    		android:layout_marginBottom="25dp"
+		    android:contentDescription="@string/logo_description">
+    </ImageView>
+        
+
+</RelativeLayout>

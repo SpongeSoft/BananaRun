@@ -45,7 +45,7 @@ import android.widget.Toast;
 			startButton.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View v) {
-					Intent newSession = new Intent(getActivity().getBaseContext(), SessionActivity.class);
+					Intent newSession = new Intent(getActivity().getBaseContext(), SessionSettingsActivity.class);
 					HomeView.getContext().startActivity(newSession);
 				}
 			 });
