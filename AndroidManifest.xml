@@ -25,7 +25,7 @@
             android:name="com.spongesoft.dietapp.UserSettingActivity">
             </activity>
         <activity
-            android:name="com.spongesoft.dietapp.SessionActivity">
+            android:name="com.spongesoft.dietapp.SessionSettingsActivity">
         </activity>
     </application>
 

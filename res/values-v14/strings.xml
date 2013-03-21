@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    
     <string name="app_name">Banana Run</string>
     <string name="title_section3">Map</string>
     <string name="title_section2">Home</string>
     <string name="title_section1">Record</string>
     <string name="menu_settings">Settings</string>
+    <string name="logo_description">Start Button</string>
+    <string name="logo_prefs_description">Preferences Button</string>
+    
+    <!-- Preferences strings from example -->
+    <string name="pref_send_report">Send crash reports</string>
+    <string name="pref_send_report_summary">Helps to fix bugs</string>
+    <string name="pref_sync_frequency">Sync frequency</string>
+    <string name="pref_sync_frequency_summary">Set the sync frequency</string>
+    <string name="pref_user_name">Set username</string>
+    <string name="pref_user_name_summary">Set your username</string>
+     
+    <string name="pref_user_profile">User Profile</string>
+    <string name="pref_update_setting">Update Settings</string>
+	<string name="logo_wback_description">Weather Background</string>
+	
+	<string name="timelimit">Time limit</string>
+    <string name="distancelimit">Distance limit</string>
+	<string name="freerunning">Free running</string>
+	
     <string name="last_distance">3.09 km</string>
     <string name="last_time">14:45</string>
     <string name="last_session">Last Session:</string>
 
+
+    
+    
 </resources>
