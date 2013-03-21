@@ -5,6 +5,9 @@ package com.spongesoft.dietapp;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Typeface;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.maps.MapActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -42,11 +45,14 @@ public class MainActivity extends FragmentActivity {
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	private static ShareActionProvider mShareActionProvider; //For share button
 	private static String message = "Bananarun here! Share! Share! SHARE!!!";
+
+	//https://gist.github.com/petedoyle/977234
+	View mMapViewContainer;
+	MapView mMapView;
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,9 +66,9 @@ public class MainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
 		/* Initial tab is the HOME section */
 		mViewPager.setCurrentItem(1);
+		mViewPager.setOffscreenPageLimit(3);
 	}
 
 	@Override
@@ -108,6 +114,8 @@ public class MainActivity extends FragmentActivity {
 			Fragment fragment;
 			if(position == 1){
 				fragment = new HomeFragment();
+			}else if(position == 2){
+				fragment = new MapSectionFragment();
 			}else{
 				fragment = new DummySectionFragment();
 			}
@@ -163,10 +171,5 @@ public class MainActivity extends FragmentActivity {
 			return textView;
 		}
 	}
-
-	
-	
-	
-	
 
 }

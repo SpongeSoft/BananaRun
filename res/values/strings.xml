@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Banana Run</string>
+    <string name="title_section3">Map</string>
+    <string name="title_section2">Home</string>
+    <string name="title_section1">Record</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
 
     
 </resources>
