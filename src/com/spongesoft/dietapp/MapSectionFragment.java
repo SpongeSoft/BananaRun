@@ -19,8 +19,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -36,6 +39,8 @@ public class MapSectionFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private GoogleMap mMap; 
 	private MapView mMapView;
+	private Marker mMarker;
+	private Circle mCircle;
 	private Polyline mPolyline;
 	public MapSectionFragment() {
 	}
@@ -64,8 +69,15 @@ public class MapSectionFragment extends Fragment {
         if (mMap == null) {
             mMap = ((MapView) inflatedView.findViewById(R.id.map)).getMap();
             if (mMap != null) {
-            	  mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-            	  	
+            	  mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+            	  
+            	// Instantiates a new CircleOptions object and defines the center and radius
+            	  CircleOptions circleOptions = new CircleOptions()
+            	      .center(new LatLng(37.4, -122.1))
+            	      .radius(1000); // In meters
+
+            	  // Get back the mutable Circle
+            	  mCircle = mMap.addCircle(circleOptions);
             	  
             	  PolylineOptions rectOptions = new PolylineOptions(); //.add(new LatLng(0,0));
             	  // Get back the mutable Polyline
@@ -96,8 +108,12 @@ public class MapSectionFragment extends Fragment {
     
     public void addLocation(Location location) {
       Log.d("DietApp", "Moving!");
-  	  List<LatLng> points = mPolyline.getPoints();
+      float accuracy = location.getAccuracy();
+      List<LatLng> points = mPolyline.getPoints();
   	  LatLng position = new LatLng(location.getLatitude(),location.getLongitude());
+  	  mMarker.setPosition(position);
+  	  mCircle.setCenter(position);
+  	  mCircle.setRadius(accuracy);
   	  points.add(position);
   	  mPolyline.setPoints(points);  	 
   	  mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
@@ -107,7 +123,7 @@ public class MapSectionFragment extends Fragment {
 	  		builder.include(point);
 	  	}
 
-  	  mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50));
+  	  mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 200));
     }
     public void startLocation() {
     	// Acquire a reference to the system Location Manager
@@ -128,7 +144,8 @@ public class MapSectionFragment extends Fragment {
     	  };
 
     	// Register the listener with the Location Manager to receive location updates
-    	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+      	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+    	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
     }
 
