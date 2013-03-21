@@ -25,6 +25,7 @@
 	<string name="timelimit">Time limit</string>
     <string name="distancelimit">Distance limit</string>
 	<string name="freerunning">Free running</string>
+	<string name="limitstring">Any limits?</string>
 	
     <string name="last_distance">3.09 km</string>
     <string name="last_time">14:45</string>

@@ -5,32 +5,47 @@
     android:orientation="vertical"
     android:background="@drawable/gradient" >
     
+    <TextView
+        android:id="@+id/limit_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+    	android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:textColor="@color/text_colour"
+        android:textSize="20sp"
+        android:text="@string/limitstring"
+        />
+    
     <RadioGroup
         android:id="@+id/limit_group"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:orientation="vertical" 
-    	android:layout_alignParentTop="true"
-    	android:layout_marginTop="20dp"
+    	android:layout_below="@id/limit_string"
+    	android:layout_marginTop="10dp"
     	android:layout_marginLeft="20dp" >
     	<RadioButton 
     	    android:id="@+id/time_limit"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
-    	    android:text="@string/timelimit"
-    	    android:onClick="onRadioButtonClicked"/>
+    	    android:text="@string/timelimit"/>
     	<RadioButton 
     	    android:id="@+id/distance_limit"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
-    	    android:text="@string/distancelimit"
-    	    android:onClick="onRadioButtonClicked"/>
+    	    android:text="@string/distancelimit"/>
     	<RadioButton 
     	    android:id="@+id/free_running"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:text="@string/freerunning"
-    	    android:onClick="onRadioButtonClicked"
     	    android:checked="true"/>
     	</RadioGroup>
     	
@@ -40,21 +55,21 @@
    		android:layout_height="wrap_content"
    		android:background="@color/picker_background"
    		android:layout_marginRight="20dp"
-   		android:layout_alignTop="@+id/limit_group"
+   		android:layout_alignTop="@+id/limit_string"
    		android:layout_alignParentRight="true"
-
+   		android:visibility="invisible"
    		/>
     
     <ImageView
-    		android:src="@drawable/start_button"
-    		android:id="@+id/startsessionbutton"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:adjustViewBounds="true"
-    		android:layout_alignParentBottom="true"
-    		android:layout_marginBottom="25dp"
-		    android:contentDescription="@string/logo_description">
-    </ImageView>
+    	android:src="@drawable/start_button"
+    	android:id="@+id/startsessionbutton"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:adjustViewBounds="true"
+    	android:layout_alignParentBottom="true"
+    	android:layout_marginBottom="25dp"
+		android:contentDescription="@string/logo_description">
+    	</ImageView>
         
 
 </RelativeLayout>
