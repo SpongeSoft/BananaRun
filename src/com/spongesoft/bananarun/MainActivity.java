@@ -2,12 +2,18 @@ package com.spongesoft.bananarun;
 
 //Hello, DietApp!
 
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Typeface;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.maps.MapActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,11 +21,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.MapView;
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 
 public class MainActivity extends FragmentActivity {
 
@@ -32,17 +44,16 @@ public class MainActivity extends FragmentActivity {
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
-	private static ShareActionProvider mShareActionProvider; // For share button
+	private static ShareActionProvider mShareActionProvider; //For share button
 	private static String message = "Bananarun here! Share! Share! SHARE!!!";
 
-	// https://gist.github.com/petedoyle/977234
+	//https://gist.github.com/petedoyle/977234
 	View mMapViewContainer;
 	MapView mMapView;
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +63,7 @@ public class MainActivity extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
-
+		
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -65,25 +76,26 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
-
+		
 		// Locate MenuItem with ShareActionProvider
-		MenuItem item = menu.findItem(R.id.menu_item_share);
-
-		// Fetch and store ShareActionProvider
-		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-		mShareActionProvider
-				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-		mShareActionProvider.setShareIntent(createShareIntent(message));
+	    MenuItem item = menu.findItem(R.id.menu_item_share);
+	    
+	    // Fetch and store ShareActionProvider
+	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+	    mShareActionProvider.setShareHistoryFileName(
+	    	       ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+	    	     mShareActionProvider.setShareIntent(createShareIntent(message));
 
 		return true;
 	}
-
+	
 	private Intent createShareIntent(String share_message) {
-		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType("text/plain");
-		shareIntent.putExtra(Intent.EXTRA_TEXT, share_message);
-		return shareIntent;
-	}
+		  Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		        shareIntent.setType("text/plain");
+		        shareIntent.putExtra(Intent.EXTRA_TEXT, 
+		          share_message);
+		        return shareIntent;
+		    }
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -105,9 +117,9 @@ public class MainActivity extends FragmentActivity {
 				fragment = new StatsFragment();
 			} else if (position == 1) {
 				fragment = new HomeFragment();
-			} else if (position == 2) {
+			}else if(position == 2){
 				fragment = new MapSectionFragment();
-			} else {
+			}else{
 				fragment = new DummySectionFragment();
 			}
 			Bundle args = new Bundle();
@@ -161,6 +173,18 @@ public class MainActivity extends FragmentActivity {
 					ARG_SECTION_NUMBER)));
 			return textView;
 		}
+	}
+
+	//code from: http://stackoverflow.com/questions/600207/android-check-if-a-service-is-running
+	//checks if LocationService is running or not.
+	protected boolean isServiceRunning() {
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (LocationService.class.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 	public void passString(String temp, int wCode) {
