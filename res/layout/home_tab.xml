@@ -67,8 +67,28 @@
     		android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentRight="true"
+		    android:visibility="invisible"
 		    android:contentDescription="@string/logo_wback_description">
         </ImageView>
+        
+        <ImageView
+    		android:id="@+id/weathericon"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentRight="true"
+		    android:contentDescription="@string/logo_prefs_description">
+        </ImageView>
+        
+        <TextView
+             android:id="@+id/temperature"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+		    android:layout_alignParentRight="true"
+             android:textSize="40sp"
+             android:text="" 
+             />
 
         
          <TextView

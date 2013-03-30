@@ -1,5 +1,7 @@
-package com.spongesoft.dietapp;
+package com.spongesoft.bananarun;
  
+import com.spongesoft.dietapp.R;
+
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
  
