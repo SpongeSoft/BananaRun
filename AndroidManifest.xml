@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Bananarun" >
         <activity
-            android:name="com.spongesoft.dietapp.MainActivity"
+            android:name="com.spongesoft.bananarun.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name="com.spongesoft.dietapp.UserSettingActivity">
+            android:name="com.spongesoft.bananarun.UserSettingActivity">
             </activity>
         <activity
-            android:name="com.spongesoft.dietapp.SessionSettingsActivity">
+            android:name="com.spongesoft.bananarun.SessionSettingsActivity">
         </activity>
         <activity
-            android:name="com.spongesoft.dietapp.MyMapActivity"
+            android:name="com.spongesoft.bananarun.MyMapActivity"
             android:label="@string/title_activity_map" >
         </activity>
         <meta-data

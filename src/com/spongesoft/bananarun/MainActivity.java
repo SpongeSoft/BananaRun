@@ -1,4 +1,4 @@
-package com.spongesoft.dietapp;
+package com.spongesoft.bananarun;
 
 //Hello, DietApp!
 
@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.maps.MapActivity;
+import com.spongesoft.dietapp.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -171,5 +173,12 @@ public class MainActivity extends FragmentActivity {
 			return textView;
 		}
 	}
+	
+	
+	public void passString(String temp, int wCode) {
+        // TODO Auto-generated method stub
+         getIntent().putExtra("temperature", temp);
+         getIntent().putExtra("code", wCode);
+    }
 
 }

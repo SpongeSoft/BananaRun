@@ -1,8 +1,12 @@
-package com.spongesoft.dietapp;
+package com.spongesoft.bananarun;
+
+
+import com.spongesoft.dietapp.R;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
 	 * The HOME tab fragment
@@ -23,6 +26,10 @@ import android.widget.Toast;
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		
+		
+		ImageView weatherIcon;
+		TextView temperatureText;
 
 		public HomeFragment() {
 		}
@@ -41,6 +48,11 @@ import android.widget.Toast;
 			ImageView prefsBackground = (ImageView) HomeView.findViewById(R.id.preferencesbackground);
 			prefsBackground.setVisibility(View.VISIBLE);
 			
+			ImageView weatherBackground = (ImageView) HomeView.findViewById(R.id.weatherbackground);
+			weatherBackground.setVisibility(View.VISIBLE);
+			
+			weatherIcon = (ImageView) HomeView.findViewById(R.id.weathericon);
+			temperatureText = (TextView) HomeView.findViewById(R.id.temperature);
 			/* Button is pressed */
 			startButton.setOnClickListener(new View.OnClickListener(){
 				@Override
@@ -109,7 +121,25 @@ import android.widget.Toast;
 //			textView.setGravity(Gravity.CENTER);
 //			textView.setText(Integer.toString(getArguments().getInt(
 //					ARG_SECTION_NUMBER)));
+			final Handler handler = new Handler();
+	         Runnable runnable = new Runnable() {
+	            public void run() {
+	                   
+	            	String temp = (String) getActivity().getIntent().getCharSequenceExtra("temperature");
+		            int wCode = getActivity().getIntent().getIntExtra("code", -1);
+		            if(wCode!=-1) {
+		    			weatherIcon.setImageResource(wCode);
+		    			temperatureText.setText(temp+" ºC");
+		            }
+	                handler.postDelayed(this, 50);  //for interval...
+	            }
+	        };
+	        
+	        handler.postDelayed(runnable, 2000); //for initial delay..
+	    
 			
 			return HomeView;
 		}
+		
+		
 	}

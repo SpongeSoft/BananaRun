@@ -1,4 +1,6 @@
-package com.spongesoft.dietapp;
+package com.spongesoft.bananarun;
+
+import com.spongesoft.dietapp.R;
 
 import android.app.Activity;
 import android.graphics.Typeface;
