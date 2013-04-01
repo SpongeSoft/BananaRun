@@ -37,9 +37,9 @@ public class StatsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
-		final View HomeView = inflater.inflate(R.layout.stats, container,
-				false);
-
+		final View HomeView = inflater
+				.inflate(R.layout.stats, container, false);
+		String test = "banana";
 		return HomeView;
 	}
 
