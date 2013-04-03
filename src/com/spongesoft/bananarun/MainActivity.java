@@ -114,7 +114,10 @@ public class MainActivity extends FragmentActivity {
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment;
-			if(position == 1){
+			if(position==0){
+				fragment= new Graph();
+			}
+			else if(position == 1){
 				fragment = new HomeFragment();
 			}else if(position == 2){
 				fragment = new MapSectionFragment();
