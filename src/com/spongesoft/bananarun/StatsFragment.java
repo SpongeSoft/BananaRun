@@ -39,7 +39,6 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View HomeView = inflater
 				.inflate(R.layout.stats, container, false);
-		String test = "banana";
 		return HomeView;
 	}
 
