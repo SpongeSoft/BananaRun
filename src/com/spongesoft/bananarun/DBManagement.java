@@ -61,18 +61,19 @@ public class DBManagement {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
+			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_SESSION_TABLE);
 			db.execSQL("CREATE TABLE " + DATABASE_SESSION_TABLE + " ("
 					+ KEY_S_RACEID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ KEY_S_DATE + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," 
 					+ KEY_S_AVG_SPEED + " INT, " 
 					+ KEY_S_TOTAL_DISTANCE + " INT," 
-					+ KEY_S_TOTAL_DISTANCE + " INT,"
 					+ KEY_S_AVG_TIME_PER_KM + " INT,"
 					+ KEY_S_KCAL + " INT" 
 					+ ");");
 		
 			db.execSQL("CREATE TABLE " + DATABASE_LOCATION_TABLE + " ("
 					+ KEY_L_LOCATIONID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ KEY_L_RACEID + " INT NOT NULL, "
 					+ KEY_L_TIMESTAMP + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," 
 					+ KEY_L_LATITUDE + " INT, " 
 					+ KEY_L_LONGITUDE + " INT," 
@@ -117,9 +118,12 @@ public class DBManagement {
 	public void close() {
 		ourHelper.close();
 	}
+	
+	// -------------------- All setters --------------------
 
 	/**
-	 * setRace. Creates a new race from scratch.
+	 * setRace. Creates a new race from scratch. NEEDS to be updated later
+	 * with function updateRace();
 	 * To do this, we need to add the only preliminar value: date,
 	 * which is auto-generated, so no need for params.
 	 * @return the last inserted id.
@@ -132,12 +136,66 @@ public class DBManagement {
 		Date date = new Date();
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_S_DATE, dateFormat.format(date));
+		cv.put(KEY_S_AVG_SPEED, 15);
 		return ourDB.insert(DATABASE_SESSION_TABLE, null, cv);
 	}
 	
-	// TODO: Function COMPLETE RACE
-
-	public String getData() {
+	/**
+	 * Function to be called whenever you wish to add a new position.
+	 * @param raceID: Race this point belongs to.
+	 * @param latitude
+	 * @param logitude
+	 * @param altitude
+	 * @return The row ID. Probably useless at this point.
+	 */
+	@SuppressLint("SimpleDateFormat")
+	public long setLocation(long raceID, int latitude, int longitude, int altitude ){
+		// set the format to sql date time, obtained from http://stackoverflow.com/a/819605/1197418
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		Date date = new Date();
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_L_RACEID, raceID);
+		cv.put(KEY_L_TIMESTAMP, dateFormat.format(date));
+		cv.put(KEY_L_LATITUDE, latitude);
+		cv.put(KEY_L_LONGITUDE, longitude);
+		cv.put(KEY_L_ALTITUDE, altitude);
+		return ourDB.insert(DATABASE_LOCATION_TABLE, null, cv);
+	}
+	
+/*	public long updateRace() {
+		// TODO Auto-generated method stub
+		// set the format to sql date time, obtained from http://stackoverflow.com/a/819605/1197418
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		Date date = new Date();
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_S_AVG_SPEED, dateFormat.format(date));
+		return ourDB.insert(DATABASE_SESSION_TABLE, null, cv);
+	}
+*/
+	
+	// -------------------- All getters --------------------
+	/**
+	 * Returns the avg speed the user has had during the race.
+	 * As a String!
+	 * @return the average speed
+	 */
+	public String getRaceAvgSpeed(){
+		// TODO Auto-generated method stub
+		String[] columns = new String[] { KEY_S_AVG_SPEED };
+		Cursor c = ourDB.query(DATABASE_SESSION_TABLE, columns, null, null,	null, null, null);
+		
+		String result = "";
+		
+		c.moveToFirst();
+		
+		while (c.moveToNext()) {
+			result = c.getString(0);
+		}
+		
+		return result;
+	}
+	
+	/*public String getRace() {
 		// TODO Auto-generated method stub
 		String[] columns = new String[] { KEY_RACEID, KEY_NAME, KEY_HOTNESS };
 		Cursor c = ourDB.query(DATABASE_SESSION_TABLE, columns, null, null,
@@ -155,8 +213,8 @@ public class DBManagement {
 
 		return result;
 	}
-
-	public String getName(long l) throws SQLException {
+*/
+	/*public String getName(long l) throws SQLException {
 		// TODO Auto-generated method stub
 		String[] columns = new String[] { KEY_RACEID, KEY_NAME, KEY_HOTNESS };
 		Cursor c = ourDB.query(DATABASE_SESSION_TABLE, columns, KEY_RACEID
@@ -168,8 +226,8 @@ public class DBManagement {
 		}
 		return null;
 	}
-
-	public String getHotness(long l) throws SQLException {
+*/
+	/*public String getHotness(long l) throws SQLException {
 		// TODO Auto-generated method stub
 		String[] columns = new String[] { KEY_RACEID, KEY_NAME, KEY_HOTNESS };
 		Cursor c = ourDB.query(DATABASE_SESSION_TABLE, columns, KEY_RACEID
@@ -181,8 +239,8 @@ public class DBManagement {
 		}
 		return null;
 	}
-
-	public void updateEntry(long lRow, String mName, String mHotness)
+*/
+	/*public void updateEntry(long lRow, String mName, String mHotness)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		ContentValues cvUpdate = new ContentValues();
@@ -191,9 +249,16 @@ public class DBManagement {
 		ourDB.update(DATABASE_SESSION_TABLE, cvUpdate, KEY_RACEID + "=" + lRow,
 				null);
 	}
-
-	public void deleteEntry(long lRow1) throws SQLException {
+*/
+	
+	/**
+	 * Deletes an entry based on the ID from the race.
+	 * @param raceID
+	 * @throws SQLException
+	 */
+	public void deleteRace(long raceID) throws SQLException {
 		// TODO Auto-generated method stub
-		ourDB.delete(DATABASE_SESSION_TABLE, KEY_RACEID + "=" + lRow1, null);
+		ourDB.delete(DATABASE_SESSION_TABLE, KEY_S_RACEID + "=" + raceID, null);
+		ourDB.delete(DATABASE_LOCATION_TABLE, KEY_L_RACEID + "=" + raceID, null);
 	}
 }

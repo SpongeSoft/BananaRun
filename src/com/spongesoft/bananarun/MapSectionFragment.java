@@ -218,7 +218,6 @@ public class MapSectionFragment extends Fragment {
 	  protected void onPostExecute(Void result) {
 	     
 		  
-		  Log.d("onPostExecute", woeid);
 		  if(woeid!=null){
 	    try {
 	    	
