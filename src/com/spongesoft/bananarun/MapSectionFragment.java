@@ -1,6 +1,7 @@
 package com.spongesoft.bananarun;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,16 +9,21 @@ import java.io.Reader;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.location.Location;
@@ -74,8 +80,8 @@ public class MapSectionFragment extends Fragment {
 	Document weatherDoc;
     String weatherString;
     
-    final String yahooPlaceApisBase = "http://where.yahooapis.com/geocode?location=";
-	final String yahooapisFormat = "&flags=J&gflags=R&appid=zHgnBS4m";
+    final String yahooPlaceApisBase = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20geo.placefinder%20where%20text%3D%22";
+	final String yahooapisFormat = "%22%20and%20gflags%3D%22R%22&diagnostics=true";
 	String yahooPlaceAPIsQuery;
 	
 	public MapSectionFragment() {
@@ -203,13 +209,9 @@ public class MapSectionFragment extends Fragment {
 	     
 	  @Override
 	  protected Void doInBackground(Void... arg0) {
-	   try {
+	   
 		/* Retrieve WOEID */
 		woeid = QueryYahooPlaceAPIs();
-	} catch (JSONException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 	   return null;
 	  }
 
@@ -218,7 +220,6 @@ public class MapSectionFragment extends Fragment {
 	  protected void onPostExecute(Void result) {
 	     
 		  
-		  Log.d("onPostExecute", woeid);
 		  if(woeid!=null){
 	    try {
 	    	
@@ -234,7 +235,6 @@ public class MapSectionFragment extends Fragment {
 			/* Get temperature and weather code values from GetWeather object */
 			temperature = weather.temperature;
 			weatherCode = weather.code;
-			
 			/* This variable holds the image resource ID to be loaded as the weather icon */
 			int code = getWeatherStatus(weatherCode);
 			
@@ -291,16 +291,15 @@ public class MapSectionFragment extends Fragment {
 	     } catch (IOException e) {
 	      e.printStackTrace(); 
 	     }
-	     Log.d("QueryYahooWeather", "qResult: "+qResult);
 	     
 	     return qResult; 
 	    }
 	
 	/* This method creates the HTTP query for the WOEID identifier. The JSON response is
 	 * parsed and the WOEID value is retrieved. */
-	private String QueryYahooPlaceAPIs() throws JSONException{
+	private String QueryYahooPlaceAPIs() {
 		
-	    String uriPlace = String.valueOf(latitude)+","+String.valueOf(longitude);
+	    String uriPlace = String.valueOf(latitude)+"%2C"+String.valueOf(longitude);
 	    
 	    /* Build up HTTP query string */
 	     yahooPlaceAPIsQuery = yahooPlaceApisBase
@@ -314,22 +313,69 @@ public class MapSectionFragment extends Fragment {
 	     String woeidString = QueryYahooWeather(yahooPlaceAPIsQuery);
 	     
 	     /* Parse JSON response and return WOEID value */
-	     return  parseWOEID(woeidString);
+	     Document woeidDoc = convertStringToDocument(woeidString);
+	     return  parseWOEID(woeidDoc);
 	    }
 	
 	/* JSON parser to retrieve the WOEID identifier from the HTTP response */
-	private String parseWOEID(String srcDoc) throws JSONException{
-	     String listWOEID;
+	private String parseWOEID(Document srcDoc) {
+	     String listWOEID = "";
+	     String error;
+	     NodeList queryNodelist = srcDoc.getElementsByTagName("query");
+	     if(queryNodelist != null && queryNodelist.getLength() > 0){
+	    	 Node nNode = queryNodelist.item(0);
+		 		Element eElement = (Element) nNode;
+		 		error = eElement.getAttribute("yahoo:count");
+			   Log.d("YAHOO:COUNT", "error: "+error);
+			   
+		  }else{
+			  error= "0";
+			  Log.d("YAHOO:COUNT", "error: "+error);
 
-	     JSONObject obj = new JSONObject(srcDoc);
-	     JSONObject resultSet = obj.getJSONObject("ResultSet");
-	     JSONArray result = resultSet.getJSONArray("Results");
-	     JSONObject woeid = result.getJSONObject(0);
+		}
 	     
-	     listWOEID = woeid.getString("woeid");
+	     /* Check Yahoo PlaceFinder consistency */
+	     if(error.equals("0")){ 
+	  	   /* City not found! */
+	  	   listWOEID = "";
+	  	   Log.d("parseWOEID", "NO WOEID");
+	     	   return listWOEID;
+	     }
+
+	   //<description>Yahoo! Weather for New York, NY</description>
+	     NodeList descNodelist = srcDoc.getElementsByTagName("Result");
+	     for (int temp = 0; temp < descNodelist.getLength(); temp++) {
+	    	 
+	 		Node nNode = descNodelist.item(temp);
+	 		Element eElement = (Element) nNode;
+	 		listWOEID = eElement.getElementsByTagName("woeid").item(0).getTextContent();
+	 		Log.d("YOLO", listWOEID);
+	 		}
+	     
 	     return listWOEID;
 	    }
-	    
+	
+	private Document convertStringToDocument(String src){
+		   Document dest = null;
+		   
+		   DocumentBuilderFactory dbFactory =
+		     DocumentBuilderFactory.newInstance();
+		   DocumentBuilder parser;
+
+		   try {
+		    parser = dbFactory.newDocumentBuilder();
+		    dest = parser.parse(new ByteArrayInputStream(src.getBytes())); 
+		    dest.getDocumentElement().normalize();
+		   } catch (ParserConfigurationException e1) {
+		    e1.printStackTrace(); 
+		   } catch (SAXException e) {
+		    e.printStackTrace(); 
+		   } catch (IOException e) {
+		    e.printStackTrace(); 
+		   }
+		   
+		   return dest; 
+		  }
 	/* Retrieve the Image Resource ID given a weather code (whose value is defined by Yahoo) */
 	public int getWeatherStatus(String codeStr) {
 		int code;
@@ -341,53 +387,53 @@ public class MapSectionFragment extends Fragment {
 	    int imageCode;
 	    switch(code) {
 	    
-	    case 0: imageCode= -1;
+	    case 0: imageCode= R.drawable.img0;
 		break;
-		case 1: imageCode= -1;
+		case 1: imageCode= R.drawable.img1;
 		break;
-		case 2: imageCode= -1;
+		case 2: imageCode= R.drawable.img2;
 		break;
-		case 3: imageCode= R.drawable.img03;
+		case 3: imageCode= R.drawable.img3;
 		break;
-		case 4: imageCode= R.drawable.img03;
+		case 4: imageCode= R.drawable.img4;
 		break;
-		case 5: imageCode= R.drawable.img07;
+		case 5: imageCode= R.drawable.img5;
 		break;
-		case 6: imageCode= R.drawable.img06;
+		case 6: imageCode= R.drawable.img6;
 		break;
-		case 7: imageCode= R.drawable.img06;;
+		case 7: imageCode= R.drawable.img7;;
 		break;
-		case 8: imageCode= R.drawable.img10;
+		case 8: imageCode= R.drawable.img8;
 		break;
-		case 9: imageCode= R.drawable.img12;
+		case 9: imageCode= R.drawable.img9;
 		break;
 		case 10: imageCode= R.drawable.img10;
 		break;
-		case 11: imageCode= R.drawable.img12;
+		case 11: imageCode= R.drawable.img11;
 		break;
 		case 12: imageCode= R.drawable.img12;
 		break;
-		case 13: imageCode= R.drawable.img12;
+		case 13: imageCode= R.drawable.img13;
 		break;
-		case 14: imageCode= R.drawable.img15;
+		case 14: imageCode= R.drawable.img14;
 		break;
 		case 15: imageCode= R.drawable.img15;
 		break;
-		case 16: imageCode= R.drawable.img15;
+		case 16: imageCode= R.drawable.img16;
 		break;
-		case 17: imageCode= R.drawable.img18;
+		case 17: imageCode= R.drawable.img17;
 		break;
-		case 18: imageCode= R.drawable.img10;
+		case 18: imageCode= R.drawable.img18;
 		break;
-		case 19: imageCode= R.drawable.img21;
+		case 19: imageCode= R.drawable.img19;
 		break;
-		case 20: imageCode= R.drawable.img22;
+		case 20: imageCode= R.drawable.img20;
 		break;
-		case 21: imageCode= R.drawable.img22;
+		case 21: imageCode= R.drawable.img21;
 		break;
-		case 22: imageCode= R.drawable.img21;
+		case 22: imageCode= R.drawable.img22;
 		break;
-		case 23: imageCode= R.drawable.img26;
+		case 23: imageCode= R.drawable.img23;
 		break;
 		case 24: imageCode= R.drawable.img24;
 		break;
@@ -411,36 +457,36 @@ public class MapSectionFragment extends Fragment {
 		break;
 		case 34: imageCode=  R.drawable.img34;
 		break;
-		case 35: imageCode=  R.drawable.img18;
+		case 35: imageCode=  R.drawable.img35;
 		break;
 		case 36: imageCode=  R.drawable.img36;
 		break;
-		case 37: imageCode=  R.drawable.img03;
+		case 37: imageCode=  R.drawable.img37;
 		break;
-		case 38: imageCode=  R.drawable.img03;
+		case 38: imageCode=  R.drawable.img38;
 		break;
-		case 39: imageCode=  R.drawable.img03;
+		case 39: imageCode=  R.drawable.img39;
 		break;
 		case 40: imageCode=  R.drawable.img40;
 		break;
-		case 41: imageCode=  R.drawable.img15;
+		case 41: imageCode=  R.drawable.img41;
 		break;
-		case 42: imageCode=  R.drawable.img13;
+		case 42: imageCode=  R.drawable.img42;
 		break;
-		case 43: imageCode=  R.drawable.img15;
+		case 43: imageCode=  R.drawable.img43;
 		break;
-		case 44: imageCode=  R.drawable.img26;
+		case 44: imageCode=  R.drawable.img44;
 		break;
-		case 45: imageCode=  R.drawable.img40;
+		case 45: imageCode=  R.drawable.img45;
 		break;
-		case 46: imageCode=  R.drawable.img07;
+		case 46: imageCode=  R.drawable.img46;
 		break;
-		case 47: imageCode=  R.drawable.img39;
+		case 47: imageCode=  R.drawable.img47;
 		break;
-		case 3200: imageCode= -1;
+		case 3200: imageCode= R.drawable.img3200;
 		break;
 				    		
-		default: imageCode= -2;
+		default: imageCode= R.drawable.img3200;
 		break;
 	    }
 	    	
