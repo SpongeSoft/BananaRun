@@ -134,7 +134,7 @@ import android.widget.TextView;
 		    			weatherIcon.setImageResource(wCode);
 		    			temperatureText.setText(temp+"º");
 		            }
-	                handler.postDelayed(this, 50);  //for interval...
+	                handler.postDelayed(this, 600000);  //for interval (10 mins)...
 	            }
 	        };
 	        
