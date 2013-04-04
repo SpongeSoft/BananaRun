@@ -1,5 +1,6 @@
 package com.spongesoft.bananarun;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,11 +26,18 @@ public class StatsFragment extends Fragment {
 	/**
 	 * Buttons and whatnot
 	 */
+	DBManagement entry;
 
 	/**
 	 * Methods
 	 */
 	public StatsFragment() {
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		entry = new DBManagement(activity);
 	}
 
 	@Override
@@ -39,6 +47,13 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View HomeView = inflater
 				.inflate(R.layout.stats, container, false);
+
+		TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
+		entry.open();
+		entry.setRace();
+		String result = entry.getRaceAvgSpeed();
+		tv.setText(result);
+
 		return HomeView;
 	}
 
