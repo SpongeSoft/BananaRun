@@ -1,5 +1,10 @@
 package com.spongesoft.bananarun;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -115,17 +120,22 @@ public class DBManagement {
 
 	/**
 	 * setRace. Creates a new race from scratch.
-	 * @param name
-	 * @param hotness
-	 * @return
+	 * To do this, we need to add the only preliminar value: date,
+	 * which is auto-generated, so no need for params.
+	 * @return the last inserted id.
 	 */
-	public long setRace(String name, String hotness) {
+	@SuppressLint("SimpleDateFormat")
+	public long setRace() {
 		// TODO Auto-generated method stub
+		// set the format to sql date time, obtained from http://stackoverflow.com/a/819605/1197418
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		Date date = new Date();
 		ContentValues cv = new ContentValues();
-		cv.put(KEY_NAME, name);
-		cv.put(KEY_HOTNESS, hotness);
+		cv.put(KEY_S_DATE, dateFormat.format(date));
 		return ourDB.insert(DATABASE_SESSION_TABLE, null, cv);
 	}
+	
+	// TODO: Function COMPLETE RACE
 
 	public String getData() {
 		// TODO Auto-generated method stub
