@@ -23,4 +23,5 @@
     <color name="tab_colours">#68e36e</color>
     <color name="text_colour">#60d555</color>
     <color name="picker_background">#ffffff</color>
+    <color name="temperature_color">#d5d5d5</color>
 </resources>

@@ -129,7 +129,7 @@ import android.widget.TextView;
 		            int wCode = getActivity().getIntent().getIntExtra("code", -1);
 		            if(wCode!=-1) {
 		    			weatherIcon.setImageResource(wCode);
-		    			temperatureText.setText(temp+" ºC");
+		    			temperatureText.setText(temp+"º");
 		            }
 	                handler.postDelayed(this, 50);  //for interval...
 	            }
