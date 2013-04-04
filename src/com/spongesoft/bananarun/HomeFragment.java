@@ -53,6 +53,9 @@ import android.widget.TextView;
 			
 			weatherIcon = (ImageView) HomeView.findViewById(R.id.weathericon);
 			temperatureText = (TextView) HomeView.findViewById(R.id.temperature);
+			Typeface lTemperaturetypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
+			temperatureText.setTypeface(lTemperaturetypeFace);
+			
 			/* Button is pressed */
 			startButton.setOnClickListener(new View.OnClickListener(){
 				@Override

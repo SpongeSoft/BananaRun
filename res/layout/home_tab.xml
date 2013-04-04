@@ -36,6 +36,8 @@
              android:textColor="@color/text_colour"
              android:textSize="20sp"
              android:text="@string/last_session"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
              />
         
 
@@ -74,7 +76,9 @@
         <ImageView
     		android:id="@+id/weathericon"
     		android:layout_width="wrap_content"
-    		android:layout_height="60dp"
+    		android:layout_height="55dp"
+    		android:layout_marginRight="-15dp"
+    		android:layout_marginBottom="2dp"
 		    android:layout_alignBottom="@id/weatherbackground"
 		    android:layout_alignRight="@id/weatherbackground"
 		    android:contentDescription="@string/logo_weather_description">
@@ -87,14 +91,16 @@
              android:layout_height="wrap_content"
              android:layout_alignBottom="@id/weatherbackground"
 		     android:layout_alignLeft="@id/weatherbackground"
-		     android:layout_marginLeft="5dp"
-             android:textSize="25sp"
+		     android:layout_marginLeft="8dp"
+             android:textSize="30sp"
              android:text="" 
              android:textColor="@color/temperature_color"
              android:shadowColor="#000000"
              android:shadowDx="0"
              android:shadowDy="0"
              android:shadowRadius="5"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
              />
 
         
@@ -112,6 +118,8 @@
              android:shadowRadius="5"
              android:textSize="60sp"
              android:text="@string/last_distance" 
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
              />
         
         <TextView
@@ -128,6 +136,8 @@
              android:textColor="@color/text_colour"
              android:textSize="60sp"
              android:text="@string/last_time"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
              />
 
          
