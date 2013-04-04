@@ -80,6 +80,8 @@ AsyncTask<Void, Void, Void> task;
   @Override
   protected void onPostExecute(Void result) {
    Log.d("onPostExecute", "temperature"+temperature);
+   Log.d("onPostExecute", "weather code: "+code);
+
    super.onPostExecute(result);
   }
   
