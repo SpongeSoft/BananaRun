@@ -4,6 +4,7 @@ package com.spongesoft.bananarun;
 
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
@@ -11,6 +12,7 @@ import com.google.android.maps.MapActivity;
 import com.spongesoft.dietapp.R;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -64,6 +66,7 @@ public class MainActivity extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
+	
 		
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);

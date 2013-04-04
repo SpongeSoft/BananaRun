@@ -26,11 +26,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,12 +63,15 @@ public class MapSectionFragment extends Fragment {
 	 * The fragment argument representing the section number for this
 	 * fragment.
 	 */
+	public final int MODE_PRIVATE = 0;
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private GoogleMap mMap; 
 	private MapView mMapView;
 	private Marker mMarker;
 	private Circle mCircle;
 	private Polyline mPolyline;
+	
+	SharedPreferences generalPrefs;
 	
 	/* Position variables */
 	public double latitude; 
@@ -102,6 +107,9 @@ public class MapSectionFragment extends Fragment {
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         
+        /* Preferences must be initialized here. Otherwise, we get a NullPointerException error */
+		generalPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+
         setUpMapIfNeeded(inflatedView);
 
         return inflatedView;
@@ -240,8 +248,13 @@ public class MapSectionFragment extends Fragment {
 			
 			/* Put the final values in the Activity's intent so that other fragments
 			 * can access these variables */
-			getActivity().getIntent().putExtra("temperature", temperature);
-			getActivity().getIntent().putExtra("code", code);
+			SharedPreferences.Editor editor = generalPrefs.edit();
+			
+			editor.putString("temperature", temperature);
+			editor.putInt("code", code);
+			editor.commit();
+			//getActivity().getIntent().putExtra("temperature", temperature);
+			//getActivity().getIntent().putExtra("code", code);
 			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

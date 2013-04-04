@@ -4,9 +4,11 @@ package com.spongesoft.bananarun;
 import com.spongesoft.dietapp.R;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +27,17 @@ import android.widget.TextView;
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
 		
+		public static final String ARG_SECTION_NUMBER = "section_number";
+		public final int MODE_PRIVATE = 0;
+
 		
 		ImageView weatherIcon;
 		TextView temperatureText;
+		SharedPreferences generalPrefs;
+		Handler handler;
+		String temp;
+		int wCode;
 
 		public HomeFragment() {
 		}
@@ -56,6 +64,8 @@ import android.widget.TextView;
 			Typeface lTemperaturetypeFace=Typeface.createFromAsset(getActivity().getAssets(),"fonts/bradbunr.ttf");
 			temperatureText.setTypeface(lTemperaturetypeFace);
 			
+        	generalPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+
 			/* Button is pressed */
 			startButton.setOnClickListener(new View.OnClickListener(){
 				@Override
@@ -124,17 +134,19 @@ import android.widget.TextView;
 //			textView.setGravity(Gravity.CENTER);
 //			textView.setText(Integer.toString(getArguments().getInt(
 //					ARG_SECTION_NUMBER)));
-			final Handler handler = new Handler();
+			handler = new Handler();
 	         Runnable runnable = new Runnable() {
 	            public void run() {
-	                   
-	            	String temp = (String) getActivity().getIntent().getCharSequenceExtra("temperature");
-		            int wCode = getActivity().getIntent().getIntExtra("code", -1);
+	                   	    			
+	    			temp = generalPrefs.getString("temperature", "??");
+	    			wCode = generalPrefs.getInt("code", -1);
+	            	//String temp = (String) getActivity().getIntent().getCharSequenceExtra("temperature");
+		            //int wCode = getActivity().getIntent().getIntExtra("code", -1);
 		            if(wCode!=-1) {
 		    			weatherIcon.setImageResource(wCode);
 		    			temperatureText.setText(temp+"º");
 		            }
-	                handler.postDelayed(this, 600000);  //for interval (10 mins)...
+	                handler.postDelayed(this, 2000);  //for interval (10 mins)...
 	            }
 	        };
 	        
@@ -142,6 +154,16 @@ import android.widget.TextView;
 	    
 			
 			return HomeView;
+		}
+		
+		@Override
+	    public void onResume() {
+	        super.onResume();
+		}
+		
+		@Override
+		public void onPause() {
+			super.onPause();
 		}
 		
 		
