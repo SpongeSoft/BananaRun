@@ -21,8 +21,6 @@ import android.widget.TextView;
 import com.google.android.gms.maps.MapView;
 import com.spongesoft.dietapp.R;
 
-
-
 public class MainActivity extends FragmentActivity {
 
 	/**
@@ -34,16 +32,17 @@ public class MainActivity extends FragmentActivity {
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
-	private static ShareActionProvider mShareActionProvider; //For share button
+	private static ShareActionProvider mShareActionProvider; // For share button
 	private static String message = "Bananarun here! Share! Share! SHARE!!!";
 
-	//https://gist.github.com/petedoyle/977234
+	// https://gist.github.com/petedoyle/977234
 	View mMapViewContainer;
 	MapView mMapView;
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,8 +52,12 @@ public class MainActivity extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
+<<<<<<< HEAD
 	
 		
+=======
+
+>>>>>>> fb813ce6bc7b30ac31b49736d877aac0ac7ec1de
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -67,26 +70,25 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
-		
+
 		// Locate MenuItem with ShareActionProvider
-	    MenuItem item = menu.findItem(R.id.menu_item_share);
-	    
-	    // Fetch and store ShareActionProvider
-	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-	    mShareActionProvider.setShareHistoryFileName(
-	    	       ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-	    	     mShareActionProvider.setShareIntent(createShareIntent(message));
+		MenuItem item = menu.findItem(R.id.menu_item_share);
+
+		// Fetch and store ShareActionProvider
+		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+		mShareActionProvider
+				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+		mShareActionProvider.setShareIntent(createShareIntent(message));
 
 		return true;
 	}
-	
+
 	private Intent createShareIntent(String share_message) {
-		  Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		        shareIntent.setType("text/plain");
-		        shareIntent.putExtra(Intent.EXTRA_TEXT, 
-		          share_message);
-		        return shareIntent;
-		    }
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("text/plain");
+		shareIntent.putExtra(Intent.EXTRA_TEXT, share_message);
+		return shareIntent;
+	}
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -104,11 +106,13 @@ public class MainActivity extends FragmentActivity {
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment;
-			if(position == 1){
+			if (position == 0) {
+				fragment = new StatsFragment();
+			} else if (position == 1) {
 				fragment = new HomeFragment();
-			}else if(position == 2){
+			} else if (position == 2) {
 				fragment = new MapSectionFragment();
-			}else{
+			} else {
 				fragment = new DummySectionFragment();
 			}
 			Bundle args = new Bundle();
@@ -163,12 +167,11 @@ public class MainActivity extends FragmentActivity {
 			return textView;
 		}
 	}
-	
-	
+
 	public void passString(String temp, int wCode) {
-        // TODO Auto-generated method stub
-         getIntent().putExtra("temperature", temp);
-         getIntent().putExtra("code", wCode);
-    }
+		// TODO Auto-generated method stub
+		getIntent().putExtra("temperature", temp);
+		getIntent().putExtra("code", wCode);
+	}
 
 }
