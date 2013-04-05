@@ -2,22 +2,12 @@ package com.spongesoft.bananarun;
 
 //Hello, DietApp!
 
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
-import com.google.android.maps.MapActivity;
-import com.spongesoft.dietapp.R;
-
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,14 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+
+import com.google.android.gms.maps.MapView;
+import com.spongesoft.dietapp.R;
 
 
 

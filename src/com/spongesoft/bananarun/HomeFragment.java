@@ -31,7 +31,7 @@ import android.widget.TextView;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		public final int MODE_PRIVATE = 0;
 
-		
+		boolean updateFlag; 
 		ImageView weatherIcon;
 		TextView temperatureText;
 		SharedPreferences generalPrefs;
@@ -65,6 +65,7 @@ import android.widget.TextView;
 			temperatureText.setTypeface(lTemperaturetypeFace);
 			
         	generalPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+        	updateFlag = true;
 
 			/* Button is pressed */
 			startButton.setOnClickListener(new View.OnClickListener(){
@@ -134,23 +135,23 @@ import android.widget.TextView;
 //			textView.setGravity(Gravity.CENTER);
 //			textView.setText(Integer.toString(getArguments().getInt(
 //					ARG_SECTION_NUMBER)));
+			
+			/* Updating weather info on screen every 5 minutes */
 			handler = new Handler();
 	         Runnable runnable = new Runnable() {
 	            public void run() {
-	                   	    			
+	                   	   
 	    			temp = generalPrefs.getString("temperature", "??");
 	    			wCode = generalPrefs.getInt("code", -1);
-	            	//String temp = (String) getActivity().getIntent().getCharSequenceExtra("temperature");
-		            //int wCode = getActivity().getIntent().getIntExtra("code", -1);
-		            if(wCode!=-1) {
+		            //if(wCode!=-1) {
 		    			weatherIcon.setImageResource(wCode);
 		    			temperatureText.setText(temp+"º");
-		            }
-	                handler.postDelayed(this, 2000);  //for interval (10 mins)...
+		    		//}
+	                handler.postDelayed(this, 300000);  //for interval (5 min)...
 	            }
 	        };
 	        
-	        handler.postDelayed(runnable, 2000); //for initial delay..
+	        handler.postDelayed(runnable, 5000); //for initial delay..
 	    
 			
 			return HomeView;
