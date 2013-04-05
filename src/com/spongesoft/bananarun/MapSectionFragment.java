@@ -32,6 +32,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -72,6 +73,7 @@ public class MapSectionFragment extends Fragment {
 	private Polyline mPolyline;
 	
 	SharedPreferences generalPrefs;
+	Handler handler;
 	
 	/* Position variables */
 	public double latitude; 
@@ -107,9 +109,22 @@ public class MapSectionFragment extends Fragment {
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         
-        /* Preferences must be initialized here. Otherwise, we get a NullPointerException error */
+        /* Preferences must be initialised here. Otherwise, we get a NullPointerException error */
 		generalPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
 
+		/* Asking Yahoo! every 10 minutes for weather status */
+		handler = new Handler();
+        Runnable runnable = new Runnable() {
+           public void run() {
+        	   
+        	   new MyQueryYahooPlaceTask().execute();   	   
+        	   
+               handler.postDelayed(this, 600000);  //for interval (10 min)...
+           }
+       };
+       handler.postDelayed(runnable, 2000); //for initial delay..
+		
+		
         setUpMapIfNeeded(inflatedView);
 
         return inflatedView;
@@ -187,10 +202,12 @@ public class MapSectionFragment extends Fragment {
     	    	latitude = location.getLatitude();
     	    	longitude = location.getLongitude();
     	    	
+    	    	/*boolean updateFlag = generalPrefs.getBoolean("updateFlag", false);
     	    	/* Once the current position is determined, find its corresponding WOEID.
     	    	 * The WOEID is a unique value that Yahoo uses to identify each place.
     	    	 * This identifier will be used to query the weather of the current location. */
-    	        new MyQueryYahooPlaceTask().execute();
+    	        /*if(updateFlag)
+    	        	new MyQueryYahooPlaceTask().execute();*/
 
     	      // Called when a new location is found by the network location provider.
     	      addLocation(location);
@@ -211,7 +228,7 @@ public class MapSectionFragment extends Fragment {
     
     /* This class defines an asynchronous task for the application to query an HTTP petition
      * and retrieve the WOEID identifier of the current location.  */
-    private class MyQueryYahooPlaceTask extends AsyncTask<Void, Void, Void>{
+    public class MyQueryYahooPlaceTask extends AsyncTask<Void, Void, Void>{
 
 	     String woeid; // WOEID identifier
 	     
