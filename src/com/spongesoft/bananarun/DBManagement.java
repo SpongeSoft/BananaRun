@@ -61,7 +61,7 @@ public class DBManagement {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
-			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_SESSION_TABLE);
+			//db.execSQL("DROP TABLE IF EXISTS " + DATABASE_SESSION_TABLE);
 			db.execSQL("CREATE TABLE " + DATABASE_SESSION_TABLE + " ("
 					+ KEY_S_RACEID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ KEY_S_DATE + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," 

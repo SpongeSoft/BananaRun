@@ -52,12 +52,7 @@ public class MainActivity extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
-<<<<<<< HEAD
-	
-		
-=======
 
->>>>>>> fb813ce6bc7b30ac31b49736d877aac0ac7ec1de
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
