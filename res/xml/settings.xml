@@ -2,27 +2,33 @@
 <!-- This file is the building foundation for the Preferences window elements.  -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
  
-    <PreferenceCategory android:title="@string/pref_user_profile" >
+    <PreferenceCategory android:title="@string/pref_user_info" >
         <EditTextPreference
-                android:title="@string/pref_user_name"
-                android:summary="@string/pref_user_name_summary"
-                android:key="prefUsername"/>
+            android:title="@string/pref_user_height"
+            android:summary="@string/pref_user_heightVal"
+            android:key="prefUserHeight"
+            android:defaultValue="170"
+            android:numeric="integer"/>
+        <EditTextPreference
+            android:title="@string/pref_user_weight"
+            android:summary="@string/pref_user_weightVal"
+            android:key="prefUserWeight"
+            android:defaultValue="60"
+            android:numeric="integer"/>
     </PreferenceCategory>
      
-    <PreferenceCategory android:title="@string/pref_update_setting" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefSendReport"
-            android:summary="@string/pref_send_report_summary"
-            android:title="@string/pref_send_report" >
-        </CheckBoxPreference>
- 
+    <PreferenceCategory android:title="@string/pref_options" >
         <ListPreference
-            android:key="prefSyncFrequency"
-            android:entries="@array/syncFrequency"
-            android:summary="@string/pref_sync_frequency_summary"
-            android:entryValues="@array/syncFrequencyValues"
-            android:title="@string/pref_sync_frequency" />
+            android:key="prefUnitSystem"
+            android:entries="@array/unitSystems"
+            android:summary="@string/pref_units_summary"
+            android:entryValues="@array/unitSystemsValues"
+            android:title="@string/pref_unit_systems"
+            android:defaultValue="1" />
+        <CheckBoxPreference 
+            android:key="prefGpsFlag"
+            android:title="@string/pref_gps"
+            android:summary="@string/pref_gps_summary"/>
     </PreferenceCategory>
  
 </PreferenceScreen>
