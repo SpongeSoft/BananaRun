@@ -137,16 +137,16 @@ public class MapSectionFragment extends Fragment {
             	  mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
             	  
             	// Instantiates a new CircleOptions object and defines the center and radius
-            	  CircleOptions circleOptions = new CircleOptions()
-            	      .center(new LatLng(37.4, -122.1))
-            	      .radius(1000); // In meters
+            	//  CircleOptions circleOptions = new CircleOptions()
+            	  //    .center(new LatLng(37.4, -122.1))
+            	    //  .radius(1000); // In meters
 
             	  // Get back the mutable Circle
-            	  mCircle = mMap.addCircle(circleOptions);
+            	  //mCircle = mMap.addCircle(circleOptions);
             	  
-            	  PolylineOptions rectOptions = new PolylineOptions(); //.add(new LatLng(0,0));
+            	  //PolylineOptions rectOptions = new PolylineOptions(); //.add(new LatLng(0,0));
             	  // Get back the mutable Polyline
-            	  mPolyline = mMap.addPolyline(rectOptions);
+            	  //mPolyline = mMap.addPolyline(rectOptions);
             	  
             	  startLocation();
             }
@@ -174,21 +174,21 @@ public class MapSectionFragment extends Fragment {
     public void addLocation(Location location) {
       Log.d("DietApp", "Moving!");
       float accuracy = location.getAccuracy();
-      List<LatLng> points = mPolyline.getPoints();
+      //List<LatLng> points = mPolyline.getPoints();
   	  LatLng position = new LatLng(location.getLatitude(),location.getLongitude());
   	  mMarker.setPosition(position);
-  	  mCircle.setCenter(position);
-  	  mCircle.setRadius(accuracy);
-  	  points.add(position);
-  	  mPolyline.setPoints(points);  	 
+  	 // mCircle.setCenter(position);
+  	  //mCircle.setRadius(accuracy);
+  	  //points.add(position);
+  	  //mPolyline.setPoints(points);  	 
   	  mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
-	  	LatLngBounds.Builder builder = LatLngBounds.builder();
+	  	//LatLngBounds.Builder builder = LatLngBounds.builder();
 	  	
-	  	for (LatLng point : points) {
-	  		builder.include(point);
-	  	}
+	  	//for (LatLng point : points) {
+	  		//builder.include(point);
+	  	//}
 
-  	  mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 200));
+  	  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position,17.0f));
     }
     public void startLocation() {
     	// Acquire a reference to the system Location Manager
