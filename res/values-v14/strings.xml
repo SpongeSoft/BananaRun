@@ -15,11 +15,20 @@
     <string name="pref_send_report_summary">Helps to fix bugs</string>
     <string name="pref_sync_frequency">Sync frequency</string>
     <string name="pref_sync_frequency_summary">Set the sync frequency</string>
-    <string name="pref_user_name">Set username</string>
-    <string name="pref_user_name_summary">Set your username</string>
      
-    <string name="pref_user_profile">User Profile</string>
-    <string name="pref_update_setting">Update Settings</string>
+    <string name="pref_user_info">User Information</string>
+    <string name="pref_user_height">Height</string>
+    <string name="pref_user_heightVal">170 cm</string>
+    <string name="pref_user_weight">Weight</string>
+    <string name="pref_user_weightVal">60 Kg</string>
+    
+    <string name="pref_options">Other options</string>
+    <string name="pref_unit_systems">Units</string>
+    <string name="pref_units_summary">Metric system</string>
+    
+    <string name="pref_gps">Enable GPS</string>
+    <string name="pref_gps_summary">Turn on geolocalization</string>
+    
 	<string name="logo_wback_description">Weather Background</string>
 	<string name="logo_weather_description">Weather Icon</string>
 	
