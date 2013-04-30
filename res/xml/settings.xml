@@ -25,8 +25,8 @@
             android:entryValues="@array/unitSystemsValues"
             android:title="@string/pref_unit_systems"
             android:defaultValue="1" />
-        <CheckBoxPreference 
-            android:key="prefGpsFlag"
+        <Preference
+            android:key="prefGps"
             android:title="@string/pref_gps"
             android:summary="@string/pref_gps_summary"/>
     </PreferenceCategory>

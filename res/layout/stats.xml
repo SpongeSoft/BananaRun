@@ -15,6 +15,13 @@
         android:layout_height="fill_parent"
         android:text="get info from db" >
     </TextView>
+    
+    <TextView
+        android:id="@+id/pref"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="get info from prefs" >
+    </TextView>
 
     <ImageView
         android:id="@+id/workingimage"

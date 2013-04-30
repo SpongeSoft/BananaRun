@@ -325,7 +325,7 @@ public class MapSectionFragment extends Fragment {
 	     return qResult; 
 	    }
 	
-	/* This method creates the HTTP query for the WOEID identifier. The JSON response is
+	/* This method creates the HTTP query for the WOEID identifier. The XML response is
 	 * parsed and the WOEID value is retrieved. */
 	private String QueryYahooPlaceAPIs() {
 		
