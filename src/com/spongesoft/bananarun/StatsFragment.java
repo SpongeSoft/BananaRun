@@ -2,9 +2,11 @@ package com.spongesoft.bananarun;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +56,18 @@ public class StatsFragment extends Fragment {
 		String result = entry.getRaceAvgSpeed();
 		tv.setText(result);
 
+		
+		
+		//
+		TextView pref = (TextView) HomeView.findViewById(R.id.pref);
+		
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+		String height = settings.getString("prefUserHeight", "No val");
+		String weight = settings.getString("prefUserWeight", "0");
+		pref.setText("vals: " + height + ", " + weight);
+		
+		
+		
 		return HomeView;
 	}
 
