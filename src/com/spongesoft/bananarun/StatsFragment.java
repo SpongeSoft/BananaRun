@@ -39,6 +39,14 @@ public class StatsFragment extends Fragment {
 		super.onAttach(activity);
 		entry = new DBManagement(activity);
 	}
+	
+	public void onDestroy() {
+		super.onDestroy();
+		if (entry != null) {
+			entry.close();
+		}
+			
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
