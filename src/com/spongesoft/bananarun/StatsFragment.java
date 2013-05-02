@@ -56,18 +56,15 @@ public class StatsFragment extends Fragment {
 		String result = entry.getRaceAvgSpeed();
 		tv.setText(result);
 
-		
-		
 		//
 		TextView pref = (TextView) HomeView.findViewById(R.id.pref);
-		
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-		String height = settings.getString("prefUserHeight", "No val");
-		String weight = settings.getString("prefUserWeight", "0");
+
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(getActivity().getBaseContext());
+		String height = settings.getString("prefUserHeight", "170");
+		String weight = settings.getString("prefUserWeight", "60");
 		pref.setText("vals: " + height + ", " + weight);
-		
-		
-		
+
 		return HomeView;
 	}
 

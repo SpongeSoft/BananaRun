@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<!--
+     File created by the Android Action Bar Style Generator
 
      Copyright (C) 2012 readyState Software Ltd
 
@@ -17,6 +18,7 @@
 -->
 
 <resources>
+
     <color name="pressed_bananarun">#CCFFFFFF</color>
     <color name="gradient_background_1">#41a7ac</color>
     <color name="gradient_background_2">#d3f8e7</color>
@@ -24,4 +26,5 @@
     <color name="text_colour">#60d555</color>
     <color name="picker_background">#ffffff</color>
     <color name="temperature_color">#d5d5d5</color>
+
 </resources>
