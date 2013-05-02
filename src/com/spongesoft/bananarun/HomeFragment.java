@@ -66,6 +66,11 @@ import android.widget.TextView;
 			
         	generalPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
         	updateFlag = true;
+        	
+        	SharedPreferences.Editor editor = generalPrefs.edit();
+        	editor.putInt("code", R.drawable.img3200);
+        	editor.putString("temperature", "??");
+        	editor.commit();
 
 			/* Button is pressed */
 			startButton.setOnClickListener(new View.OnClickListener(){
@@ -138,11 +143,13 @@ import android.widget.TextView;
 			
 			/* Updating weather info on screen every 5 minutes */
 			handler = new Handler();
-	         Runnable runnable = new Runnable() {
-	            public void run() {
+	         
+			Runnable runnable = new Runnable() {
+	          
+				public void run() {
 	                   	   
 	    			temp = generalPrefs.getString("temperature", "??");
-	    			wCode = generalPrefs.getInt("code", -1);
+	    			wCode = generalPrefs.getInt("code", R.drawable.img3200);
 		            //if(wCode!=-1) {
 		    			weatherIcon.setImageResource(wCode);
 		    			temperatureText.setText(temp+"º");
