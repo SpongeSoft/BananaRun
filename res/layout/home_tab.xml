@@ -1,146 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/relayout"
-        android:background="@drawable/gradient"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:longClickable="true" >
-        
-        <ImageView
-    		android:src="@drawable/start_button"
-    		android:id="@+id/startbutton"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:adjustViewBounds="true"
-		    android:layout_above="@+id/weatherbackground"
-		    android:contentDescription="@string/logo_description">
-        </ImageView>
-        
-        
-        <TextView
-             android:id="@+id/lastsession"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentTop="true"
-             android:layout_marginTop="30dp"
-             android:layout_alignParentLeft="true"
-             android:layout_marginLeft="30dp"
-    		 android:textStyle="bold"
-             android:shadowColor="#000000"
-             android:shadowDx="0"
-             android:shadowDy="0"
-             android:shadowRadius="5"
-             android:textColor="@color/text_colour"
-             android:textSize="20sp"
-             android:text="@string/last_session"
-             android:paddingLeft="5dp"
-             android:paddingRight="5dp"
-             />
-        
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:longClickable="true" >
 
-		<ImageView
-    		android:src="@drawable/preferences_background"
-    		android:id="@+id/preferencesbackground"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-		    android:layout_alignBottom="@+id/preferencesbutton"
-		    android:layout_alignLeft="@+id/preferencesbutton"
-		    android:visibility="invisible"
-		    android:contentDescription="@string/logo_prefs_description">
-        </ImageView>
-        
-        <ImageView
-    		android:src="@drawable/preferences_button"
-    		android:id="@+id/preferencesbutton"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentLeft="true"
-		    android:contentDescription="@string/logo_prefs_description">
-        </ImageView>
-        
-        <ImageView
-    		android:src="@drawable/weather_background"
-    		android:id="@+id/weatherbackground"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentRight="true"
-		    android:visibility="invisible"
-		    android:contentDescription="@string/logo_wback_description">
-        </ImageView>
-        
-        <ImageView
-    		android:id="@+id/weathericon"
-    		android:layout_width="wrap_content"
-    		android:layout_height="55dp"
-    		android:layout_marginRight="-15dp"
-    		android:layout_marginBottom="2dp"
-		    android:layout_alignBottom="@id/weatherbackground"
-		    android:layout_alignRight="@id/weatherbackground"
-		    android:contentDescription="@string/logo_weather_description">
-        </ImageView>
-        
-        <TextView
-             android:id="@+id/temperature"
-             android:textStyle="bold"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignBottom="@id/weatherbackground"
-		     android:layout_alignLeft="@id/weatherbackground"
-		     android:layout_marginLeft="8dp"
-             android:textSize="30sp"
-             android:text="" 
-             android:textColor="@color/temperature_color"
-             android:shadowColor="#000000"
-             android:shadowDx="0"
-             android:shadowDy="0"
-             android:shadowRadius="5"
-             android:paddingLeft="5dp"
-             android:paddingRight="5dp"
-             />
+    <ImageView
+        android:id="@+id/startbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weatherbackground"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/start_button" >
+    </ImageView>
 
-        
-         <TextView
-             android:id="@+id/distance"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:textColor="@color/text_colour"
-    		 android:textStyle="bold"
-             android:layout_below="@id/lastsession"
-             android:layout_centerHorizontal="true"
-             android:shadowColor="#000000"
-             android:shadowDx="0"
-             android:shadowDy="0"
-             android:shadowRadius="5"
-             android:textSize="60sp"
-             android:text="@string/last_distance" 
-             android:paddingLeft="5dp"
-             android:paddingRight="5dp"
-             />
-        
-        <TextView
-             android:id="@+id/time"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_below="@id/distance"
-             android:layout_centerHorizontal="true"
-    		 android:textStyle="bold"
-             android:shadowColor="#000000"
-             android:shadowDx="0"
-             android:shadowDy="0"
-             android:shadowRadius="5"
-             android:textColor="@color/text_colour"
-             android:textSize="60sp"
-             android:text="@string/last_time"
-             android:paddingLeft="5dp"
-             android:paddingRight="5dp"
-             />
+    <TextView
+        android:id="@+id/lastsession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="@string/last_session"
+        android:textColor="@color/text_colour"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-         
-        
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/preferencesbackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/preferencesbutton"
+        android:layout_alignLeft="@+id/preferencesbutton"
+        android:contentDescription="@string/logo_prefs_description"
+        android:src="@drawable/preferences_background"
+        android:visibility="invisible" >
+    </ImageView>
 
+    <ImageView
+        android:id="@+id/preferencesbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/logo_prefs_description"
+        android:src="@drawable/preferences_button" >
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/weatherbackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/logo_wback_description"
+        android:src="@drawable/weather_background"
+        android:visibility="invisible" >
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/weathericon"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_alignBottom="@id/weatherbackground"
+        android:layout_alignRight="@id/weatherbackground"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="-15dp"
+        android:contentDescription="@string/logo_weather_description" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/weatherbackground"
+        android:layout_alignLeft="@id/weatherbackground"
+        android:layout_marginLeft="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text=""
+        android:textColor="@color/temperature_color"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastsession"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="@string/last_distance"
+        android:textColor="@color/text_colour"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/distance"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="@string/last_time"
+        android:textColor="@color/text_colour"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="unitSystems">
         <item name="1">Metric system</item>
         <item name="2">Imperial system</item>
@@ -8,5 +9,5 @@
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
-     
+
 </resources>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This file defines the animation for the preferences button located at the 'Home' tab -->
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-   android:interpolator="@android:anim/linear_interpolator">
-   <rotate
-       android:fromDegrees="0"
-       android:toDegrees="360"
-       android:pivotX="50%"
-       android:pivotY="50%"
-       android:duration="250"
-       android:startOffset="0"
-       android:interpolator="@android:anim/linear_interpolator" />
+    android:interpolator="@android:anim/linear_interpolator" >
+
+    <rotate
+        android:duration="250"
+        android:fromDegrees="0"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="0"
+        android:toDegrees="360" />
+
 </set>

@@ -18,27 +18,28 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name="com.spongesoft.bananarun.UserSettingActivity">
-            </activity>
-        <activity
-            android:name="com.spongesoft.bananarun.SessionSettingsActivity">
+        <activity android:name="com.spongesoft.bananarun.UserSettingActivity" >
+        </activity>
+        <activity android:name="com.spongesoft.bananarun.SessionSettingsActivity" >
+        </activity>
+        <activity android:name="com.spongesoft.bananarun.SessionActivity" >
         </activity>
         <activity
             android:name="com.spongesoft.bananarun.MyMapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBNBdYLGe0Eo7Wbev7oGA6GHmIWwLee0rE" />
 
-        
-                <uses-library android:name="com.google.android.maps" />
+        <uses-library android:name="com.google.android.maps" />
     </application>
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -54,9 +55,12 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-<permission 
-android:name="com.spongesoft.dietapp.MAPS_RECEIVE" 
-android:protectionLevel="signature"></permission>
-<uses-permission 
-android:name="com.spongesoft.dietapp.MAPS_RECEIVE"/>
+
+    <permission
+        android:name="com.spongesoft.dietapp.MAPS_RECEIVE"
+        android:protectionLevel="signature" >
+    </permission>
+
+    <uses-permission android:name="com.spongesoft.dietapp.MAPS_RECEIVE" />
+
 </manifest>

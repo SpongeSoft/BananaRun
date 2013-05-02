@@ -15,7 +15,7 @@
         android:layout_height="fill_parent"
         android:text="get info from db" >
     </TextView>
-    
+
     <TextView
         android:id="@+id/pref"
         android:layout_width="fill_parent"

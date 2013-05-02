@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This file is the building foundation for the Preferences window elements.  -->
+<!-- This file is the building foundation for the Preferences window elements. -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
- 
+
     <PreferenceCategory android:title="@string/pref_user_info" >
         <EditTextPreference
-            android:title="@string/pref_user_height"
-            android:summary="@string/pref_user_heightVal"
-            android:key="prefUserHeight"
             android:defaultValue="170"
-            android:numeric="integer"/>
+            android:key="prefUserHeight"
+            android:numeric="integer"
+            android:summary="@string/pref_user_heightVal"
+            android:title="@string/pref_user_height" />
         <EditTextPreference
-            android:title="@string/pref_user_weight"
-            android:summary="@string/pref_user_weightVal"
-            android:key="prefUserWeight"
             android:defaultValue="60"
-            android:numeric="integer"/>
+            android:key="prefUserWeight"
+            android:numeric="integer"
+            android:summary="@string/pref_user_weightVal"
+            android:title="@string/pref_user_weight" />
     </PreferenceCategory>
-     
     <PreferenceCategory android:title="@string/pref_options" >
         <ListPreference
-            android:key="prefUnitSystem"
+            android:defaultValue="1"
             android:entries="@array/unitSystems"
-            android:summary="@string/pref_units_summary"
             android:entryValues="@array/unitSystemsValues"
-            android:title="@string/pref_unit_systems"
-            android:defaultValue="1" />
+            android:key="prefUnitSystem"
+            android:summary="@string/pref_units_summary"
+            android:title="@string/pref_unit_systems" />
+
         <Preference
             android:key="prefGps"
-            android:title="@string/pref_gps"
-            android:summary="@string/pref_gps_summary"/>
+            android:summary="@string/pref_gps_summary"
+            android:title="@string/pref_gps" />
     </PreferenceCategory>
- 
+
 </PreferenceScreen>
