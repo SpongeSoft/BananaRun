@@ -50,7 +50,7 @@ public class StatsFragment extends Fragment {
 		final View HomeView = inflater
 				.inflate(R.layout.stats, container, false);
 
-		TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
+		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
 		entry.open();
 		entry.setRace();
 		String result = entry.getRaceAvgSpeed();
@@ -66,7 +66,7 @@ public class StatsFragment extends Fragment {
 		String weight = settings.getString("prefUserWeight", "0");
 		pref.setText("vals: " + height + ", " + weight);
 		
-		
+		*/
 		
 		return HomeView;
 	}
