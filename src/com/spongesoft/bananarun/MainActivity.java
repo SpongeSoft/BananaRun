@@ -120,7 +120,7 @@ public class MainActivity extends FragmentActivity {
 			else if(position == 1){
 				fragment = new HomeFragment();
 			}else if(position == 2){
-				fragment = new MapSectionFragment();
+				fragment = new XYChartBuilder();
 			}else{
 				fragment = new DummySectionFragment();
 			}

@@ -37,6 +37,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class XYChartBuilder extends Fragment {
   private int index = 0;
   
   View HomeView;
+  private FragmentActivity fa;
 
   protected void onRestoreInstanceState(Bundle savedState) {
     super.onSaveInstanceState(savedState);
@@ -100,7 +102,7 @@ public void onSaveInstanceState(Bundle outState) {
   		super.onCreate(savedInstanceState);
 		HomeView = inflater.inflate(R.layout.xy_chart, container, false);
 
-    
+		fa = super.getActivity();
     
     
     mX = (EditText) HomeView.findViewById(R.id.xValue);
@@ -176,7 +178,8 @@ public void onResume() {
     super.onResume();
     if (mChartView == null) {
       LinearLayout layout = (LinearLayout)HomeView.findViewById(R.id.chart);
-      mChartView = ChartFactory.getLineChartView(this, mDataset, mRenderer);
+      mChartView = ChartFactory.getLineChartView(fa, mDataset, mRenderer);
+     
       mRenderer.setClickEnabled(true);
       mRenderer.setSelectableBuffer(100);
       mChartView.setOnClickListener(new View.OnClickListener() {
@@ -185,11 +188,11 @@ public void onResume() {
           SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
           double[] xy = mChartView.toRealPoint(0);
           if (seriesSelection == null) {
-            Toast.makeText(XYChartBuilder.this, "No chart element was clicked", Toast.LENGTH_SHORT)
+            Toast.makeText(fa, "No chart element was clicked", Toast.LENGTH_SHORT)
                 .show();
           } else {
             Toast.makeText(
-                XYChartBuilder.this,
+                fa,
                 "Chart element in series index " + seriesSelection.getSeriesIndex()
                     + " data point index " + seriesSelection.getPointIndex() + " was clicked"
                     + " closest point value X=" + seriesSelection.getXValue() + ", Y=" + seriesSelection.getValue()
@@ -202,12 +205,12 @@ public void onResume() {
         public boolean onLongClick(View v) {
           SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
           if (seriesSelection == null) {
-            Toast.makeText(XYChartBuilder.this, "No chart element was long pressed",
+            Toast.makeText(fa, "No chart element was long pressed",
                 Toast.LENGTH_SHORT);
             return false; // no chart element was long pressed, so let something
             // else handle the event
           } else {
-            Toast.makeText(XYChartBuilder.this, "Chart element in series index "
+            Toast.makeText(fa, "Chart element in series index "
                 + seriesSelection.getSeriesIndex() + " data point index "
                 + seriesSelection.getPointIndex() + " was long pressed", Toast.LENGTH_SHORT);
             return true; // the element was long pressed - the event has been
