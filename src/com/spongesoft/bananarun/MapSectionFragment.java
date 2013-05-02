@@ -30,6 +30,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -111,13 +113,19 @@ public class MapSectionFragment extends Fragment {
         
         /* Preferences must be initialised here. Otherwise, we get a NullPointerException error */
 		generalPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+		
+		/* Check Internet status */
+		final ConnectivityManager con = (ConnectivityManager) 
+				getActivity().getSystemService(getActivity().getBaseContext().CONNECTIVITY_SERVICE);
 
 		/* Asking Yahoo! every 10 minutes for weather status */
 		handler = new Handler();
         Runnable runnable = new Runnable() {
            public void run() {
-        	   
-        	   new MyQueryYahooPlaceTask().execute();   	   
+        	   if((con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState()==NetworkInfo.State.CONNECTED)
+        			   || (con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState()==NetworkInfo.State.CONNECTED)){
+        		   new MyQueryYahooPlaceTask().execute();
+        	   }
         	   
                handler.postDelayed(this, 600000);  //for interval (10 min)...
            }
