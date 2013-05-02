@@ -9,27 +9,92 @@
     android:gravity="center_vertical"
     android:longClickable="true" >
 
-    <TextView
-        android:id="@+id/tvSQLinfo"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="get info from db" >
-    </TextView>
-    
-    <TextView
-        android:id="@+id/pref"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="get info from prefs" >
-    </TextView>
+   <TableLayout 
+android:id="@+id/LinearLayout1"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_gravity="center"
+android:orientation="horizontal" >
+<TableRow>
+<Button
+    android:id="@+id/button2"
+    android:layout_width="0dp"
+    android:layout_height="100dp"
+    android:layout_weight="4"
+    android:text="Button" />
 
-    <ImageView
-        android:id="@+id/workingimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/logo_description"
-        android:src="@drawable/still_working" />
+
+
+</TableRow>
+<TableRow>
+<Button
+    android:id="@+id/button2"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="3"
+    android:text="Button" />
+
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="1"
+    android:text="B" />
+</TableRow>
+<TableRow>
+<Button
+    android:id="@+id/button2"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="3"
+    android:text="Button" />
+
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="1"
+    android:text="B" />
+</TableRow>
+<TableRow>
+<Button
+    android:id="@+id/button2"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="3"
+    android:text="Button" />
+
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="1"
+    android:text="B" />
+</TableRow>
+<TableRow>
+<Button
+    android:id="@+id/button2"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="3"
+    android:text="Button" />
+
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="0dp"
+    android:layout_height="75dp"
+    android:layout_weight="1"
+    android:text="B" />
+</TableRow>
+   
+  </TableLayout>
+  
+   
+ 
+  
 
 </RelativeLayout>
