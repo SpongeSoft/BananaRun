@@ -50,9 +50,34 @@ public class StatsFragment extends Fragment {
 
 		TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
 		entry.open();
-		entry.setRace();
-		String result = entry.getRaceAvgSpeed();
-		tv.setText(result);
+		long id = entry.setRace();
+		
+		long loc_id = entry.setLocation(id, 40.331632, -3.764019, 100.0, 0, 0);
+		loc_id = entry.setLocation(id, 40.331642, -3.765069, 104.8, 2, 3);
+		loc_id = entry.setLocation(id, 40.331023, -3.764649, 106.3, 6, 6);
+		loc_id = entry.setLocation(id, 40.331523, -3.764649, 105.3, 15, 9);
+		loc_id = entry.setLocation(id, 40.331723, -3.764349, 106.5, 19, 12);
+		loc_id = entry.setLocation(id, 40.331823, -3.764659, 106.3, 24, 15);
+		loc_id = entry.setLocation(id, 40.331923, -3.764669, 105.4, 28, 18);
+		loc_id = entry.setLocation(id, 40.331523, -3.764749, 105.2, 30, 21);
+		loc_id = entry.setLocation(id, 40.331423, -3.764549, 106.2, 42.15, 24);
+		
+		
+		
+		
+		entry.updateRace(id);
+		
+		String speed = entry.getRaceParam(id,0);
+		String time = entry.getRaceParam(id,1);
+		String distance = entry.getRaceParam(id,2);
+		String distperm = entry.getRaceParam(id,3);
+		String kcal = entry.getRaceParam(id,4);
+		tv.setText("Last inserted id --> " + id
+				+ "\nSpeed --> " + speed + " meters per second"
+				+ "\nTime --> " + time + " seconds "
+				+ "\nDistance --> " + distance + " meters"
+				+ "\nSeconds per meter --> " + distperm
+				+ "\nkcals burnt --> " + kcal);
 
 		return HomeView;
 	}
