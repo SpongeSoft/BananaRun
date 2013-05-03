@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +50,17 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View HomeView = inflater
 				.inflate(R.layout.stats, container, false);
+		
+		Button genStats = (Button) HomeView.findViewById(R.id.general);
+		
+		genStats.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				HomeView.getContext().startActivity(newSession);
+			}
+		 });
+		
 
 		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
 		entry.open();
