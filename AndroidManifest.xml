@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
     <application
@@ -23,6 +23,9 @@
         </activity>
         <activity 
             android:name="com.spongesoft.bananarun.UserSettingActivity">
+            </activity>
+             <activity 
+            android:name="com.spongesoft.bananarun.ExampleActivity">
             </activity>
         <activity
             android:name="com.spongesoft.bananarun.SessionSettingsActivity">
