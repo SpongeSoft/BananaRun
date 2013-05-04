@@ -22,7 +22,7 @@ public class UserSettingActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.settings);
 
 		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(this);
+				.getDefaultSharedPreferences(getApplicationContext());
 
 		String height = settings.getString("prefUserHeight", "No val");
 		String weight = settings.getString("prefUserWeight", "No Val");
