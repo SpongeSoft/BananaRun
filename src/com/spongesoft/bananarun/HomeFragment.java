@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
 		temperatureText.setTypeface(lTemperaturetypeFace);
 
 		generalPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getActivity().getBaseContext());
+				.getDefaultSharedPreferences(getActivity().getApplicationContext());
 		updateFlag = true;
 
 		SharedPreferences.Editor editor = generalPrefs.edit();

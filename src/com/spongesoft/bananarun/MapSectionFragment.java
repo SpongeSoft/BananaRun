@@ -115,7 +115,7 @@ public class MapSectionFragment extends Fragment {
 		 * NullPointerException error
 		 */
 		generalPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getActivity().getBaseContext());
+				.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
 		/* Check Internet status */
 		final ConnectivityManager con = (ConnectivityManager) getActivity()
@@ -302,7 +302,7 @@ public class MapSectionFragment extends Fragment {
 					 * the weather icon
 					 */
 					int code = getWeatherStatus(weatherCode);
-
+					Log.d("MapSectionFragment", "code: "+code);
 					/*
 					 * Put the final values in the Activity's intent so that
 					 * other fragments can access these variables
@@ -461,7 +461,7 @@ public class MapSectionFragment extends Fragment {
 	public int getWeatherStatus(String codeStr) {
 		int code;
 		if (codeStr == null) {
-			code = 0;
+			code = 3200;
 		} else {
 			code = Integer.parseInt(codeStr);
 		}
