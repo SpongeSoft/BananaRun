@@ -34,6 +34,10 @@
             android:name="com.spongesoft.bananarun.MyMapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        
+           <activity android:name="com.spongesoft.bananarun.LineChart" />
+        <activity android:name="com.spongesoft.bananarun.BarGraph" />
+        <activity android:name="org.achartengine.GraphicalActivity" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBNBdYLGe0Eo7Wbev7oGA6GHmIWwLee0rE" />

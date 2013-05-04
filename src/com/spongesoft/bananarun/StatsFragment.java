@@ -1,8 +1,16 @@
 package com.spongesoft.bananarun;
 
+import org.achartengine.ChartFactory;
+import org.achartengine.chart.BarChart.Type;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +34,8 @@ public class StatsFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
+	int[] firstData={23,145,67,78,86,190,46,78,167,164};
+	int[] secondData={83,45,168,138,67,150,64,87,144,188};
 	/**
 	 * Buttons and whatnot
 	 */
@@ -56,8 +66,7 @@ public class StatsFragment extends Fragment {
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				//Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
-				//HomeView.getContext().startActivity(newSession);
+				 getBarChart();
 			}
 		 });
 		
@@ -122,5 +131,51 @@ public class StatsFragment extends Fragment {
 		
 		return HomeView;
 	}
+	
+	public void getBarChart(){
+	    XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
+	    setBarChartSettings(barChartRenderer);
+	    Intent intent = ChartFactory.getBarChartIntent(getActivity().getBaseContext(), getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
+	    startActivity(intent);
+	    }
+	
+	 private XYMultipleSeriesDataset getBarDemoDataset() {
+	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
+	                CategorySeries firstSeries = new CategorySeries("Growth of Company1");
+	                for(int i=0;i<firstData.length;i++)
+	                    firstSeries.add(firstData[i]);
+	                barChartDataset.addSeries(firstSeries.toXYSeries());
+	         
+	             CategorySeries secondSeries = new CategorySeries("Growth of Company2");
+	                for(int j=0;j<secondData.length;j++)
+	                    secondSeries.add(secondData[j]);
+	                barChartDataset.addSeries(secondSeries.toXYSeries());
+	        return barChartDataset;
+	      }
+	
+	 public XYMultipleSeriesRenderer getBarChartRenderer() {
+	        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+	        renderer.setAxisTitleTextSize(20);
+	        renderer.setChartTitleTextSize(18);
+	        renderer.setLabelsTextSize(18);
+	        renderer.setLegendTextSize(18);
+	        renderer.setMargins(new int[] {20, 30, 15, 0});
+	        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+	        r.setColor(Color.BLUE);
+	        renderer.addSeriesRenderer(r);
+	        r = new SimpleSeriesRenderer();
+	        r.setColor(Color.GREEN);
+	        renderer.addSeriesRenderer(r);
+	        return renderer;
+	      }
+	 private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
+	        renderer.setChartTitle("run1 vs run2");
+	        renderer.setXTitle("Time");
+	        renderer.setYTitle("Kilometers");
+	        renderer.setXAxisMin(0.5);
+	        renderer.setXAxisMax(10.5);
+	        renderer.setYAxisMin(0);
+	        renderer.setYAxisMax(210);
+	      }
 
 }
