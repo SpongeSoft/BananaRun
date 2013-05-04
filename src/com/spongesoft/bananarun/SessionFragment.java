@@ -19,6 +19,7 @@ import com.spongesoft.dietapp.R;
 
 public class SessionFragment extends Fragment {
 
+	/* Global components: buttons, chronometer and preferences */
 	Button startBtn;
 	Button stopBtn;
 	Chronometer chronometer;
@@ -35,54 +36,61 @@ public class SessionFragment extends Fragment {
 		// number argument value.
 		final View SessionView = inflater.inflate(R.layout.new_session,
 				container, false);
+		
+		/* Get references to fragment components */
 		startBtn = (Button) SessionView.findViewById(R.id.btn_enter);
 		stopBtn = (Button) SessionView.findViewById(R.id.btn_stop);
 		chronometer = (Chronometer) SessionView.findViewById(R.id.chronometer);
-
-		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		int weatherCode = prefs.getInt("code", R.drawable.img3200);
-		Log.d("Chronometer", "WeatherCode = "+weatherCode);
-		String temp = prefs.getString("temperature", "??");
-		
-		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
-				"fonts/bradbunr.ttf");
-		System.out.println(getActivity().getAssets().toString());
 		
 		TextView kmCounter = (TextView) SessionView.findViewById(R.id.kmeter);
-		kmCounter.setTypeface(font);
-		
 		TextView calorieMeter = (TextView) SessionView.findViewById(R.id.calories);
-		calorieMeter.setTypeface(font);
-		
 		TextView caloriesVal = (TextView) SessionView.findViewById(R.id.caloriesValue);
-		caloriesVal.setTypeface(font);
-		
 		TextView timeMeter = (TextView) SessionView.findViewById(R.id.timer);
-		timeMeter.setTypeface(font);
-
 		ImageView weatherIcon = (ImageView) SessionView.findViewById(R.id.sessionWeatherIcon);
-		weatherIcon.setImageResource(weatherCode);
 		TextView sessionTemp = (TextView) SessionView.findViewById(R.id.temperature);
-		sessionTemp.setText(temp);
+
+		/* Retrieve weather data for display from General Preferences */
+		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		int weatherCode = prefs.getInt("code", R.drawable.img3200); //Weather image
+		Log.d("Chronometer", "WeatherCode = "+weatherCode); 
+		String temp = prefs.getString("temperature", "??"); //Weather temperature
 		
+		/* Set font to TextView components */
+		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
+				"fonts/bradbunr.ttf");
+		
+		kmCounter.setTypeface(font);		
+		calorieMeter.setTypeface(font);
+		caloriesVal.setTypeface(font);
+		timeMeter.setTypeface(font);
 		chronometer.setTypeface(font);
 
+		/* Set weather information in corresponding elements */
+		weatherIcon.setImageResource(weatherCode);
+		sessionTemp.setText(temp);
+		
 		Log.d("Chronometer","Chronometer state is: "+state);
+		
+		/* Chronometer all-in-one Start/Pause/Continue button. It initializes 
+		 * the chronometer's timer. When started, the button allows the user to 
+		 * pause the chronometer and resume it afterwards.
+		 * State 0: default state. Timer is set to 0 and stopped.
+		 * State 1: Timer running.
+		 * State 2: Timer paused. */
 		startBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				if (state == 0) {
-					chronometer.setBase(SystemClock.elapsedRealtime());
-					chronometer.start();
+					chronometer.setBase(SystemClock.elapsedRealtime()); //Reset timer
+					chronometer.start(); //Start timer
 					state = 1;
 					startBtn.setText("Pause");
 					Log.d("Chronometer","Chronometer state is: "+state);
 
 				} else if (state == 1) {
-					chronometerCounter = SystemClock.elapsedRealtime();
-					chronometer.stop();
+					chronometerCounter = SystemClock.elapsedRealtime(); //Store last timer value
+					chronometer.stop(); //Stop timer
 					state = 2;
 					startBtn.setText("Continue");
 					Log.d("Chronometer","Chronometer state is: "+state);
@@ -90,8 +98,8 @@ public class SessionFragment extends Fragment {
 				} else if (state == 2) {
 					chronometer.setBase(chronometer.getBase()
 							+ SystemClock.elapsedRealtime()
-							- chronometerCounter);
-					chronometer.start();
+							- chronometerCounter); //Resume timer with the last value as the initial one
+					chronometer.start(); //Resume timer
 					state = 1;
 					startBtn.setText("Pause");
 					Log.d("Chronometer","Chronometer state is: "+state);
@@ -100,14 +108,15 @@ public class SessionFragment extends Fragment {
 			}
 		});
 
+		/* Button used to stop and reset the chronometer's timer. */
 		stopBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				chronometer.stop();
-				chronometer.setBase(SystemClock.elapsedRealtime());
+				chronometer.stop(); //Stop timer
+				chronometer.setBase(SystemClock.elapsedRealtime()); //Restart timer value
 				startBtn.setText("Start");
-				state = 0;
+				state = 0; 
 				Log.d("Chronometer","Chronometer state is: "+state);
 
 			}
