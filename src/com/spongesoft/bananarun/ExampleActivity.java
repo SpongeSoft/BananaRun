@@ -1,7 +1,11 @@
 package com.spongesoft.bananarun;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.spongesoft.bananarun.LineChart;
+import com.spongesoft.bananarun.MainActivity;
 import com.spongesoft.dietapp.R;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,17 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-/**
- * Gallery3D like QuickAction. 
- * 
- * This example shows how to use Gallery3D like QuickAction.
- * 
- * @author Lorensius W. L. T <lorenz@londatiga.net>
- * 
- * Contributors:
- * - Kevin Peck <kevinwpeck@gmail.com>
- * 
- */
+
 public class ExampleActivity extends Activity {
 	//action id
 	private static final int ID_UP     = 1;
@@ -35,12 +29,10 @@ public class ExampleActivity extends Activity {
 
 		setContentView(R.layout.selectgraph);
 
-		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Next", getResources().getDrawable(R.drawable.menu_down_arrow));
-		ActionItem prevItem 	= new ActionItem(ID_UP, "Prev", getResources().getDrawable(R.drawable.menu_up_arrow));
-        ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Find", getResources().getDrawable(R.drawable.menu_search));
-        ActionItem infoItem 	= new ActionItem(ID_INFO, "Info", getResources().getDrawable(R.drawable.menu_info));
-        ActionItem eraseItem 	= new ActionItem(ID_ERASE, "Clear", getResources().getDrawable(R.drawable.menu_eraser));
-        ActionItem okItem 		= new ActionItem(ID_OK, "OK", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Grafica1", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem prevItem 	= new ActionItem(ID_UP, "Grafica2", getResources().getDrawable(R.drawable.menu_ok));
+        ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Grafica3", getResources().getDrawable(R.drawable.menu_ok));
+      
         
         //use setSticky(true) to disable QuickAction dialog being dismissed after an item is clicked
         prevItem.setSticky(true);
@@ -54,9 +46,7 @@ public class ExampleActivity extends Activity {
         quickAction.addActionItem(nextItem);
 		quickAction.addActionItem(prevItem);
         quickAction.addActionItem(searchItem);
-        quickAction.addActionItem(infoItem);
-        quickAction.addActionItem(eraseItem);
-        quickAction.addActionItem(okItem);
+        
         
         //Set listener for action item clicked
 		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {			
@@ -66,11 +56,18 @@ public class ExampleActivity extends Activity {
                  
 				//here we can filter which action item was clicked with pos or actionId parameter
 				if (actionId == ID_SEARCH) {
-					Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
-				} else if (actionId == ID_INFO) {
-					Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
+					Intent lineChartIntent=new Intent(ExampleActivity.this,LineChart.class);
+	                startActivity(lineChartIntent);
+					
+					//Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
+				} else if (actionId == ID_DOWN) {
+					Intent lineChartIntent=new Intent(ExampleActivity.this,LineChart.class);
+	                startActivity(lineChartIntent);
+					//Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
+				} else if (actionId == ID_UP){
+					Intent lineChartIntent=new Intent(ExampleActivity.this,LineChart.class);
+	                startActivity(lineChartIntent);
+					//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

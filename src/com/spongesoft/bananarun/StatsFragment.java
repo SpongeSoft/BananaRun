@@ -56,6 +56,46 @@ public class StatsFragment extends Fragment {
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				//Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				//HomeView.getContext().startActivity(newSession);
+			}
+		 });
+		
+		Button carrera1 = (Button) HomeView.findViewById(R.id.button1);
+		
+		carrera1.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				HomeView.getContext().startActivity(newSession);
+			}
+		 });
+		
+		Button carrera2 = (Button) HomeView.findViewById(R.id.button2);
+		
+		carrera2.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				HomeView.getContext().startActivity(newSession);
+			}
+		 });
+		
+		Button carrera3=(Button) HomeView.findViewById(R.id.button3);
+		
+		carrera3.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				HomeView.getContext().startActivity(newSession);
+			}
+		 });
+		
+		Button carrera4 = (Button) HomeView.findViewById(R.id.button4);
+		
+		carrera4.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
 				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
 				HomeView.getContext().startActivity(newSession);
 			}
