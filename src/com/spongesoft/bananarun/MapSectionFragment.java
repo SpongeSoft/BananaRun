@@ -38,8 +38,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnGenericMotionListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -71,6 +74,10 @@ public class MapSectionFragment extends Fragment {
 	private Marker mMarker;
 	private Circle mCircle;
 	private Polyline mPolyline;
+	
+	Button lockBtn;
+	Button layerBtn;
+	Button locateBtn;
 
 	SharedPreferences generalPrefs;
 	Handler handler;
@@ -97,7 +104,7 @@ public class MapSectionFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View inflatedView = inflater.inflate(R.layout.main, container, false);
+		final View inflatedView = inflater.inflate(R.layout.main, container, false);
 
 		try {
 			MapsInitializer.initialize(getActivity());
@@ -109,7 +116,20 @@ public class MapSectionFragment extends Fragment {
 
 		mMapView = (MapView) inflatedView.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
+		
+		lockBtn = (Button) inflatedView.findViewById(R.id.lockButton);
+		layerBtn = (Button) inflatedView.findViewById(R.id.locationButton);
+		locateBtn = (Button) inflatedView.findViewById(R.id.locationButton);
 
+		/* Buttons behaviour */
+
+		lockBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//mMapView.set
+			}
+		});
 		/*
 		 * Preferences must be initialised here. Otherwise, we get a
 		 * NullPointerException error
@@ -139,6 +159,7 @@ public class MapSectionFragment extends Fragment {
 		handler.postDelayed(runnable, 2000); // for initial delay..
 
 		setUpMapIfNeeded(inflatedView);
+		
 
 		return inflatedView;
 	}

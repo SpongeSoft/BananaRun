@@ -1,10 +1,13 @@
 package com.spongesoft.bananarun;
 
+import java.util.Random;
+
 import com.spongesoft.dietapp.R;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -12,64 +15,103 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 public class SessionSettingsActivity extends Activity {
 	
-	private final int KILOMETERS = 0;
-	private final int MINUTES = 1;
+	/* Session mode constants */
+	private final int MINUTES = 0;
+	private final int KILOMETERS = 1;
 	private final int FREERUN = 2;
+	
+	/* Screen elements */
+	ImageView goButton;
+	RadioButton r1;
+	RadioButton r2;
+	RadioButton r3;
+	TextView messageTitle;
+	TextView message;
+
+	/* Preferences and Picker */
+	SharedPreferences prefs;
+	NumberPicker np;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.session_settings);
 
-		final SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		/* Set the screen's default configuration: free run mode. */
+		prefs = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 		setPickerType(prefs, FREERUN);
-		// Number picker parameters
-		final NumberPicker np = (NumberPicker) findViewById(R.id.limit_picker);
-		np.setMaxValue(300);
-		np.setMinValue(1);
-		np.setValue(0);
+		
+		/* Reference screen components from XML file */
+		goButton = (ImageView) findViewById(R.id.startsessionbutton);
 
-		ImageView goButton = (ImageView) findViewById(R.id.startsessionbutton);
+		r1 = (RadioButton) findViewById(R.id.time_limit);
+		r2 = (RadioButton) findViewById(R.id.distance_limit);
+		r3 = (RadioButton) findViewById(R.id.free_running);
 
-		final RadioButton r1 = (RadioButton) findViewById(R.id.time_limit);
-		final RadioButton r2 = (RadioButton) findViewById(R.id.distance_limit);
-		final RadioButton r3 = (RadioButton) findViewById(R.id.free_running);
+		messageTitle = (TextView) findViewById(R.id.motivation);
+		message = (TextView) findViewById(R.id.message);
+		generateMessage(message); //Retrieve random message
+		
+		/* Set font to TextView components */
+		Typeface font = Typeface.createFromAsset(getAssets(),
+				"fonts/bradbunr.ttf");
+		messageTitle.setTypeface(font);
+		message.setTypeface(font);
+		
+		np = (NumberPicker) findViewById(R.id.limit_picker);
 
+		/* Setup picker parameters. This picker will be used by the user
+		 * to choose a limit, either distance or time. */
+		np.setMaxValue(300); //Max value
+		np.setMinValue(1); //Min value
+
+		/* First radio button. When selected, the session limits are set to
+		 * a certain TIME amount (in minutes), whose value is defined by the
+		 * picker's value. */
 		r1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				setPickerType(prefs, MINUTES);
-				np.setVisibility(View.VISIBLE);
+				setPickerType(prefs, MINUTES); //Update preferences
+				np.setVisibility(View.VISIBLE); //Show picker
 				
 			}
 		});
 
+		/* Second radio button. When selected, the session limits are set to
+		 * a certain DISTANCE amount (in kilometers/miles), whose value is defined 
+		 * by the picker's value. */
 		r2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				setPickerType(prefs, KILOMETERS);
-				np.setVisibility(View.VISIBLE);
+				setPickerType(prefs, KILOMETERS); //Update preferences
+				np.setVisibility(View.VISIBLE); //Show picker
 			}
 		});
 
+		/* Second radio button. When selected, the session has no time nor distance
+		 * limits set. Therefore, the picker is not shown. */
 		r3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				setPickerType(prefs, FREERUN);
-				np.setVisibility(View.INVISIBLE);
+				setPickerType(prefs, FREERUN); //Update preferences
+				np.setVisibility(View.INVISIBLE); // Hide picker
 			}
 		});
 
+		
+		/* Button to start the actual session. When pressed, the application 
+		 * starts a new Activity. The picker's value is saved before. */
 		goButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
-				int pickerVal = np.getValue();
-				if(pickerVal != 0){
-					updatePrefsLimit(prefs, pickerVal);
-				}
+				int pickerVal = np.getValue(); //Store picker value
+				updatePrefsLimit(prefs, pickerVal); //Into preferences
+				
+				/* Create an intent and start the new Activity */
 				Intent startSession = new Intent(SessionSettingsActivity.this,
 						SessionActivity.class);
 				startActivity(startSession);
@@ -79,6 +121,7 @@ public class SessionSettingsActivity extends Activity {
 
 	}// oncreate
 
+	/* When returning to the previous Activity, finish this one */
 	public void onBackPressed() {
 		super.onBackPressed();
 
@@ -89,6 +132,8 @@ public class SessionSettingsActivity extends Activity {
 
 	}
 	
+	/* This function inserts a certain value into the application's preferences.
+	 * The value corresponds to the picker's number that the user selected */
 	public void updatePrefsLimit(SharedPreferences prefs, int value) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putInt("pickerValue", value);
@@ -96,6 +141,8 @@ public class SessionSettingsActivity extends Activity {
 		editor.commit();
 	}
 	
+	/* This function updates the session limits mode value in the application's 
+	 * preferences, given the correct constant. */
 	public void setPickerType(SharedPreferences prefs, int type) {
 		SharedPreferences.Editor editor = prefs.edit();
 		if(type == KILOMETERS){
@@ -109,6 +156,15 @@ public class SessionSettingsActivity extends Activity {
 			Log.d("updatePrefsLimit", "Picker Type is: FREERUN");
 		}
 		editor.commit();
+	}
+	
+	/*Set random motivational message for the user */
+	public void generateMessage(TextView message) {
+		// Based on: http://stackoverflow.com/questions/363681/generating-random-number-in-a-range-with-java
+		Random rand = new Random();
+		int randomNum = rand.nextInt(10 - 0 + 1) + 0;
+		String[] array = getResources().getStringArray(R.array.motivationalMessages);
+		message.setText(array[randomNum]);
 	}
 
 }
