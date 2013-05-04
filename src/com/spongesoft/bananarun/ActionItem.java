@@ -3,15 +3,7 @@ package com.spongesoft.bananarun;
 import android.graphics.drawable.Drawable;
 import android.graphics.Bitmap;
 
-/**
- * Action item, displayed as menu with icon and text.
- * 
- * @author Lorensius. W. L. T <lorenz@londatiga.net>
- * 
- * Contributors:
- * - Kevin Peck <kevinwpeck@gmail.com>
- *
- */
+
 public class ActionItem {
 	private Drawable icon;
 	private Bitmap thumb;

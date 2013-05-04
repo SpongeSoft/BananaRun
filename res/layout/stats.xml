@@ -21,22 +21,22 @@ android:orientation="horizontal" >
     android:layout_width="0dp"
     android:layout_height="100dp"
     android:layout_weight="4"
-    android:text="Button" />
+    android:text="Estadisticas generales" />
 
 
 
 </TableRow>
 <TableRow>
 <Button
-    android:id="@+id/button2"
+    android:id="@+id/button1"
     android:layout_width="0dp"
     android:layout_height="75dp"
     android:layout_weight="3"
-    android:text="Button" />
+    android:text="Carrera 1" />
 
 
 <Button
-    android:id="@+id/button1"
+    android:id="@+id/button"
     android:layout_width="0dp"
     android:layout_height="75dp"
     android:layout_weight="1"
@@ -48,7 +48,7 @@ android:orientation="horizontal" >
     android:layout_width="0dp"
     android:layout_height="75dp"
     android:layout_weight="3"
-    android:text="Button" />
+    android:text="Carrera 2" />
 
 
 <Button
@@ -60,11 +60,11 @@ android:orientation="horizontal" >
 </TableRow>
 <TableRow>
 <Button
-    android:id="@+id/button2"
+    android:id="@+id/button3"
     android:layout_width="0dp"
     android:layout_height="75dp"
     android:layout_weight="3"
-    android:text="Button" />
+    android:text="Carrera 3" />
 
 
 <Button
@@ -76,11 +76,11 @@ android:orientation="horizontal" >
 </TableRow>
 <TableRow>
 <Button
-    android:id="@+id/button2"
+    android:id="@+id/button4"
     android:layout_width="0dp"
     android:layout_height="75dp"
     android:layout_weight="3"
-    android:text="Button" />
+    android:text="Carrera 4" />
 
 
 <Button
