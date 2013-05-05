@@ -220,7 +220,7 @@ public class MapSectionFragment extends Fragment {
 	
 	private void update_map() {
 		//Get the race_id
-		long race = getArguments().getLong("race_id");
+		long race = getArguments().getInt("race_id");
 		if(race != 0L) {
 			//TODO: If it's indeed a race, go and get its points
 			

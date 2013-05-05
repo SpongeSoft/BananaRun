@@ -116,7 +116,7 @@ public class SessionSettingsActivity extends Activity {
 				DBManagement manager = new DBManagement(v.getContext());
 				manager.open();
 				
-				float race = manager.setRace();
+				int race = (int) manager.setRace();
 				
 				manager.close();
 				
@@ -177,7 +177,7 @@ public class SessionSettingsActivity extends Activity {
 	public void generateMessage(TextView message) {
 		// Based on: http://stackoverflow.com/questions/363681/generating-random-number-in-a-range-with-java
 		Random rand = new Random();
-		int randomNum = rand.nextInt(10 - 0 + 1) + 0;
+		int randomNum = rand.nextInt(10);
 		String[] array = getResources().getStringArray(R.array.motivationalMessages);
 		message.setText(array[randomNum]);
 	}

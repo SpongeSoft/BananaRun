@@ -1,6 +1,10 @@
 package com.spongesoft.bananarun;
 
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,14 +31,26 @@ public class SessionFragment extends Fragment {
 	long chronometerCounter;
 	int state = 0;
 	SharedPreferences prefs;
-
+	DBManagement manager;
+	
+	TextView kmCounter;
+	TextView calorieMeter;
+	TextView timeMeter;
+	long race_id;
 	public SessionFragment() {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+        final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
+        this.getActivity().registerReceiver(mReceiver, myFilter);
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
+		
+		race_id = getArguments().getInt("race_id");
+		manager = new DBManagement(this.getActivity());
+		manager.open();
 		final View SessionView = inflater.inflate(R.layout.new_session,
 				container, false);
 		
@@ -43,10 +59,10 @@ public class SessionFragment extends Fragment {
 		stopBtn = (Button) SessionView.findViewById(R.id.btn_stop);
 		chronometer = (Chronometer) SessionView.findViewById(R.id.chronometer);
 		
-		TextView kmCounter = (TextView) SessionView.findViewById(R.id.kmeter);
-		TextView calorieMeter = (TextView) SessionView.findViewById(R.id.calories);
+		kmCounter = (TextView) SessionView.findViewById(R.id.kmeter);
+		calorieMeter = (TextView) SessionView.findViewById(R.id.calories);
 		TextView caloriesVal = (TextView) SessionView.findViewById(R.id.caloriesValue);
-		TextView timeMeter = (TextView) SessionView.findViewById(R.id.timer);
+		timeMeter = (TextView) SessionView.findViewById(R.id.timer);
 		ImageView weatherIcon = (ImageView) SessionView.findViewById(R.id.sessionWeatherIcon);
 		TextView sessionTemp = (TextView) SessionView.findViewById(R.id.temperature);
 
@@ -135,4 +151,25 @@ public class SessionFragment extends Fragment {
 		return SessionView;
 	}
 
+	
+	
+	
+	//We use this to receive the broadcast when a location has been updated
+	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+	            public void onReceive(Context context, Intent intent) {		
+	                       // Log.d("BroadcastService", "Service received: " + intent.getCharSequenceExtra("data"));
+	                       // String message = intent.getStringExtra("data");
+	                        updateStats();
+
+	            }
+	
+	};
+	private void updateStats() {
+		ContentValues stats = manager.getStats(race_id);
+		kmCounter.setText(stats.getAsString(manager.KEY_S_TOTAL_DISTANCE));
+		timeMeter.setText(stats.getAsString(manager.KEY_S_TOTAL_TIME));
+		
+		Log.d("stats", "raceID: "+race_id+" total_dist: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE)+"total_time: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE));
+	}
 }

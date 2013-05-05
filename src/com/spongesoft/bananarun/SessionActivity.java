@@ -25,10 +25,10 @@ public class SessionActivity extends FragmentActivity {
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
-
+	long race_id;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.activity_main);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -44,7 +44,7 @@ public class SessionActivity extends FragmentActivity {
 		/* Initial tab is the HOME section */
 		mViewPager.setCurrentItem(0);
 		mViewPager.setOffscreenPageLimit(2);
-
+		race_id = this.getIntent().getIntExtra("race_id", -1);
 	}
 
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -70,6 +70,7 @@ public class SessionActivity extends FragmentActivity {
 			}
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			args.putLong("race_id", race_id);
 			fragment.setArguments(args);
 			return fragment;
 		}
