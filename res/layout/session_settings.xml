@@ -62,15 +62,33 @@
         android:visibility="invisible" />
 
     <ImageView
-    	android:src="@drawable/start_button"
-    	android:id="@+id/startsessionbutton"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:adjustViewBounds="true"
-    	android:layout_alignParentBottom="true"
-    	android:layout_marginBottom="25dp"
-		android:contentDescription="@string/logo_description">
-    	</ImageView>
-        
+        android:id="@+id/startsessionbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/start_button" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/limit_string"
+        android:layout_alignRight="@+id/limit_picker"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/motivation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/message"
+        android:layout_alignLeft="@+id/message"
+        android:text="@string/motivation"
+        android:textStyle="bold"
+        android:textSize="25sp" />
 
 </RelativeLayout>

@@ -1,4 +1,7 @@
-package com.spongesoft.dietapp;
+package com.spongesoft.bananarun;
+
+import com.spongesoft.bananarun.R;
+import com.spongesoft.bananarun.R.drawable;
 
 import android.app.ActivityManager;
 import android.app.Notification;
