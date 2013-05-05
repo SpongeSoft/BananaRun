@@ -75,6 +75,8 @@ public class MapSectionFragment extends Fragment {
 	private Circle mCircle;
 	private Polyline mPolyline;
 	
+	private int layer;
+	
 	Button lockBtn;
 	Button layerBtn;
 	Button locateBtn;
@@ -106,6 +108,8 @@ public class MapSectionFragment extends Fragment {
 			Bundle savedInstanceState) {
 		final View inflatedView = inflater.inflate(R.layout.main, container, false);
 
+		layer = GoogleMap.MAP_TYPE_NORMAL; //Set the initial map type
+		
 		try {
 			MapsInitializer.initialize(getActivity());
 		} catch (GooglePlayServicesNotAvailableException e) {
@@ -118,7 +122,7 @@ public class MapSectionFragment extends Fragment {
 		mMapView.onCreate(savedInstanceState);
 		
 		lockBtn = (Button) inflatedView.findViewById(R.id.lockButton);
-		layerBtn = (Button) inflatedView.findViewById(R.id.locationButton);
+		layerBtn = (Button) inflatedView.findViewById(R.id.layerButton);
 		locateBtn = (Button) inflatedView.findViewById(R.id.locationButton);
 
 		/* Buttons behaviour */
@@ -127,9 +131,29 @@ public class MapSectionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				//mMapView.set
+				//Lock fragment movement
 			}
 		});
+		
+		/* Layer button: toggle map layer type when pressed. There are two
+		 * layer types: Normal (streets only, no satellite) and Hybrid
+		 * (streets and satellite view). */
+		layerBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(layer == GoogleMap.MAP_TYPE_NORMAL){
+					layer = GoogleMap.MAP_TYPE_HYBRID;
+					mMap.setMapType(layer);
+					Log.d("onClickMap","Layer type is: HYBRID");
+				} else if(layer == GoogleMap.MAP_TYPE_HYBRID) {
+					layer = GoogleMap.MAP_TYPE_NORMAL;
+					mMap.setMapType(layer);
+					Log.d("onClickMap","Layer type is: NORMAL");
+				}
+			}
+		});
+		
 		/*
 		 * Preferences must be initialised here. Otherwise, we get a
 		 * NullPointerException error
@@ -170,6 +194,8 @@ public class MapSectionFragment extends Fragment {
 			if (mMap != null) {
 				mMarker = mMap.addMarker(new MarkerOptions().position(
 						new LatLng(0, 0)).title("Marker"));
+				mMap.setMapType(layer); //Apply layer to map
+				Log.d("mMap config", "mMap has layer type = "+layer);
 
 				// Instantiates a new CircleOptions object and defines the
 				// center and radius
