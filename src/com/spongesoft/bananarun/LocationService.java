@@ -26,6 +26,7 @@ import android.widget.Toast;
 public class LocationService extends Service implements LocationListener {
 	LocationManager locationManager;
 	Location previousLocation;
+	
 	DBManagement manager;
 	double race;
 	   @Override
@@ -42,6 +43,11 @@ public class LocationService extends Service implements LocationListener {
 			manager.setLocation((long) race, loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), loc.distanceTo(previousLocation), loc.getSpeed());
 		}
 		previousLocation = loc;
+		
+
+        final Intent intent = new Intent("com.spongesoft.bananarun.LOCATION_UPDATED");
+        intent.putExtra("data", loc);
+        sendBroadcast(intent);
 	}
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -53,6 +59,7 @@ public class LocationService extends Service implements LocationListener {
         createNotification();
         manager.open();
         
+        run();
        
 		return START_STICKY;
 	}
@@ -138,7 +145,9 @@ public class LocationService extends Service implements LocationListener {
 		                        Log.d("BroadcastService", "Service received: " + intent.getCharSequenceExtra("data"));
 		                        String message = intent.getStringExtra("data");
 		                        if(message.equals("stop")) {
-		                        	//Stop the service!
+		                        	//Stop the service and mark the race as over
+		                        	manager.updateRace((long) race);
+		                        	manager.close();
 		                        	stopSelf();
 		                        }
 

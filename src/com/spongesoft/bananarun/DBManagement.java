@@ -83,7 +83,7 @@ public class DBManagement {
 			db.execSQL("CREATE TABLE " + DATABASE_LOCATION_TABLE + " ("
 					+ KEY_L_LOCATIONID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ KEY_L_RACEID + " INT NOT NULL, "
-					+ KEY_L_TIMESTAMP + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," 
+					+ KEY_L_TIMESTAMP + " DOUBLE," 
 					+ KEY_L_LATITUDE + " DOUBLE, " 
 					+ KEY_L_LONGITUDE + " DOUBLE, " 
 					+ KEY_L_ALTITUDE + " DOUBLE, "
@@ -180,11 +180,11 @@ public class DBManagement {
 			}
 		}
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		Date date = new Date();
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		//Date date = new Date();
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_L_RACEID, raceID);
-		cv.put(KEY_L_TIMESTAMP, dateFormat.format(date));
+		cv.put(KEY_L_TIMESTAMP, System.currentTimeMillis() );
 		cv.put(KEY_L_LATITUDE, latitude);
 		cv.put(KEY_L_LONGITUDE, longitude);
 		cv.put(KEY_L_ALTITUDE, altitude);
@@ -208,28 +208,37 @@ public class DBManagement {
 	public long updateRace(long raceID) {
 		// TODO Auto-generated method stub
 
+		ContentValues cv = getStats(raceID);
+		return ourDB.update(DATABASE_SESSION_TABLE, cv, KEY_S_RACEID + "=" + raceID, null);
+	}
+	
+	/** 
+	 * Returns the contentValues for: Average speed, Time running, Distance travelled, Calories burned
+	 */
+	public ContentValues getStats(long raceID) {
 		ContentValues cv = new ContentValues();
 		
-		// --------------- Average Speed --------------- //
-		String query = "SELECT AVG(" + KEY_L_SPEED + ") FROM " + DATABASE_LOCATION_TABLE + " WHERE " + KEY_L_RACEID + " = " + raceID;
-		Cursor cursor = ourDB.rawQuery(query, null);
-		double avgSpeed = 0.0;
-		if (cursor.moveToFirst()) {
-			avgSpeed =  cursor.getDouble(0);
-		}
-		cv.put(KEY_S_AVG_SPEED, avgSpeed);
+		// -------------- Average speed, Total time & distance --------------- //
 		
-		// -------------- Total time & distance --------------- //
-		query = "SELECT " + KEY_L_SECONDS + ", " + KEY_L_DISTANCE + " FROM " + DATABASE_LOCATION_TABLE + " WHERE " + KEY_L_RACEID + " = " + raceID;
-		cursor = ourDB.rawQuery(query, null);
+		
+		String query = "SELECT AVG(" + KEY_L_SPEED + "), MAX(" + KEY_L_TIMESTAMP + ")-MIN(" + KEY_L_TIMESTAMP + "), SUM(" + KEY_L_DISTANCE + ") FROM " + DATABASE_LOCATION_TABLE + " WHERE " + KEY_L_RACEID + " = " + raceID;
+		Cursor cursor = ourDB.rawQuery(query, null);
+
 		double totalTime = 1.0;
 		double totalDist = 1.0;
+		double avgSpeed = 0.0;
+
 		if (cursor.moveToLast()) {
-			totalTime = cursor.getDouble(0);
-			totalDist = cursor.getDouble(1);
+			avgSpeed =  cursor.getDouble(0);
+
+			totalTime = cursor.getDouble(1);
+			totalDist = cursor.getDouble(2);
 		}
-		cv.put(KEY_S_TOTAL_TIME, totalTime);
+		
+		cv.put(KEY_S_TOTAL_TIME, totalTime / 1000L);
 		cv.put(KEY_S_TOTAL_DISTANCE, totalDist);
+		cv.put(KEY_S_AVG_SPEED, avgSpeed);
+
 		
 		// --------------- Average time per KM --------------- //
 		cv.put(KEY_S_AVG_TIME_PER_KM, (totalTime/totalDist));
@@ -242,7 +251,7 @@ public class DBManagement {
 		
 		cursor.close();
 		
-		return ourDB.update(DATABASE_SESSION_TABLE, cv, KEY_S_RACEID + "=" + raceID, null);
+		return cv;
 	}
 
 	
