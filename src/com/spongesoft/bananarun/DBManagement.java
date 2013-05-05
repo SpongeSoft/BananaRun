@@ -14,6 +14,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.FloatMath;
 
 public class DBManagement {
+	
+	/* Last locations */
+	double lastLongitude = -99999;
+	double lastLatitude = -99999;
 	/**
 	 * Fields
 	 */
@@ -160,11 +164,22 @@ public class DBManagement {
 	 * @param latitude
 	 * @param logitude
 	 * @param altitude
+	 * @param distance (if <0, calculates distance from last point)
 	 * @return The row ID. Probably useless at this point.
 	 */
 	@SuppressLint("SimpleDateFormat")
-	public long setLocation(long raceID, double latitude, double longitude, double altitude, double distance, double seconds){
+	public long setLocation(long raceID, double latitude, double longitude, double altitude, double distance, double speed){
 		// set the format to sql date time, obtained from http://stackoverflow.com/a/819605/1197418
+		
+		//if distance = -1, uses last point
+		if(distance < 0) {
+			if(lastLatitude == -99999 || lastLongitude == -99999) {
+				distance = 0;
+			}else{
+				distance = gps2m((float) latitude, (float) longitude, (float) lastLatitude, (float) lastLongitude);
+			}
+		}
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		Date date = new Date();
 		ContentValues cv = new ContentValues();
@@ -174,8 +189,8 @@ public class DBManagement {
 		cv.put(KEY_L_LONGITUDE, longitude);
 		cv.put(KEY_L_ALTITUDE, altitude);
 		cv.put(KEY_L_DISTANCE, distance);
-		cv.put(KEY_L_SECONDS, seconds);
-		cv.put(KEY_L_SPEED, distance/seconds);
+		//cv.put(KEY_L_SECONDS, seconds);
+		cv.put(KEY_L_SPEED, speed);
 		return ourDB.insert(DATABASE_LOCATION_TABLE, null, cv);
 	}
 	

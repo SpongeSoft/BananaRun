@@ -8,9 +8,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
@@ -23,19 +25,38 @@ import android.widget.Toast;
 
 public class LocationService extends Service implements LocationListener {
 	LocationManager locationManager;
-	
+	Location previousLocation;
+	DBManagement manager;
+	double race;
 	   @Override
 	    public void onCreate() {
-	        Toast.makeText(this, "My Service Created", Toast.LENGTH_LONG).show();
-	        createNotification();
-	        run();
+           final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.TO_SERVICE");
+           registerReceiver(mReceiver, myFilter);
 	    }
 	@Override
 	public void onLocationChanged(Location loc) {
 		Toast.makeText(this,"Lat: " + String.valueOf(loc.getLatitude()) + " Long: " + String.valueOf(loc.getLongitude()),Toast.LENGTH_SHORT).show();
-
-		
+		if(previousLocation == null) {
+			manager.setLocation((long) race, loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), 0, loc.getSpeed());
+		}else{
+			manager.setLocation((long) race, loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), loc.distanceTo(previousLocation), loc.getSpeed());
+		}
+		previousLocation = loc;
 	}
+	
+	public int onStartCommand(Intent intent, int flags, int startId) {
+	    Bundle extras = intent.getExtras();
+	    race = extras.getFloat("race_id");
+	    
+        Toast.makeText(this, "Service started, race id: "+race, Toast.LENGTH_LONG).show();
+        manager = new DBManagement(this);
+        createNotification();
+        manager.open();
+        
+       
+		return START_STICKY;
+	}
+
 
 	@Override
 	public void onProviderDisabled(String arg0) {
@@ -74,12 +95,14 @@ public class LocationService extends Service implements LocationListener {
 	        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 	        // Define a listener that responds to location updates
 	      	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+	      	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	 }
 	 
 	 
 	 private void createNotification() {
-		 Intent notificationIntent = new Intent(this, MainActivity.class);
+		 Intent notificationIntent = new Intent(this, SessionActivity.class);
 		 notificationIntent.putExtra("stopNotif", true);
+		 notificationIntent.putExtra("race_id", race);
 		 PendingIntent contentIntent = PendingIntent.getActivity(this,
 		         12345, notificationIntent,
 		         PendingIntent.FLAG_CANCEL_CURRENT);
@@ -106,5 +129,29 @@ public class LocationService extends Service implements LocationListener {
 		 
 		 startForeground(143214321,n);
 	 }
+	 
+	 
+
+		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+		            public void onReceive(Context context, Intent intent) {		
+		                        Log.d("BroadcastService", "Service received: " + intent.getCharSequenceExtra("data"));
+		                        String message = intent.getStringExtra("data");
+		                        if(message.equals("stop")) {
+		                        	//Stop the service!
+		                        	stopSelf();
+		                        }
+
+		            }
+		
+		};
+		
+		public void onDestroy() {
+
+            unregisterReceiver(mReceiver);
+
+            super.onDestroy();
+
+		}
 	 
 }
