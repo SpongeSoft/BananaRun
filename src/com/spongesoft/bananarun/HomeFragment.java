@@ -1,6 +1,6 @@
 package com.spongesoft.bananarun;
 
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
