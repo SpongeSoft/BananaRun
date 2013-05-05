@@ -211,8 +211,19 @@ public class MapSectionFragment extends Fragment {
 				// Get back the mutable Polyline
 				// mPolyline = mMap.addPolyline(rectOptions);
 
-				startLocation();
+				//startLocation();
 			}
+		}
+		
+		
+	}
+	
+	private void update_map() {
+		//Get the race_id
+		long race = getArguments().getLong("race_id");
+		if(race != 0L) {
+			//TODO: If it's indeed a race, go and get its points
+			
 		}
 	}
 

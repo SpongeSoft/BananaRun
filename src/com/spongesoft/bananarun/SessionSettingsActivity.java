@@ -111,12 +111,24 @@ public class SessionSettingsActivity extends Activity {
 				int pickerVal = np.getValue(); //Store picker value
 				updatePrefsLimit(prefs, pickerVal); //Into preferences
 				
+				/* Create the new race */
+				
+				DBManagement manager = new DBManagement(v.getContext());
+				manager.open();
+				
+				float race = manager.setRace();
+				
+				manager.close();
+				
 				/* Create an intent and start the new Activity */
 				Intent startSession = new Intent(SessionSettingsActivity.this,
 						SessionActivity.class);
+				startSession.putExtra("race_id", race);
 				startActivity(startSession);
-				
-        		getBaseContext().startService(new Intent(getBaseContext(), LocationService.class));
+
+				Intent serviceIntent = new Intent(getBaseContext(), LocationService.class);
+				serviceIntent.putExtra("race_id", race);
+        		getBaseContext().startService(serviceIntent);
 
 				// finishActivity(MainActivity);
 			}

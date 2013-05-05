@@ -1,5 +1,6 @@
 package com.spongesoft.bananarun;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -113,12 +114,20 @@ public class SessionFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				chronometer.stop(); //Stop timer
+
+				/*				chronometer.stop(); //Stop timer
 				chronometer.setBase(SystemClock.elapsedRealtime()); //Restart timer value
 				startBtn.setText("Start");
 				state = 0; 
 				Log.d("Chronometer","Chronometer state is: "+state);
+*/
+				//Send broadcast to stop service.
 
+		            final Intent intent = new Intent("com.spongesoft.bananarun.TO_SERVICE");
+
+		            intent.putExtra("data", "stop");
+
+		            v.getContext().sendBroadcast(intent);
 			}
 
 		});
