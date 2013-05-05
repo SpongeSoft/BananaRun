@@ -2,7 +2,7 @@ package com.spongesoft.bananarun;
 
 import java.util.Random;
 
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -115,6 +115,9 @@ public class SessionSettingsActivity extends Activity {
 				Intent startSession = new Intent(SessionSettingsActivity.this,
 						SessionActivity.class);
 				startActivity(startSession);
+				
+        		getBaseContext().startService(new Intent(getBaseContext(), LocationService.class));
+
 				// finishActivity(MainActivity);
 			}
 		});

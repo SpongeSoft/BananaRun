@@ -15,7 +15,7 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 
 public class SessionFragment extends Fragment {
 

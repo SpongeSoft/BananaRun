@@ -2,6 +2,9 @@ package com.spongesoft.bananarun;
 
 //Hello, DietApp!
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Typeface;

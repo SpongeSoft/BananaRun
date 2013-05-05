@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spongesoft.dietapp"
+    package="com.spongesoft.bananarun"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -34,7 +34,7 @@
         </activity>
         
         <service
-        android:name=".LocationService"
+        android:name="com.spongesoft.bananarun.LocationService"
         android:label="dietApp Location Service" >
     	</service>
     

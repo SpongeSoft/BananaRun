@@ -2,7 +2,7 @@ package com.spongesoft.bananarun;
 
 import com.spongesoft.bananarun.MainActivity.DummySectionFragment;
 import com.spongesoft.bananarun.MainActivity.SectionsPagerAdapter;
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 
 import android.app.Activity;
 import android.graphics.Typeface;
