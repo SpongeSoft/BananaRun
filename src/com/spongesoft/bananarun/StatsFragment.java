@@ -40,14 +40,16 @@ public class StatsFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
-	int[] firstData={23,145,67,78,86,190,46,78,167,164};
-	int[] secondData={83,45,168,138,67,150,64,87,144,188};
+	//int[] firstData={23,145,67,78,86,190,46,78,167,164};
+	//int[] secondData={83,45,168,138,67,150,64,87,144,188};
+	
+	
+	
 	/**
 	 * Buttons and whatnot
 	 */
 	DBManagement entry;
-	
-
+	double [][] arr;
 	/**
 	 * Methods
 	 */
@@ -67,6 +69,8 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View StatsView = inflater
 				.inflate(R.layout.stats, container, false);
+		entry.open();
+		arr=entry.getRaceParam((long )9,1);
 		
 		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
 		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
@@ -136,15 +140,18 @@ public class StatsFragment extends Fragment {
 	
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-	                CategorySeries firstSeries = new CategorySeries("General 1");
-	                for(int i=0;i<firstData.length;i++)
-	                    firstSeries.add(firstData[i]);
+	                CategorySeries firstSeries = new CategorySeries("run");
+	              
+	                for(int i=0;i<arr.length;i++)
+	                    firstSeries.add(arr[i][0]);
 	                barChartDataset.addSeries(firstSeries.toXYSeries());
 	         
-	             CategorySeries secondSeries = new CategorySeries("General 2");
-	                for(int j=0;j<secondData.length;j++)
-	                    secondSeries.add(secondData[j]);
+	                CategorySeries secondSeries = new CategorySeries("time");
+	                for(int j=0;j<arr.length;j++)
+	                    secondSeries.add(arr[0][j]);
 	                barChartDataset.addSeries(secondSeries.toXYSeries());
+	                
+	                
 	        return barChartDataset;
 	      }
 	
