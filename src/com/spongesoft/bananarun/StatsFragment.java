@@ -126,7 +126,6 @@ public class StatsFragment extends Fragment {
 				StatsView.getContext().startActivity(newSession);
 				}
 			}
-
 		});
 
 		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
