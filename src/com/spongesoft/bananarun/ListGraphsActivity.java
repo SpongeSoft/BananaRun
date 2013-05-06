@@ -2,7 +2,9 @@ package com.spongesoft.bananarun;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.spongesoft.bananarun.LineChart;
 import com.spongesoft.bananarun.MainActivity;
@@ -20,12 +22,14 @@ public class ListGraphsActivity extends Activity {
 	private static final int ID_DISTANCE = 1;
 	private static final int ID_SPEED = 2;
 	private static final int ID_ALTITUDE = 3;
-
+	SharedPreferences preferences;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.selectgraph);
+		preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
 		ActionItem nextItem = new ActionItem(ID_DISTANCE, "Distance",
 				getResources().getDrawable(R.drawable.menu_ok));
@@ -62,9 +66,9 @@ public class ListGraphsActivity extends Activity {
 						// here we can filter which action item was clicked with
 						// pos or actionId parameter
 						if (actionId == ID_DISTANCE) {
-							Intent next = new Intent(ListGraphsActivity.this,
-									LineChart.class);
-							next.putExtra("graphID", actionId);
+							SharedPreferences.Editor editor = preferences.edit();
+							editor.putInt("graphID",actionId );
+							editor.commit();
 							Intent lineChartIntent = new Intent(
 									ListGraphsActivity.this, LineChart.class);
 							startActivity(lineChartIntent);
@@ -73,9 +77,9 @@ public class ListGraphsActivity extends Activity {
 							// "Let's do some search action",
 							// Toast.LENGTH_SHORT).show();
 						} else if (actionId == ID_SPEED) {
-							Intent next = new Intent(ListGraphsActivity.this,
-									LineChart.class);
-							next.putExtra("graphID", actionId);
+							SharedPreferences.Editor editor = preferences.edit();
+							editor.putInt("graphID",actionId );
+							editor.commit();
 							Intent lineChartIntent = new Intent(
 									ListGraphsActivity.this, LineChart.class);
 							startActivity(lineChartIntent);
@@ -83,9 +87,9 @@ public class ListGraphsActivity extends Activity {
 							// "I have no info this time",
 							// Toast.LENGTH_SHORT).show();
 						} else if (actionId == ID_ALTITUDE) {
-							Intent next = new Intent(ListGraphsActivity.this,
-									LineChart.class);
-							next.putExtra("graphID", actionId);
+							SharedPreferences.Editor editor = preferences.edit();
+							editor.putInt("graphID",actionId );
+							editor.commit();
 							Intent lineChartIntent = new Intent(
 									ListGraphsActivity.this, LineChart.class);
 							startActivity(lineChartIntent);

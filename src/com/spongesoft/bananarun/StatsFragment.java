@@ -86,7 +86,6 @@ public class StatsFragment extends Fragment {
 		genStats.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				Intent newSession = new Intent(getActivity().getBaseContext(),
 						ListBarGraphs.class);
 				
@@ -124,8 +123,9 @@ public class StatsFragment extends Fragment {
 				
 				
 				double raceID = distance[position][0];
-				Bundle bundle = new Bundle();
-			    bundle.putDouble("statsID", raceID);
+				SharedPreferences.Editor editor = preferences.edit();
+				editor.putLong("statsID",(long) raceID);
+				editor.commit();
 				//newSession.putExtra("statsID", raceID);
 				
 				StatsView.getContext().startActivity(newSession);
