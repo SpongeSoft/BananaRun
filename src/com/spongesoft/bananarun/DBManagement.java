@@ -74,7 +74,7 @@ public class DBManagement {
 			//db.execSQL("DROP TABLE IF EXISTS " + DATABASE_SESSION_TABLE);
 			db.execSQL("CREATE TABLE " + DATABASE_SESSION_TABLE + " ("
 					+ KEY_S_RACEID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ KEY_S_DATE + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," 
+					+ KEY_S_DATE + " DOUBLE," 
 					+ KEY_S_AVG_SPEED + " DOUBLE, " 
 					+ KEY_S_TOTAL_DISTANCE + " DOUBLE," 
 					+ KEY_S_TOTAL_TIME + " DOUBLE," 
@@ -148,10 +148,9 @@ public class DBManagement {
 	public long setRace() {
 		// TODO Auto-generated method stub
 		// set the format to sql date time, obtained from http://stackoverflow.com/a/819605/1197418
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		Date date = new Date();
+
 		ContentValues cv = new ContentValues();
-		cv.put(KEY_S_DATE, dateFormat.format(date));
+		cv.put(KEY_S_DATE, System.currentTimeMillis());
 		//cv.put(KEY_S_AVG_SPEED, 12);
 		//cv.put(KEY_S_TOTAL_TIME, 23);
 		//cv.put(KEY_S_TOTAL_DISTANCE, 34);
@@ -333,6 +332,62 @@ public class DBManagement {
 				Log.d("DEBUG", data.toString());
 				result[a][0] = data;
 				data = c.getDouble(c.getColumnIndex(KEY_L_TIMESTAMP));
+				result[a][1] = data;
+				a++;
+				c.moveToNext();
+			}
+		}
+		c.close();
+
+		return result;
+	}
+	
+	/**
+	 * Returns the params of all races.
+	 * As an Array!
+	 * @param raceID: the ID of the race
+	 * @param param: the parameter:
+	 *      - 0: Time
+	 *      - 1: Average Speed
+	 *      - 2: Distance
+	 *      - 3: Kcal
+	 * @return An array with the parameter and the timestamps
+	 */
+	public double[][] getSessionsParam(long raceID, int param){
+		// TODO Auto-generated method stub
+		String columnToLookFor = "";
+		int locationCount = getLocationCount(raceID);
+		double[][] result = new double[locationCount][2];
+		
+		switch (param) {
+			case 0:
+				columnToLookFor = KEY_S_TOTAL_TIME;
+				break;
+			case 1:
+				columnToLookFor = KEY_S_AVG_SPEED;
+				break;
+			case 2:
+				columnToLookFor = KEY_S_TOTAL_DISTANCE;
+				break;
+			case 3:
+				columnToLookFor = KEY_S_KCAL;
+				break;
+			
+			default:
+				result[0][0] = -1;
+				return result;
+		}
+		
+		Cursor c = ourDB.rawQuery("SELECT " + columnToLookFor + " , " + KEY_S_DATE + 
+				" FROM " + DATABASE_SESSION_TABLE +
+				" WHERE " + KEY_S_RACEID + "= " + raceID, null);
+		
+		int a = 0;
+		if (c.moveToFirst()){
+			while(!c.isAfterLast()){
+				Double data = c.getDouble(c.getColumnIndex(columnToLookFor));
+				result[a][0] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_DATE));
 				result[a][1] = data;
 				a++;
 				c.moveToNext();
