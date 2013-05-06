@@ -1,9 +1,6 @@
 package com.spongesoft.bananarun;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -493,6 +490,7 @@ public class DBManagement {
 	 * @param lng_b	Latitude of point b
 	 * @return The distance from point a to point b (in meters)
 	 */
+	@SuppressLint("FloatMath")
 	private double gps2m(float lat_a, float lng_a, float lat_b, float lng_b) {
 	    float pk = (float) (180/3.14169);
 
