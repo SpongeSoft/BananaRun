@@ -33,7 +33,7 @@ public class ListBarGraphs extends Activity {
 	private static final int ID_INFO   = 4;
 	private static final int ID_ERASE  = 5;	
 	private static final int ID_OK     = 6;
-	int[] firstData={23,36,18,18};
+	//int[] firstData={23,36,18,18};
 	
 	DBManagement entry;
 	double[][] arr;
@@ -183,6 +183,20 @@ public class ListBarGraphs extends Activity {
 	        //renderer.setXAxisMin(0.5);
 	        renderer.setXAxisMax(10);
 	        renderer.setYAxisMin(0);
-	        renderer.setYAxisMax(50);
+	        renderer.setYAxisMax(setmaxvalue(arr));
 	      }
+	 
+	 public int setmaxvalue( double arr[][]){
+    	 double max_value=arr[0][0];
+    	 for (int i = 1; i < arr.length; i++){
+    		 if(max_value<arr[i][0]){
+    			 max_value=arr[i][0];
+    		 }
+    		 
+    		 
+    	 }
+    	
+    	return (int)max_value;
+		
+    }
 }
