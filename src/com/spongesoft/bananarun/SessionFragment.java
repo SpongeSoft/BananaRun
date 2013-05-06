@@ -88,7 +88,7 @@ public class SessionFragment extends Fragment {
 		chronometer = (Chronometer) SessionView.findViewById(R.id.chronometer);
 		
 		kmCounter = (TextView) SessionView.findViewById(R.id.kmeter);
-		timeMeter = (TextView) SessionView.findViewById(R.id.timer);
+		//timeMeter = (TextView) SessionView.findViewById(R.id.timer);
 		ImageView weatherIcon = (ImageView) SessionView.findViewById(R.id.sessionWeatherIcon);
 		TextView sessionTemp = (TextView) SessionView.findViewById(R.id.temperature);
 
@@ -106,7 +106,7 @@ public class SessionFragment extends Fragment {
 				"fonts/bradbunr.ttf");
 		
 		kmCounter.setTypeface(font);		
-		timeMeter.setTypeface(font);
+		//timeMeter.setTypeface(font);
 		chronometer.setTypeface(font);
 		sessionTemp.setTypeface(font);
 
