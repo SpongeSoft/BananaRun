@@ -30,7 +30,7 @@ public class SessionSettingsActivity extends Activity {
 	RadioButton r1;
 	RadioButton r2;
 	RadioButton r3;
-	TextView messageTitle;
+	//TextView messageTitle;
 	TextView message;
 
 	/* Preferences and Picker */
@@ -54,14 +54,14 @@ public class SessionSettingsActivity extends Activity {
 		r2 = (RadioButton) findViewById(R.id.distance_limit);
 		r3 = (RadioButton) findViewById(R.id.free_running);
 
-		messageTitle = (TextView) findViewById(R.id.motivation);
+		//messageTitle = (TextView) findViewById(R.id.motivation);
 		message = (TextView) findViewById(R.id.message);
 		generateMessage(message); //Retrieve random message
 		
 		/* Set font to TextView components */
 		Typeface font = Typeface.createFromAsset(getAssets(),
 				"fonts/bradbunr.ttf");
-		messageTitle.setTypeface(font);
+		//messageTitle.setTypeface(font);
 		message.setTypeface(font);
 		
 		np = (NumberPicker) findViewById(R.id.limit_picker);
