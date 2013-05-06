@@ -10,6 +10,8 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -26,6 +28,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,7 +46,7 @@ public class StatsFragment extends Fragment {
 
 	int[] firstData={23,56};
 	
-	
+	ArrayAdapter<String> adapter;
 	
 	
 	/**
@@ -82,22 +85,23 @@ public class StatsFragment extends Fragment {
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				 getBarChart();
+				
+			    Intent newSession = new Intent(getActivity().getBaseContext(), ListBarGraphs.class);
+				StatsView.getContext().startActivity(newSession);
 			}
 		 });
 		
 		entry.open();
 		int numSessions = entry.getRaceCount();
+		double distance[][] = entry.getSessionIDsAndDistances();
 		entry.close();
 		
-		String[] list = new String[] {"Session 1", "Session 2", "Session 3",
-				"Session 4", "Session 5"};
-				/*new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<String>();
 	    for (int j = 0; j < numSessions; j++) {
-	      list.add("Session"+j);
+	      list.add("Session " + (j+1) + " - " + distance[1][j]);
 	    }
-	    */
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+	    
+		adapter = new ArrayAdapter<String>(getActivity(),
 		        android.R.layout.simple_list_item_1, list);
 		    lv.setAdapter(adapter);
 
@@ -108,10 +112,36 @@ public class StatsFragment extends Fragment {
 	              int position, long id) {
 	        	  final String item = (String) parent.getItemAtPosition(position);
 		            Toast.makeText(getActivity().getApplicationContext(), "Selected item: "+item, Toast.LENGTH_SHORT).show();         
-	          }
+	          }  
 
 	        });
 	        
+	        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+	            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+	                    int pos, long id) {
+	                // TODO Auto-generated method stub
+
+	                Log.v("long clicked","pos"+" "+pos);
+	                
+	                AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
+	                adb.setTitle("Delete?");
+	                adb.setMessage("Are you sure you want to delete " + pos + "?");
+	                final int positionToRemove = pos;
+	                adb.setNegativeButton("Cancel", null);
+	                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+	                    public void onClick(DialogInterface dialog, int which) {
+	                    	entry.open();
+	                    	entry.deleteRace(positionToRemove);
+	                    	entry.close();
+	                    	adapter.remove(adapter.getItem(positionToRemove));
+	                        adapter.notifyDataSetChanged();
+	                    }});
+	                adb.show();
+
+	                return true;
+	            }
+	        }); 
 	    
 
 		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
@@ -135,12 +165,7 @@ public class StatsFragment extends Fragment {
 		return StatsView;
 	}
 	
-	public void getBarChart(){
-	    XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
-	    setBarChartSettings(barChartRenderer);
-	    Intent intent = ChartFactory.getBarChartIntent(getActivity().getBaseContext(), getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
-	    startActivity(intent);
-	    }
+
 	
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
