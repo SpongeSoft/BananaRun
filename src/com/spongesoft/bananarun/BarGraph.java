@@ -2,7 +2,7 @@ package com.spongesoft.bananarun;
 
 import android.os.Bundle;
 import android.app.Activity;
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
