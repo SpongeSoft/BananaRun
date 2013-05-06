@@ -32,7 +32,8 @@
         </activity>
 
         <activity
-            android:name="com.spongesoft.bananarun.SessionActivity">
+            android:name="com.spongesoft.bananarun.SessionActivity"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name="com.spongesoft.bananarun.MyMapActivity"
