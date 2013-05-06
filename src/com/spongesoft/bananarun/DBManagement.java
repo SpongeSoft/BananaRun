@@ -257,18 +257,68 @@ public class DBManagement {
 	
 	// -------------------- All getters --------------------
 	/**
-	 * Returns the param of a specific race.
-	 * As a String!
+	 * Returns the params of a specific race.
+	 * As an Array!
 	 * @param raceID: the ID of the race
 	 * @param param: the parameter:
-	 *      - 0: Average Speed
-	 *      - 1: Total time
-	 *      - 2: Total distance
-	 *      - 3: Average time per km
-	 *      - 4: Kcal
-	 * @return the average speed
+	 *      - 0: Distance
+	 *      - 1: Speed
+	 *      - 2: Altitude
+	 * @return An array with that parmeter and timetamp
 	 */
-	public String getRaceParam(long raceID, int param){
+	public double[][] getRaceParam(long raceID, int param){
+		// TODO Auto-generated method stub
+		String columnToLookFor = "";
+		double[][] result = {{},{}};
+		
+		switch (param) {
+			case 0:
+				columnToLookFor = KEY_L_DISTANCE;
+				break;
+			case 1:
+				columnToLookFor = KEY_L_SPEED;
+				break;
+			case 2:
+				columnToLookFor = KEY_L_ALTITUDE;
+				break;
+			
+			default:
+				result[0][0] = -1;
+				return result;
+		}
+		
+		Cursor c = ourDB.rawQuery("SELECT " + columnToLookFor + " , " + KEY_L_TIMESTAMP + 
+				" FROM " + DATABASE_LOCATION_TABLE +
+				" WHERE " + KEY_L_RACEID + "= " + raceID, null);
+		
+		int a = 0;
+		if (c.moveToFirst()){
+			while(!c.isAfterLast()){
+				Double data = c.getDouble(c.getColumnIndex(columnToLookFor));
+				result[a][0] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_L_TIMESTAMP));
+				result[a][1] = data;
+				a++;
+				c.moveToNext();
+			}
+		}
+		c.close();
+
+		return result;
+	}
+	
+	/**
+	 * Deletes an entry based on the ID from the race.
+	 * @param raceID
+	 * @throws SQLException
+	 */
+	public void deleteRace(long raceID) throws SQLException {
+		// TODO Auto-generated method stub
+		ourDB.delete(DATABASE_SESSION_TABLE, KEY_S_RACEID + "=" + raceID, null);
+		ourDB.delete(DATABASE_LOCATION_TABLE, KEY_L_RACEID + "=" + raceID, null);
+	}
+
+	public String getRace(long raceID, int param){
 		// TODO Auto-generated method stub
 		String columnToLookFor = "";
 		switch (param) {
@@ -306,17 +356,6 @@ public class DBManagement {
 		c.close();
 
 		return result;
-	}
-	
-	/**
-	 * Deletes an entry based on the ID from the race.
-	 * @param raceID
-	 * @throws SQLException
-	 */
-	public void deleteRace(long raceID) throws SQLException {
-		// TODO Auto-generated method stub
-		ourDB.delete(DATABASE_SESSION_TABLE, KEY_S_RACEID + "=" + raceID, null);
-		ourDB.delete(DATABASE_LOCATION_TABLE, KEY_L_RACEID + "=" + raceID, null);
 	}
 	
 	/**
