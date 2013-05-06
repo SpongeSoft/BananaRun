@@ -265,7 +265,7 @@ public class DBManagement {
 	public int getRaceCount(){
 		int result = -1;
 		
-		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(" + KEY_S_RACEID + 
+		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(*" + 
 				") FROM " + DATABASE_SESSION_TABLE);
 
 		result = (int) s.simpleQueryForLong();
@@ -280,7 +280,7 @@ public class DBManagement {
 	public int getLocationCount(long raceID){
 		int result = -1;
 		
-		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(" + KEY_L_RACEID + 
+		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(*" + 
 				") FROM " + DATABASE_SESSION_TABLE + 
 				" WHERE " + KEY_L_RACEID + "=" + raceID);
 
