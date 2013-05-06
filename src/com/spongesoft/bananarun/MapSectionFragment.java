@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -38,11 +37,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnGenericMotionListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -52,13 +48,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapController;
 import com.spongesoft.bananarun.R;
 
 /**
@@ -84,6 +79,7 @@ public class MapSectionFragment extends Fragment {
 
 	SharedPreferences generalPrefs;
 	Handler handler;
+	MapController mc;
 
 	/* Position variables */
 	public double latitude;
@@ -154,6 +150,19 @@ public class MapSectionFragment extends Fragment {
 					mMap.setMapType(layer);
 					Log.d("onClickMap","Layer type is: NORMAL");
 				}
+			}
+		});
+		
+		locateBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				int lat = (int) (latitude /** 1E6*/);
+				   int lng = (int) (longitude /** 1E6*/);
+				GeoPoint point = new GeoPoint(lat, lng);
+				   mc.setCenter(point);
+				   //mapView.invalidate();
 			}
 		});
 		
