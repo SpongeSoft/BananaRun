@@ -24,7 +24,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
@@ -77,7 +80,7 @@ public class MapSectionFragment extends Fragment {
 	private Polyline mPolyline;
 	private DBManagement manager;
 	private int layer;
-
+	private LockableFragmentActivity parentActivity;
 	ImageView lockBtn;
 	ImageView layerBtn;
 	ImageView locateBtn;
@@ -105,15 +108,49 @@ public class MapSectionFragment extends Fragment {
 	public MapSectionFragment() {
 	}
 
+
+	@Override
+	public void onDestroy() {
+		stopReceiver();
+		mMapView.onDestroy();
+		super.onDestroy();
+	}
+
+	@Override
+	public void onPause() {
+		stopReceiver();
+		mMapView.onPause();
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+        final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
+        this.getActivity().registerReceiver(mReceiver, myFilter);
+        mMapView.onResume();
+		super.onResume();
+	}
+
+	private void stopReceiver() {
+		try {
+			this.getActivity().unregisterReceiver(mReceiver);
+		} catch(IllegalArgumentException e) {
+			Log.d("receiver", "Unregistered receiver more than once!");
+		}
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		final View inflatedView = inflater.inflate(R.layout.main, container,
 				false);
-		final LockableFragmentActivity parentActivity = (LockableFragmentActivity) this.getActivity();
+		parentActivity = (LockableFragmentActivity) this.getActivity();
 		layer = GoogleMap.MAP_TYPE_NORMAL; // Set the initial map type
 		manager = new DBManagement(getActivity());
 
+        final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
+        this.getActivity().registerReceiver(mReceiver, myFilter);
+        
 		try {
 			MapsInitializer.initialize(getActivity());
 		} catch (GooglePlayServicesNotAvailableException e) {
@@ -259,29 +296,12 @@ public class MapSectionFragment extends Fragment {
 			//TODO: If it's indeed a race, go and get its points
 			List<LatLng> points = manager.getPoints(race);
 			mPolyline.setPoints(points);
-			Log.d("map", "updating map, "+points.size()+" points ("+points.get(0).latitude+")");
-			mMap.animateCamera(CameraUpdateFactory.newLatLng(points.get(0)));
-
+			//Only move if the UI is not locked
+			if(!parentActivity.isLocked()) {
+				mMap.animateCamera(CameraUpdateFactory.newLatLng(points.get(points.size()-1)));
+			}
 			manager.close();
 		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		mMapView.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		mMapView.onPause();
-	}
-
-	@Override
-	public void onDestroy() {
-		mMapView.onDestroy();
-		super.onDestroy();
 	}
 
 	public void addLocation(Location location) {
@@ -304,7 +324,16 @@ public class MapSectionFragment extends Fragment {
 
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f));
 	}
+	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
+        public void onReceive(Context context, Intent intent) {		
+                   // Log.d("BroadcastService", "Service received: " + intent.getCharSequenceExtra("data"));
+                   // String message = intent.getStringExtra("data");
+                    update_map();
+
+        }
+
+};
 	public void startLocation() {
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager) getActivity()
