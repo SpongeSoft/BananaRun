@@ -14,6 +14,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:shadowColor="#000000"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
@@ -61,6 +63,29 @@
         android:background="@color/picker_background"
         android:visibility="invisible" />
 
+        <ImageView
+        android:id="@+id/gpsIcon"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_above="@+id/startsessionbutton"
+        android:layout_alignParentRight="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/gps_icon" >
+    </ImageView>
+    
+            <TextView
+        android:id="@+id/gpsMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/gpsIcon"
+        android:layout_above="@+id/startsessionbutton"
+        android:layout_marginRight="10sp"
+        android:textSize="15sp"
+        android:text="@string/gpsmsg"
+        android:textStyle="bold"
+        android:textColor="#af5e5e" />
+    
     <ImageView
         android:id="@+id/startsessionbutton"
         android:layout_width="wrap_content"
@@ -77,8 +102,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/limit_group"
         android:layout_marginTop="15sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
         android:layout_centerVertical="true"
         android:textSize="20sp"
         android:textStyle="bold" />

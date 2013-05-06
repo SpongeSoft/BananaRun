@@ -32,6 +32,7 @@ public class SessionSettingsActivity extends Activity {
 	RadioButton r3;
 	//TextView messageTitle;
 	TextView message;
+	TextView gpsMsg;
 
 	/* Preferences and Picker */
 	SharedPreferences prefs;
@@ -54,15 +55,20 @@ public class SessionSettingsActivity extends Activity {
 		r2 = (RadioButton) findViewById(R.id.distance_limit);
 		r3 = (RadioButton) findViewById(R.id.free_running);
 
-		//messageTitle = (TextView) findViewById(R.id.motivation);
+		gpsMsg = (TextView) findViewById(R.id.gpsMessage);
 		message = (TextView) findViewById(R.id.message);
 		generateMessage(message); //Retrieve random message
+		
 		
 		/* Set font to TextView components */
 		Typeface font = Typeface.createFromAsset(getAssets(),
 				"fonts/bradbunr.ttf");
 		//messageTitle.setTypeface(font);
 		message.setTypeface(font);
+		r1.setTypeface(font);
+		r2.setTypeface(font);
+		r3.setTypeface(font);
+		gpsMsg.setTypeface(font);
 		
 		np = (NumberPicker) findViewById(R.id.limit_picker);
 

@@ -13,10 +13,10 @@
     <string-array name="motivationalMessages">
         <item name="1">You\'re fat, and you shouldn\'t! Run for it!</item>
         <item name="2">You can throw in the towel, or you can use it to wipe the sweat off of your face.</item>
-        <item name="3">“Don\'t let fatigue make a coward of you.”</item>
-        <item name="4">“If you train your mind for running, everything else will be easy.”</item>
-    	<item name="5">“You don\'t stop running because you get old, you get old because you stop running.”</item>
-    	<item name="6">“Runners just do it, they run for the finish line even if someone else has reached it first.”</item>
+        <item name="3">Don\'t let fatigue make a coward of you.</item>
+        <item name="4">If you train your mind for running, everything else will be easy.</item>
+    	<item name="5">You don\'t stop running because you get old, you get old because you stop running.</item>
+    	<item name="6">Runners just do it, they run for the finish line even if someone else has reached it first.</item>
     </string-array>
 
 </resources>
