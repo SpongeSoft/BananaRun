@@ -144,6 +144,10 @@ public class SessionFragment extends Fragment {
 		            intent.putExtra("data", "stop");
 
 		            v.getContext().sendBroadcast(intent);
+		            
+		        Intent backToHome = new Intent (getActivity().getApplicationContext(), MainActivity.class);
+		        startActivity(backToHome);
+		        getActivity().finish();
 			}
 
 		});
