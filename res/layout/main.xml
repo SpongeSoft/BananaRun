@@ -12,8 +12,8 @@
 
 	    <ImageView
 	        android:id="@+id/lockButton"
-            android:layout_width="70sp"
-	        android:layout_height="70sp"
+            android:layout_width="50sp"
+	        android:layout_height="50sp"
             android:layout_alignLeft="@+id/map" 
         	android:layout_alignBottom="@+id/map" 
             android:contentDescription="@string/lockmap" 
@@ -22,20 +22,20 @@
 
 	    <ImageView
 	        android:id="@+id/locationButton"
-	        android:layout_width="70sp"
-	        android:layout_height="70sp"
-	        android:layout_toRightOf="@+id/lockButton" 
-        	android:layout_alignBottom="@+id/map" 
+	        android:layout_width="50sp"
+	        android:layout_height="50sp"
+	        android:layout_above="@+id/lockButton" 
+        	android:layout_alignLeft="@+id/map"  
 	        android:contentDescription="@string/locate"
 	        android:src="@drawable/center_button" >
 	        </ImageView>
 
 	    <ImageView
 	        android:id="@+id/layerButton"
-	        android:layout_toRightOf="@+id/locationButton" 
-        	android:layout_alignBottom="@+id/map" 
-	        android:layout_width="70sp"
-	        android:layout_height="70sp"
+	        android:layout_above="@+id/locationButton" 
+        	android:layout_alignLeft="@+id/map"  
+	        android:layout_width="50sp"
+	        android:layout_height="50sp"
 	        android:contentDescription="@string/switchlayer"
 	        android:src="@drawable/layers_button" >
 	        </ImageView>
