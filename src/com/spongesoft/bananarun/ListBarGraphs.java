@@ -32,11 +32,26 @@ public class ListBarGraphs extends Activity {
 	private static final int ID_ERASE  = 5;	
 	private static final int ID_OK     = 6;
 	int[] firstData={23,36,18,18};
+	
+	DBManagement entry;
+	double[][] arr;
+	
+	 
+  		
+  		
+  	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.selectgraph);
+		entry = new DBManagement(this);
+		entry.open();
+		Intent currentIntent=getIntent();
+		double id_race=currentIntent.getDoubleExtra("statsID", -1.0);
+		
+		
 
 		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Time", getResources().getDrawable(R.drawable.menu_ok));
 		ActionItem prevItem 	= new ActionItem(ID_UP, "Average Speed", getResources().getDrawable(R.drawable.menu_ok));
@@ -57,6 +72,8 @@ public class ListBarGraphs extends Activity {
         quickAction.addActionItem(searchItem);
         quickAction.addActionItem(item);
         
+      
+        
     	
         //Set listener for action item clicked
 		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {			
@@ -66,19 +83,26 @@ public class ListBarGraphs extends Activity {
                  
 				//here we can filter which action item was clicked with pos or actionId parameter
 				if (actionId == ID_SEARCH) {
-					
+					arr = entry.getSessionsParam(0);
+					entry.close();
 					getBarChart(actionItem.getTitle());
 					
 					
 					//Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
 				} else if (actionId == ID_DOWN) {
+					arr = entry.getSessionsParam(1);
+					entry.close();
 					getBarChart(actionItem.getTitle());
 					//Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
 				} else if (actionId == ID_UP){
+					arr = entry.getSessionsParam(2);
+					entry.close();
 					getBarChart(actionItem.getTitle());
 					//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
 				}
 				else if (actionId == ID_OK){
+					arr = entry.getSessionsParam(3);
+					entry.close();
 					getBarChart(actionItem.getTitle());
 				//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
 			}
@@ -116,8 +140,8 @@ public class ListBarGraphs extends Activity {
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
 	                CategorySeries firstSeries = new CategorySeries("Session");
-	                for(int i=0;i<firstData.length;i++)
-	                    firstSeries.add(firstData[i]);
+	                for(int i=0;i<arr.length;i++)
+	                    firstSeries.add(arr[i][0]);
 	                barChartDataset.addSeries(firstSeries.toXYSeries());
 	         
 	            
