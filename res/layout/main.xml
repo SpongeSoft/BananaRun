@@ -8,39 +8,37 @@
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottombar"
         android:layout_alignParentTop="true" />
 
-    <LinearLayout
-        android:id="@+id/bottombar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+	    <ImageView
+	        android:id="@+id/lockButton"
+            android:layout_width="70sp"
+	        android:layout_height="70sp"
+            android:layout_alignLeft="@+id/map" 
+        	android:layout_alignBottom="@+id/map" 
+            android:contentDescription="@string/lockmap" 
+            android:src="@drawable/lock_button" >
+            </ImageView>
 
-        <Button
-            android:id="@+id/lockButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lockmap" />
-    </LinearLayout>
+	    <ImageView
+	        android:id="@+id/locationButton"
+	        android:layout_width="70sp"
+	        android:layout_height="70sp"
+	        android:layout_toRightOf="@+id/lockButton" 
+        	android:layout_alignBottom="@+id/map" 
+	        android:contentDescription="@string/locate"
+	        android:src="@drawable/center_button" >
+	        </ImageView>
 
-    <Button
-        android:id="@+id/locationButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/map"
-        android:text="@string/locate" />
+	    <ImageView
+	        android:id="@+id/layerButton"
+	        android:layout_toRightOf="@+id/locationButton" 
+        	android:layout_alignBottom="@+id/map" 
+	        android:layout_width="70sp"
+	        android:layout_height="70sp"
+	        android:contentDescription="@string/switchlayer"
+	        android:src="@drawable/layers_button" >
+	        </ImageView>
 
-    <Button
-        android:id="@+id/layerButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/map"
-        android:layout_centerHorizontal="true"
-        android:text="@string/switchlayer" />
-
+    
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.spongesoft.bananarun;
 
+import java.util.ArrayList;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.model.CategorySeries;
@@ -23,9 +25,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spongesoft.bananarun.R;
 
@@ -45,7 +51,6 @@ public class StatsFragment extends Fragment {
 	 */
 	DBManagement entry;
 	double [][] arr;
-
 	/**
 	 * Methods
 	 */
@@ -63,7 +68,7 @@ public class StatsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
-		final View HomeView = inflater
+		final View StatsView = inflater
 				.inflate(R.layout.stats, container, false);
 		entry.open();
 		
@@ -71,8 +76,9 @@ public class StatsFragment extends Fragment {
 		
 		Log.d("valor",""+arr.length);
 		
-		Button genStats = (Button) HomeView.findViewById(R.id.generalStats);
-		
+		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
+		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
+
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -80,46 +86,33 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		Button carrera1 = (Button) HomeView.findViewById(R.id.session1);
+		entry.open();
+		int numSessions = entry.getRaceCount();
+		entry.close();
 		
-		carrera1.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
-		Button carrera2 = (Button) HomeView.findViewById(R.id.session2);
-		
-		carrera2.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
-		Button carrera3=(Button) HomeView.findViewById(R.id.session3);
-		
-		carrera3.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
-		Button carrera4 = (Button) HomeView.findViewById(R.id.session4);
-		
-		carrera4.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
+		String[] list = new String[] {"Session 1", "Session 2", "Session 3",
+				"Session 4", "Session 5"};
+				/*new ArrayList<String>();
+	    for (int j = 0; j < numSessions; j++) {
+	      list.add("Session"+j);
+	    }
+	    */
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		        android.R.layout.simple_list_item_1, list);
+		    lv.setAdapter(adapter);
+
+	        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+	          @Override
+	          public void onItemClick(AdapterView<?> parent, final View view,
+	              int position, long id) {
+	        	  final String item = (String) parent.getItemAtPosition(position);
+		            Toast.makeText(getActivity().getApplicationContext(), "Selected item: "+item, Toast.LENGTH_SHORT).show();         
+	          }
+
+	        });
+	        
+	    
 
 		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
 		entry.open();
@@ -139,7 +132,7 @@ public class StatsFragment extends Fragment {
 		
 		*/
 		
-		return HomeView;
+		return StatsView;
 	}
 	
 	public void getBarChart(){

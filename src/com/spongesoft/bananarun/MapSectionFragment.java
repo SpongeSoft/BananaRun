@@ -43,6 +43,7 @@ import android.view.View;
 import android.view.View.OnGenericMotionListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -77,9 +78,9 @@ public class MapSectionFragment extends Fragment {
 	
 	private int layer;
 	
-	Button lockBtn;
-	Button layerBtn;
-	Button locateBtn;
+	ImageView lockBtn;
+	ImageView layerBtn;
+	ImageView locateBtn;
 
 	SharedPreferences generalPrefs;
 	Handler handler;
@@ -121,9 +122,9 @@ public class MapSectionFragment extends Fragment {
 		mMapView = (MapView) inflatedView.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
 		
-		lockBtn = (Button) inflatedView.findViewById(R.id.lockButton);
-		layerBtn = (Button) inflatedView.findViewById(R.id.layerButton);
-		locateBtn = (Button) inflatedView.findViewById(R.id.locationButton);
+		lockBtn = (ImageView) inflatedView.findViewById(R.id.lockButton);
+		layerBtn = (ImageView) inflatedView.findViewById(R.id.layerButton);
+		locateBtn = (ImageView) inflatedView.findViewById(R.id.locationButton);
 
 		/* Buttons behaviour */
 
