@@ -8,7 +8,7 @@ package com.spongesoft.bananarun;
 	import org.achartengine.model.XYSeries;
 	import org.achartengine.renderer.XYMultipleSeriesRenderer;
 	import org.achartengine.renderer.XYSeriesRenderer;
-	import com.spongesoft.dietapp.R;
+	import com.spongesoft.bananarun.R;
 	 
 	import android.app.Activity;
 	import android.graphics.Color;
