@@ -411,6 +411,9 @@ public class DBManagement {
 	public double[][] getSessionsIdsAndDistance(){
 		// TODO Auto-generated method stub
 		int raceCount = getRaceCount();
+		if (raceCount == 0) {
+			return null;
+		}
 		double[][] result = new double[raceCount][2];
 		
 		Cursor c = ourDB.rawQuery("SELECT " + KEY_S_RACEID + " , " + KEY_S_TOTAL_DISTANCE + 
