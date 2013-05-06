@@ -19,12 +19,24 @@
         android:layout_marginRight="30sp"
         android:layout_marginLeft="30sp"
         android:layout_marginTop="20sp" />
-        
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sessions"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginLeft="10sp"
+            android:textColor="@color/text_colour"
+            android:layout_below="@+id/generalStats" >
+            
+        </TextView>
         <ListView
             android:id="@+id/statsListview"
+            android:layout_marginLeft="30sp"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/generalStats" >
+            android:layout_below="@id/header" >
         </ListView>
     
 </RelativeLayout>
