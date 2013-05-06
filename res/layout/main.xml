@@ -10,14 +10,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-	    <ImageView
+	     <ImageView
 	        android:id="@+id/lockButton"
             android:layout_width="50sp"
 	        android:layout_height="50sp"
             android:layout_alignLeft="@+id/map" 
         	android:layout_alignBottom="@+id/map" 
             android:contentDescription="@string/lockmap" 
-            android:src="@drawable/lock_button" >
+            android:src="@drawable/lock_button" 
+            android:visibility="invisible" >"
             </ImageView>
 
 	    <ImageView

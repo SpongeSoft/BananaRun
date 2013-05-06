@@ -66,10 +66,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/logo_description"
-        android:src="@drawable/start_button" >
+        android:src="@drawable/start_session_button" >
     </ImageView>
 
     <TextView
