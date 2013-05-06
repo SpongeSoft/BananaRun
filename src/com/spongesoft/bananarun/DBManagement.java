@@ -353,11 +353,11 @@ public class DBManagement {
 	 *      - 3: Kcal
 	 * @return An array with the parameter and the timestamps
 	 */
-	public double[][] getSessionsParam(long raceID, int param){
+	public double[][] getSessionsParam(int param){
 		// TODO Auto-generated method stub
 		String columnToLookFor = "";
-		int locationCount = getLocationCount(raceID);
-		double[][] result = new double[locationCount][2];
+		int raceCount = getRaceCount();
+		double[][] result = new double[raceCount][2];
 		
 		switch (param) {
 			case 0:
@@ -379,8 +379,7 @@ public class DBManagement {
 		}
 		
 		Cursor c = ourDB.rawQuery("SELECT " + columnToLookFor + " , " + KEY_S_DATE + 
-				" FROM " + DATABASE_SESSION_TABLE +
-				" WHERE " + KEY_S_RACEID + "= " + raceID, null);
+				" FROM " + DATABASE_SESSION_TABLE, null);
 		
 		int a = 0;
 		if (c.moveToFirst()){
@@ -398,6 +397,41 @@ public class DBManagement {
 		return result;
 	}
 	
+	/**
+	 * Returns the params of all races.
+	 * As an Array!
+	 * @param raceID: the ID of the race
+	 * @param param: the parameter:
+	 *      - 0: Time
+	 *      - 1: Average Speed
+	 *      - 2: Distance
+	 *      - 3: Kcal
+	 * @return An array with the parameter and the timestamps
+	 */
+	public double[][] getSessionsIdsAndDistance(){
+		// TODO Auto-generated method stub
+		int raceCount = getRaceCount();
+		double[][] result = new double[raceCount][2];
+		
+		Cursor c = ourDB.rawQuery("SELECT " + KEY_S_RACEID + " , " + KEY_S_TOTAL_DISTANCE + 
+				" FROM " + DATABASE_SESSION_TABLE, null);
+		
+		int a = 0;
+		if (c.moveToFirst()){
+			while(!c.isAfterLast()){
+				Double data = c.getDouble(c.getColumnIndex(KEY_S_RACEID));
+				result[a][0] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_TOTAL_DISTANCE));
+				result[a][1] = data;
+				a++;
+				c.moveToNext();
+			}
+		}
+		c.close();
+
+		return result;
+	}
+		
 	/**
 	 * Deletes an entry based on the ID from the race.
 	 * @param raceID
