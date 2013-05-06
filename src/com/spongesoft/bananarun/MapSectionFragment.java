@@ -174,8 +174,10 @@ public class MapSectionFragment extends Fragment {
 			public void onClick(View v) {
 				if(parentActivity.isLocked()) {
 					parentActivity.unlock();
+					lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.open_lock));
 				}else{
 					parentActivity.lock();
+					lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.closed_lock));
 				}
 			}
 		});

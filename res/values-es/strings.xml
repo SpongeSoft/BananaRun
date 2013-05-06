@@ -17,5 +17,6 @@
     <string name="switchlayer">Cambiar capa</string>
     <string name="general_stats">Estadísticas generales</string>
     <string name="gpsmsg">Recuerda: Activa el GPS!</string>
+    <string name="statHeader">Sesiones:</string>
 
 </resources>
