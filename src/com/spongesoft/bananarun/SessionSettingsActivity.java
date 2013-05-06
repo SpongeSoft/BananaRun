@@ -177,7 +177,7 @@ public class SessionSettingsActivity extends Activity {
 	public void generateMessage(TextView message) {
 		// Based on: http://stackoverflow.com/questions/363681/generating-random-number-in-a-range-with-java
 		Random rand = new Random();
-		int randomNum = rand.nextInt(10);
+		int randomNum = rand.nextInt(6);
 		String[] array = getResources().getStringArray(R.array.motivationalMessages);
 		message.setText(array[randomNum]);
 	}
