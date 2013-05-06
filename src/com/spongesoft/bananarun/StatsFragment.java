@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,8 @@ public class StatsFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
-	//int[] firstData={23,145,67,78,86,190,46,78,167,164};
-	//int[] secondData={83,45,168,138,67,150,64,87,144,188};
+	int[] firstData={23,56};
+	
 	
 	
 	
@@ -70,7 +71,10 @@ public class StatsFragment extends Fragment {
 		final View StatsView = inflater
 				.inflate(R.layout.stats, container, false);
 		entry.open();
-		arr=entry.getRaceParam((long )9,1);
+		
+		arr=entry.getRaceParam((long )1,1);
+		
+		Log.d("valor",""+arr.length);
 		
 		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
 		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
@@ -140,19 +144,14 @@ public class StatsFragment extends Fragment {
 	
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-	                CategorySeries firstSeries = new CategorySeries("run");
-	              
-	                for(int i=0;i<arr.length;i++)
-	                    firstSeries.add(arr[i][0]);
-	                barChartDataset.addSeries(firstSeries.toXYSeries());
-	         
-	                CategorySeries secondSeries = new CategorySeries("time");
-	                for(int j=0;j<arr.length;j++)
-	                    secondSeries.add(arr[0][j]);
-	                barChartDataset.addSeries(secondSeries.toXYSeries());
-	                
-	                
-	        return barChartDataset;
+	        CategorySeries firstSeries = new CategorySeries("Growth of Company1");
+            CategorySeries secondSeries = new CategorySeries("Growth of Company2");
+            for(int i=0;i<firstData.length;i++)
+                firstSeries.add(firstData[i]);
+            barChartDataset.addSeries(firstSeries.toXYSeries());
+     
+        
+            	return barChartDataset;
 	      }
 	
 	 public XYMultipleSeriesRenderer getBarChartRenderer() {
@@ -165,9 +164,6 @@ public class StatsFragment extends Fragment {
 	        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
 	        r.setColor(Color.BLUE);
 	        renderer.addSeriesRenderer(r);
-	        r = new SimpleSeriesRenderer();
-	        r.setColor(Color.GREEN);
-	        renderer.addSeriesRenderer(r);
 	        return renderer;
 	      }
 	 private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
@@ -175,9 +171,9 @@ public class StatsFragment extends Fragment {
 	        renderer.setXTitle("Time");
 	        renderer.setYTitle("Kilometers");
 	        renderer.setXAxisMin(0.5);
-	        renderer.setXAxisMax(10.5);
+	        renderer.setXAxisMax(560);
 	        renderer.setYAxisMin(0);
-	        renderer.setYAxisMax(210);
+	        renderer.setYAxisMax(50);
 	      }
 
 }

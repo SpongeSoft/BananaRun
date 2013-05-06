@@ -30,8 +30,8 @@ public class BarGraph  extends Activity {
 
 	DBManagement mi= new DBManagement(null);
 
-	//int[] firstData={23,145,67,78,86,190,46,78,167,164};
-	//int[] secondData={83,45,168,138,67,150,64,87,144,188};
+	int[] firstData={23,145,67,78,86,190,46,78,167,164};
+	int[] secondData={83,45,168,138,67,150,64,87,144,188};
 	
 	double [][] arr=mi.getRaceParam((long )1,2);
 	@Override
@@ -65,18 +65,15 @@ public class BarGraph  extends Activity {
 	 
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-	                CategorySeries firstSeries = new CategorySeries("run");
-	              
+	                CategorySeries firstSeries = new CategorySeries("Growth of Company1");
 	                for(int i=0;i<arr.length;i++)
-	                    firstSeries.add(arr[i][0]);
+	                    firstSeries.add(firstData[i]);
 	                barChartDataset.addSeries(firstSeries.toXYSeries());
 	         
-	                CategorySeries secondSeries = new CategorySeries("time");
+	             CategorySeries secondSeries = new CategorySeries("Growth of Company2");
 	                for(int j=0;j<arr.length;j++)
-	                    secondSeries.add(arr[0][j]);
+	                    secondSeries.add(secondData[j]);
 	                barChartDataset.addSeries(secondSeries.toXYSeries());
-	                
-	                
 	        return barChartDataset;
 	      }
 	  
