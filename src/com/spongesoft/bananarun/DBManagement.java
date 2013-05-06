@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.FloatMath;
+import android.util.Log;
 
 public class DBManagement {
 	
@@ -273,6 +274,22 @@ public class DBManagement {
 	}
 	
 	/**
+	 * Returns the number of locations a given race has
+	 * @return then number of locations
+	 */
+	public int getLocationCount(long raceID){
+		int result = -1;
+		
+		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(" + KEY_L_RACEID + 
+				" FROM " + DATABASE_SESSION_TABLE + 
+				" WHERE " + KEY_L_RACEID + "=" + raceID);
+
+		result = (int) s.simpleQueryForLong();
+		
+		return result;
+	}
+	
+	/**
 	 * Returns the params of a specific race.
 	 * As an Array!
 	 * @param raceID: the ID of the race
@@ -285,7 +302,8 @@ public class DBManagement {
 	public double[][] getRaceParam(long raceID, int param){
 		// TODO Auto-generated method stub
 		String columnToLookFor = "";
-		double[][] result = {{},{}};
+		int locationCount = getLocationCount(raceID);
+		double[][] result = new double[locationCount][2];
 		
 		switch (param) {
 			case 0:
@@ -308,9 +326,11 @@ public class DBManagement {
 				" WHERE " + KEY_L_RACEID + "= " + raceID, null);
 		
 		int a = 0;
+		Log.d("DEBUG", "Start");
 		if (c.moveToFirst()){
 			while(!c.isAfterLast()){
 				Double data = c.getDouble(c.getColumnIndex(columnToLookFor));
+				Log.d("DEBUG", data.toString());
 				result[a][0] = data;
 				data = c.getDouble(c.getColumnIndex(KEY_L_TIMESTAMP));
 				result[a][1] = data;
