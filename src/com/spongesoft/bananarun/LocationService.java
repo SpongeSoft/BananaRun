@@ -62,7 +62,7 @@ public class LocationService extends Service implements LocationListener {
         
         run();
        
-		return START_STICKY;
+		return START_REDELIVER_INTENT;
 	}
 
 
@@ -136,13 +136,12 @@ public class LocationService extends Service implements LocationListener {
 		 builder.setContentIntent(contentIntent)
 		             .setSmallIcon(R.drawable.preferences_button)
 		             //.setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.some_big_img))
-		             .setTicker("Started running!")
+		             .setTicker("Now running!")
 		             .setWhen(System.currentTimeMillis())
 		             .setAutoCancel(true)
 		             .setContentTitle("Running!")
-		             .setContentText("Click to stop.");
+		             .setContentText("Click to see statistics and more!");
 		 Notification n = builder.getNotification();
-
 		 nm.notify(143214321, n);
 		 
 
