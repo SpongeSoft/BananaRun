@@ -1,6 +1,8 @@
 package com.spongesoft.bananarun;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import android.content.SharedPreferences;
 
@@ -26,9 +28,11 @@ public class AuxMethods {
 			dist = d/1609.34;
 		}
 		
-		DecimalFormat twoDForm = new DecimalFormat("#.##");
+		DecimalFormat twoDForm = new DecimalFormat("#.##",new DecimalFormatSymbols(Locale.US));
         dist = Double.valueOf(twoDForm.format(dist));
-             
+        
+		//dist = (double) Math.round((dist*100.0)/100.0);
+		
         return dist + Unit;
 	}
 	
