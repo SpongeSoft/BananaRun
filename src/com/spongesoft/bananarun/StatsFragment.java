@@ -75,11 +75,7 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View StatsView = inflater.inflate(R.layout.stats, container,
 				false);
-		entry.open();
-
-		arr = entry.getRaceParam((long) 1, 1);
-
-		entry.close();
+	
 		Log.d("valor", "" + arr.length);
 		
 		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
