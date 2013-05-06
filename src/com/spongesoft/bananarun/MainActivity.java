@@ -37,7 +37,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.MapView;
 import com.spongesoft.bananarun.R;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends LockableFragmentActivity {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -69,7 +69,8 @@ public class MainActivity extends FragmentActivity {
 				getSupportFragmentManager());
 		
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (LockableViewPager) findViewById(R.id.pager);
+		viewpager = (LockableViewPager) mViewPager;
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		/* Initial tab is the HOME section */
 		mViewPager.setCurrentItem(1);
