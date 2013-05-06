@@ -3,6 +3,7 @@ package com.spongesoft.bananarun;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
@@ -34,8 +35,11 @@ public class LineChart extends Activity {
 		entry.open();
 		Intent currentIntent = getIntent();
 		double id_race = currentIntent.getDoubleExtra("statsID", -1.0);
+		
+		Intent nextIntent = getIntent();
+		double graph_type = nextIntent.getDoubleExtra("graphID", -1.0);
 
-		arr = entry.getRaceParam((long) id_race, 1);
+		arr = entry.getRaceParam((long) id_race,(int) graph_type);
 		entry.close();
 
 		setRendererStyling();
@@ -62,36 +66,26 @@ public class LineChart extends Activity {
 	}
 
 	private XYMultipleSeriesDataset getDemoDataset() {
-		double[] seriesFirstY = { 20, -20, 67, 180, -45, 24, 99, -34, -8 };
-		double[] seriesSecondY = { 10, 80, -40, -20, 135, 24, 199, -34, 80 };
+	  
 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
-		XYSeries firstSeries = new XYSeries("Sample series One");
-		for (int i = 0; i < 9; i++)
-			firstSeries.add(i, seriesFirstY[i]);
-		dataset.addSeries(firstSeries);
-
-		XYSeries secondSeries = new XYSeries("Sample series Two");
-		for (int j = 0; j < 9; j++)
-			secondSeries.add(j, seriesSecondY[j]);
-		dataset.addSeries(secondSeries);
+		CategorySeries firstSeries = new CategorySeries("Session");
+        for(int i=0;i<arr.length;i++)
+            firstSeries.add(arr[i][0]);
+        dataset.addSeries(firstSeries.toXYSeries());
+        
 		return dataset;
 	}
 
 	private XYMultipleSeriesRenderer getDemoRenderer() {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-		renderer.setMargins(new int[] { 20, 30, 15, 0 });
+		renderer.setMargins(new int[] { 25, 30, 0, 25 });
 		XYSeriesRenderer r = new XYSeriesRenderer();
 		r.setColor(Color.BLUE);
 		r.setPointStyle(PointStyle.CIRCLE);
 		// r.setFillBelowLine(true);
 		// r.setFillBelowLineColor(Color.WHITE);
-		r.setFillPoints(true);
-		renderer.addSeriesRenderer(r);
-		r = new XYSeriesRenderer();
-		r.setPointStyle(PointStyle.CIRCLE);
-		r.setColor(Color.GREEN);
 		r.setFillPoints(true);
 		renderer.addSeriesRenderer(r);
 		renderer.setAxesColor(Color.DKGRAY);

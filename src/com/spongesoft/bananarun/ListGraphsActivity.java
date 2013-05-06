@@ -16,22 +16,19 @@ import android.widget.Toast;
 
 public class ListGraphsActivity extends Activity {
 	//action id
-	private static final int ID_UP     = 1;
-	private static final int ID_DOWN   = 2;
-	private static final int ID_SEARCH = 3;
-	private static final int ID_INFO   = 4;
-	private static final int ID_ERASE  = 5;	
-	private static final int ID_OK     = 6;
-	    
+	private static final int ID_DISTANCE= 1;
+	private static final int ID_SPEED   = 2;
+	private static final int ID_ALTITUDE = 3;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.selectgraph);
 
-		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Distance", getResources().getDrawable(R.drawable.menu_ok));
-		ActionItem prevItem 	= new ActionItem(ID_UP, "Speed", getResources().getDrawable(R.drawable.menu_ok));
-        ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Altitude", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem nextItem 	= new ActionItem(ID_DISTANCE, "Distance", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem prevItem 	= new ActionItem(ID_SPEED, "Speed", getResources().getDrawable(R.drawable.menu_ok));
+        ActionItem searchItem 	= new ActionItem(ID_ALTITUDE, "Altitude", getResources().getDrawable(R.drawable.menu_ok));
       
         
         //use setSticky(true) to disable QuickAction dialog being dismissed after an item is clicked
@@ -55,16 +52,22 @@ public class ListGraphsActivity extends Activity {
 				ActionItem actionItem = quickAction.getActionItem(pos);
                  
 				//here we can filter which action item was clicked with pos or actionId parameter
-				if (actionId == ID_SEARCH) {
+				if (actionId == ID_DISTANCE) {
+					Intent next=new Intent(ListGraphsActivity.this,LineChart.class);
+					next.putExtra("graphID", actionId);
 					Intent lineChartIntent=new Intent(ListGraphsActivity.this,LineChart.class);
 	                startActivity(lineChartIntent);
 					
 					//Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
-				} else if (actionId == ID_DOWN) {
+				} else if (actionId == ID_SPEED) {
+					Intent next=new Intent(ListGraphsActivity.this,LineChart.class);
+					next.putExtra("graphID", actionId);
 					Intent lineChartIntent=new Intent(ListGraphsActivity.this,LineChart.class);
 	                startActivity(lineChartIntent);
 					//Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
-				} else if (actionId == ID_UP){
+				} else if (actionId == ID_ALTITUDE){
+					Intent next=new Intent(ListGraphsActivity.this,LineChart.class);
+					next.putExtra("graphID", actionId);
 					Intent lineChartIntent=new Intent(ListGraphsActivity.this,LineChart.class);
 	                startActivity(lineChartIntent);
 					//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();

@@ -47,7 +47,7 @@ public class ListBarGraphs extends Activity {
 
 		setContentView(R.layout.selectgraph);
 		entry = new DBManagement(this);
-		entry.open();
+		
 		Intent currentIntent=getIntent();
 		double id_race=currentIntent.getDoubleExtra("statsID", -1.0);
 		
@@ -80,32 +80,49 @@ public class ListBarGraphs extends Activity {
 			@Override
 			public void onItemClick(QuickAction source, int pos, int actionId) {				
 				ActionItem actionItem = quickAction.getActionItem(pos);
+				entry.open();
                  
 				//here we can filter which action item was clicked with pos or actionId parameter
 				if (actionId == ID_SEARCH) {
 					arr = entry.getSessionsParam(0);
-					entry.close();
-					getBarChart(actionItem.getTitle());
 					
-					
-					//Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
+					if(arr!=null){
+						getBarChart(actionItem.getTitle());
+						}
+						else{
+							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+						}
 				} else if (actionId == ID_DOWN) {
 					arr = entry.getSessionsParam(1);
-					entry.close();
+					
+					if(arr!=null){
 					getBarChart(actionItem.getTitle());
-					//Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
+					}
+					else{
+						Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+					}
+					
 				} else if (actionId == ID_UP){
 					arr = entry.getSessionsParam(2);
-					entry.close();
-					getBarChart(actionItem.getTitle());
-					//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
+					
+					if(arr!=null){
+						getBarChart(actionItem.getTitle());
+						}
+						else{
+							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+						}
 				}
 				else if (actionId == ID_OK){
 					arr = entry.getSessionsParam(3);
-					entry.close();
-					getBarChart(actionItem.getTitle());
-				//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
+					
+					if(arr!=null){
+						getBarChart(actionItem.getTitle());
+						}
+						else{
+							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+						}
 			}
+				entry.close();
 			}
 		});
 		
