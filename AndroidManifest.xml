@@ -30,6 +30,10 @@
         <activity
             android:name="com.spongesoft.bananarun.SessionSettingsActivity">
         </activity>
+
+        <activity
+            android:name="com.spongesoft.bananarun.SessionActivity">
+        </activity>
         <activity
             android:name="com.spongesoft.bananarun.MyMapActivity"
             android:label="@string/title_activity_map" >
