@@ -31,7 +31,7 @@ public class ListBarGraphs extends Activity {
 	private static final int ID_INFO   = 4;
 	private static final int ID_ERASE  = 5;	
 	private static final int ID_OK     = 6;
-	int[] firstData={23,56,58,88};
+	int[] firstData={23,36,18,18};
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,7 +57,7 @@ public class ListBarGraphs extends Activity {
         quickAction.addActionItem(searchItem);
         quickAction.addActionItem(item);
         
-    	int[] firstData={23,56};
+    	
         //Set listener for action item clicked
 		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {			
 			@Override
@@ -66,18 +66,20 @@ public class ListBarGraphs extends Activity {
                  
 				//here we can filter which action item was clicked with pos or actionId parameter
 				if (actionId == ID_SEARCH) {
-					getBarChart();
+					
+					getBarChart(actionItem.getTitle());
+					
 					
 					//Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
 				} else if (actionId == ID_DOWN) {
-					getBarChart();
+					getBarChart(actionItem.getTitle());
 					//Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
 				} else if (actionId == ID_UP){
-					getBarChart();
+					getBarChart(actionItem.getTitle());
 					//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
 				}
 				else if (actionId == ID_OK){
-					getBarChart();
+					getBarChart(actionItem.getTitle());
 				//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
 			}
 			}
@@ -104,16 +106,16 @@ public class ListBarGraphs extends Activity {
 		
 	}
 	
-	public void getBarChart(){
+	public void getBarChart(String name){
 	    XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
-	    setBarChartSettings(barChartRenderer);
+	    setBarChartSettings(barChartRenderer,name);
 	    Intent intent = ChartFactory.getBarChartIntent(this, getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
 	    startActivity(intent);
 	    }
 	 
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-	                CategorySeries firstSeries = new CategorySeries("Growth of Company1");
+	                CategorySeries firstSeries = new CategorySeries("Session");
 	                for(int i=0;i<firstData.length;i++)
 	                    firstSeries.add(firstData[i]);
 	                barChartDataset.addSeries(firstSeries.toXYSeries());
@@ -128,17 +130,19 @@ public class ListBarGraphs extends Activity {
 	        renderer.setChartTitleTextSize(18);
 	        renderer.setLabelsTextSize(18);
 	        renderer.setLegendTextSize(18);
-	        renderer.setMargins(new int[] {20, 30, 15, 0});
+	        renderer.setMargins(new int[] {25, 30, 0, 25});
 	        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+	       
 	        r.setColor(Color.BLUE);
 	        renderer.addSeriesRenderer(r);
 	        return renderer;
 	      }
-	 private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
-	        renderer.setChartTitle("run1 vs run2");
-	        renderer.setXTitle("Time");
-	        renderer.setYTitle("Kilometers");
-	        renderer.setXAxisMin(0.5);
+	 private void setBarChartSettings(XYMultipleSeriesRenderer renderer,String name) {
+		 	renderer.setChartTitle(name);
+	        //renderer.setXTitle("Session");
+	        renderer.setYTitle(name);
+	        //renderer.setShowLegend(false);
+	        //renderer.setXAxisMin(0.5);
 	        renderer.setXAxisMax(10);
 	        renderer.setYAxisMin(0);
 	        renderer.setYAxisMax(50);
