@@ -121,8 +121,13 @@ public class StatsFragment extends Fragment {
 				if(distance!=null) {
 				Intent newSession = new Intent(getActivity().getBaseContext(),
 						ListGraphsActivity.class);
+				
+				
 				double raceID = distance[position][0];
-				newSession.putExtra("statsID", raceID);
+				Bundle bundle = new Bundle();
+			    bundle.putDouble("statsID", raceID);
+				//newSession.putExtra("statsID", raceID);
+				
 				StatsView.getContext().startActivity(newSession);
 				}
 			}

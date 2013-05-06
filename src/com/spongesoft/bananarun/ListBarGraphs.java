@@ -16,6 +16,8 @@ import android.os.Bundle;
 import com.spongesoft.bananarun.LineChart;
 import com.spongesoft.bananarun.MainActivity;
 import com.spongesoft.bananarun.R;
+
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -48,11 +50,6 @@ public class ListBarGraphs extends Activity {
 		setContentView(R.layout.selectgraph);
 		entry = new DBManagement(this);
 		
-		Intent currentIntent=getIntent();
-		double id_race=currentIntent.getDoubleExtra("statsID", -1.0);
-		
-		
-
 		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Time", getResources().getDrawable(R.drawable.menu_ok));
 		ActionItem prevItem 	= new ActionItem(ID_UP, "Average Speed", getResources().getDrawable(R.drawable.menu_ok));
         ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Distance", getResources().getDrawable(R.drawable.menu_ok));
