@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
@@ -33,13 +34,17 @@ public class LineChart extends Activity {
 
 		entry = new DBManagement(this);
 		entry.open();
-		Intent currentIntent = getIntent();
+		/*Intent currentIntent = getIntent();
 		double id_race = currentIntent.getDoubleExtra("statsID", -1.0);
-		
+*/		
+		Bundle extras = getIntent().getExtras();
+		double id_race  = extras.getDouble("statsID",-1.0);
 		Intent nextIntent = getIntent();
-		double graph_type = nextIntent.getDoubleExtra("graphID", -1.0);
+		double graph_type = (double)nextIntent.getIntExtra("graphID", -1);
 
-		arr = entry.getRaceParam((long) id_race,(int) graph_type);
+		Log.d("valor", id_race + " , " + graph_type);
+		arr = entry.getRaceParam((long) id_race, (int) graph_type);
+		Log.d("valor", "" + arr.length);
 		entry.close();
 
 		setRendererStyling();
@@ -66,15 +71,15 @@ public class LineChart extends Activity {
 	}
 
 	private XYMultipleSeriesDataset getDemoDataset() {
-	  
 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
 		CategorySeries firstSeries = new CategorySeries("Session");
-        for(int i=0;i<arr.length;i++)
-            firstSeries.add(arr[i][0]);
-        dataset.addSeries(firstSeries.toXYSeries());
-        
+		if (arr != null) {
+			for (int i = 0; i < arr.length; i++)
+				firstSeries.add(arr[i][0]);
+			dataset.addSeries(firstSeries.toXYSeries());
+		}
 		return dataset;
 	}
 

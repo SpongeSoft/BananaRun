@@ -30,8 +30,6 @@ public class AuxMethods {
 		
 		DecimalFormat twoDForm = new DecimalFormat("#.##",new DecimalFormatSymbols(Locale.US));
         dist = Double.valueOf(twoDForm.format(dist));
-        
-		//dist = (double) Math.round((dist*100.0)/100.0);
 		
         return dist + Unit;
 	}
