@@ -25,30 +25,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
             android:paddingTop="50sp"
-            android:text="0.00"
             android:textSize="80sp" />
-
-        <TextView
-            android:id="@+id/caloriesValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/calories"
-            android:layout_alignBottom="@+id/calories"
-            android:layout_toRightOf="@+id/calories"
-            android:paddingLeft="10sp"
-            android:text="0.00"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/calories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/chronometer"
-            android:layout_marginLeft="60dp"
-            android:text="@string/calories"
-            android:textStyle="bold"
-            android:textSize="20sp"  />
 
         <Chronometer
             android:id="@+id/chronometer"
@@ -76,13 +53,14 @@
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/timer"
+            android:layout_toLeftOf="@+id/sessionWeatherIcon"
+            android:layout_above="@+id/btnStop"
             android:layout_centerVertical="true"
             android:shadowColor="#000000"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:text="xx"
+
             android:textColor="@color/temperature_color"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -90,9 +68,9 @@
         <ImageView
             android:id="@+id/sessionWeatherIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/temperature"
-            android:layout_alignRight="@+id/caloriesValue"
+			android:layout_above="@+id/btnStop"
+			android:layout_alignParentRight="true"
+			android:layout_height="55dp"
             android:contentDescription="@string/logo_description" />
 
     </RelativeLayout>
