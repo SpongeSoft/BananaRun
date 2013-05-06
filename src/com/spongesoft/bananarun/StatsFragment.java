@@ -1,5 +1,7 @@
 package com.spongesoft.bananarun;
 
+import java.util.ArrayList;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.model.CategorySeries;
@@ -22,10 +24,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spongesoft.bananarun.R;
 
@@ -41,7 +46,7 @@ public class StatsFragment extends Fragment {
 	 * Buttons and whatnot
 	 */
 	DBManagement entry;
-	ListView lv;
+	
 
 	/**
 	 * Methods
@@ -64,7 +69,8 @@ public class StatsFragment extends Fragment {
 				.inflate(R.layout.stats, container, false);
 		
 		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
-		
+		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
+
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -72,8 +78,33 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		lv = (ListView) StatsView.findViewById(R.id.listview);
+		entry.open();
+		int numSessions = entry.getRaceCount();
+		entry.close();
 		
+		String[] list = new String[] {"Session 1", "Session 2", "Session 3",
+				"Session 4", "Session 5"};
+				/*new ArrayList<String>();
+	    for (int j = 0; j < numSessions; j++) {
+	      list.add("Session"+j);
+	    }
+	    */
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		        android.R.layout.simple_list_item_1, list);
+		    lv.setAdapter(adapter);
+
+	        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+	          @Override
+	          public void onItemClick(AdapterView<?> parent, final View view,
+	              int position, long id) {
+	        	  final String item = (String) parent.getItemAtPosition(position);
+		            Toast.makeText(getActivity().getApplicationContext(), "Selected item: "+item, Toast.LENGTH_SHORT).show();         
+	          }
+
+	        });
+	        
+	    
 
 		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
 		entry.open();
