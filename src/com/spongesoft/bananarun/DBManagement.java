@@ -357,6 +357,11 @@ public class DBManagement {
 		// TODO Auto-generated method stub
 		String columnToLookFor = "";
 		int raceCount = getRaceCount();
+		
+		if (raceCount == 0) {
+			return null;
+		}
+		
 		double[][] result = new double[raceCount][2];
 		
 		switch (param) {
@@ -374,8 +379,7 @@ public class DBManagement {
 				break;
 			
 			default:
-				result[0][0] = -1;
-				return result;
+				return null;
 		}
 		
 		Cursor c = ourDB.rawQuery("SELECT " + columnToLookFor + " , " + KEY_S_DATE + 
@@ -398,19 +402,16 @@ public class DBManagement {
 	}
 	
 	/**
-	 * Returns the params of all races.
+	 * Gets all races with IDs and Distances, used for listing.
 	 * As an Array!
-	 * @param raceID: the ID of the race
-	 * @param param: the parameter:
-	 *      - 0: Time
-	 *      - 1: Average Speed
-	 *      - 2: Distance
-	 *      - 3: Kcal
-	 * @return An array with the parameter and the timestamps
+	 * @return An array with the parameter and the IDs
 	 */
 	public double[][] getSessionsIdsAndDistance(){
 		// TODO Auto-generated method stub
 		int raceCount = getRaceCount();
+		if (raceCount == 0) {
+			return null;
+		}
 		double[][] result = new double[raceCount][2];
 		
 		Cursor c = ourDB.rawQuery("SELECT " + KEY_S_RACEID + " , " + KEY_S_TOTAL_DISTANCE + 
