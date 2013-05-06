@@ -44,16 +44,18 @@ public class StatsFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
-	int[] firstData={23,56};
-	
+	int[] firstData = { 23, 56 };
+
 	ArrayAdapter<String> adapter;
-	
-	
+	SharedPreferences preferences;
+
 	/**
 	 * Buttons and whatnot
 	 */
 	DBManagement entry;
-	double [][] arr;
+	double[][] arr;
+	double distance[][];
+
 	/**
 	 * Methods
 	 */
@@ -71,134 +73,146 @@ public class StatsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
-		final View StatsView = inflater
-				.inflate(R.layout.stats, container, false);
+		final View StatsView = inflater.inflate(R.layout.stats, container,
+				false);
 		entry.open();
+
+		arr = entry.getRaceParam((long) 1, 1);
+
+		entry.close();
+		Log.d("valor", "" + arr.length);
 		
-		arr=entry.getRaceParam((long )1,1);
-		
-		Log.d("valor",""+arr.length);
-		
+		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
 		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
 		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
 
-		genStats.setOnClickListener(new View.OnClickListener(){
+		genStats.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
+				Intent newSession = new Intent(getActivity().getBaseContext(),
+						ListBarGraphs.class);
 				
-			    Intent newSession = new Intent(getActivity().getBaseContext(), ListBarGraphs.class);
 				StatsView.getContext().startActivity(newSession);
 			}
-		 });
-		
+		});
+
 		entry.open();
 		int numSessions = entry.getRaceCount();
-		//double distance[][] = entry.getSessionIDsAndDistances();
+		distance = entry.getSessionsIdsAndDistance();
+		//int numSessions = distance[0].length;
 		entry.close();
+		AuxMethods aux = new AuxMethods(preferences);
 		
+
 		ArrayList<String> list = new ArrayList<String>();
-	    for (int j = 0; j < numSessions; j++) {
-	      list.add("Session " + (j+1) + " - " /*+ distance[1][j]*/);
-	    }
-	    
+		if (distance != null) {
+			for (int j = 0; j < numSessions; j++) {
+				list.add("Session " + (j + 1) + " - " + aux.getDistance(distance[j][1]));
+			}
+		}
+
 		adapter = new ArrayAdapter<String>(getActivity(),
-		        android.R.layout.simple_list_item_1, list);
-		    lv.setAdapter(adapter);
+				android.R.layout.simple_list_item_1, list);
+		lv.setAdapter(adapter);
 
-	        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-	          @Override
-	          public void onItemClick(AdapterView<?> parent, final View view,
-	              int position, long id) {
-	        	  Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-					StatsView.getContext().startActivity(newSession);         
-	          }  
+			@Override
+			public void onItemClick(AdapterView<?> parent, final View view,
+					int position, long id) {
+				if(distance!=null) {
+				Intent newSession = new Intent(getActivity().getBaseContext(),
+						ListGraphsActivity.class);
+				double raceID = distance[position][0];
+				newSession.putExtra("statsID", raceID);
+				StatsView.getContext().startActivity(newSession);
+				}
+			}
 
-	        });
-	        
-	        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+		});
 
-	            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-	                    int pos, long id) {
-	                // TODO Auto-generated method stub
+		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-	                Log.v("long clicked","pos"+" "+pos);
-	                
-	                AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
-	                adb.setTitle("Delete?");
-	                adb.setMessage("Are you sure you want to delete " + pos + "?");
-	                final int positionToRemove = pos;
-	                adb.setNegativeButton("Cancel", null);
-	                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-	                    public void onClick(DialogInterface dialog, int which) {
-	                    	entry.open();
-	                    	entry.deleteRace(positionToRemove);
-	                    	entry.close();
-	                    	adapter.remove(adapter.getItem(positionToRemove));
-	                        adapter.notifyDataSetChanged();
-	                    }});
-	                adb.show();
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int pos, long id) {
+				// TODO Auto-generated method stub
 
-	                return true;
-	            }
-	        }); 
-	    
+				Log.v("long clicked", "pos" + " " + pos);
 
-		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
-		entry.open();
-		entry.setRace();
-		String result = entry.getRaceAvgSpeed();
-		tv.setText(result);
+				AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+				adb.setTitle("Delete?");
+				adb.setMessage("Are you sure you want to delete " + pos + "?");
+				final int positionToRemove = pos;
+				adb.setNegativeButton("Cancel", null);
+				adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						entry.open();
+						entry.deleteRace(positionToRemove);
+						entry.close();
+						adapter.remove(adapter.getItem(positionToRemove));
+						adapter.notifyDataSetChanged();
+					}
+				});
+				adb.show();
 
-		
-		
-		//
-		TextView pref = (TextView) HomeView.findViewById(R.id.pref);
-		
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-		String height = settings.getString("prefUserHeight", "No val");
-		String weight = settings.getString("prefUserWeight", "0");
-		pref.setText("vals: " + height + ", " + weight);
-		
-		*/
-		
+				return true;
+			}
+		});
+
+		/*
+		 * TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
+		 * entry.open(); entry.setRace(); String result =
+		 * entry.getRaceAvgSpeed(); tv.setText(result);
+		 * 
+		 * 
+		 * 
+		 * // TextView pref = (TextView) HomeView.findViewById(R.id.pref);
+		 * 
+		 * SharedPreferences settings =
+		 * PreferenceManager.getDefaultSharedPreferences
+		 * (getActivity().getBaseContext()); String height =
+		 * settings.getString("prefUserHeight", "No val"); String weight =
+		 * settings.getString("prefUserWeight", "0"); pref.setText("vals: " +
+		 * height + ", " + weight);
+		 */
+
 		return StatsView;
 	}
-	
 
-	
-	 private XYMultipleSeriesDataset getBarDemoDataset() {
-	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-	        CategorySeries firstSeries = new CategorySeries("Growth of Company1");
-            CategorySeries secondSeries = new CategorySeries("Growth of Company2");
-            for(int i=0;i<firstData.length;i++)
-                firstSeries.add(firstData[i]);
-            barChartDataset.addSeries(firstSeries.toXYSeries());
-     
-        
-            	return barChartDataset;
-	      }
-	
-	 public XYMultipleSeriesRenderer getBarChartRenderer() {
-	        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-	        renderer.setAxisTitleTextSize(20);
-	        renderer.setChartTitleTextSize(18);
-	        renderer.setLabelsTextSize(18);
-	        renderer.setLegendTextSize(18);
-	        renderer.setMargins(new int[] {20, 30, 15, 0});
-	        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-	        r.setColor(Color.BLUE);
-	        renderer.addSeriesRenderer(r);
-	        return renderer;
-	      }
-	 private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
-	        renderer.setChartTitle("run1 vs run2");
-	        renderer.setXTitle("Time");
-	        renderer.setYTitle("Kilometers");
-	        renderer.setXAxisMin(0.5);
-	        renderer.setXAxisMax(560);
-	        renderer.setYAxisMin(0);
-	        renderer.setYAxisMax(50);
-	      }
+	private XYMultipleSeriesDataset getBarDemoDataset() {
+		XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
+		CategorySeries firstSeries = new CategorySeries("Growth of Company1");
+		CategorySeries secondSeries = new CategorySeries("Growth of Company2");
+		for (int i = 0; i < firstData.length; i++)
+			firstSeries.add(firstData[i]);
+		barChartDataset.addSeries(firstSeries.toXYSeries());
+
+		return barChartDataset;
+	}
+
+	public XYMultipleSeriesRenderer getBarChartRenderer() {
+		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+		renderer.setAxisTitleTextSize(20);
+		renderer.setChartTitleTextSize(18);
+		renderer.setLabelsTextSize(18);
+		renderer.setLegendTextSize(18);
+		renderer.setMargins(new int[] { 20, 30, 15, 0 });
+		SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+		r.setColor(Color.BLUE);
+		renderer.addSeriesRenderer(r);
+		return renderer;
+	}
+
+	private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
+		renderer.setChartTitle("run1 vs run2");
+		renderer.setXTitle("Time");
+		renderer.setYTitle("Kilometers");
+		renderer.setXAxisMin(0.5);
+		renderer.setXAxisMax(560);
+		renderer.setYAxisMin(0);
+		renderer.setYAxisMax(50);
+	}
 
 }
