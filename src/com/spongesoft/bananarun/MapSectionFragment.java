@@ -70,9 +70,9 @@ public class MapSectionFragment extends Fragment {
 	private Marker mMarker;
 	private Circle mCircle;
 	private Polyline mPolyline;
-	
+
 	private int layer;
-	
+
 	ImageView lockBtn;
 	ImageView layerBtn;
 	ImageView locateBtn;
@@ -103,10 +103,11 @@ public class MapSectionFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		final View inflatedView = inflater.inflate(R.layout.main, container, false);
+		final View inflatedView = inflater.inflate(R.layout.main, container,
+				false);
 
-		layer = GoogleMap.MAP_TYPE_NORMAL; //Set the initial map type
-		
+		layer = GoogleMap.MAP_TYPE_NORMAL; // Set the initial map type
+
 		try {
 			MapsInitializer.initialize(getActivity());
 		} catch (GooglePlayServicesNotAvailableException e) {
@@ -117,7 +118,7 @@ public class MapSectionFragment extends Fragment {
 
 		mMapView = (MapView) inflatedView.findViewById(R.id.map);
 		mMapView.onCreate(savedInstanceState);
-		
+
 		lockBtn = (ImageView) inflatedView.findViewById(R.id.lockButton);
 		layerBtn = (ImageView) inflatedView.findViewById(R.id.layerButton);
 		locateBtn = (ImageView) inflatedView.findViewById(R.id.locationButton);
@@ -125,53 +126,64 @@ public class MapSectionFragment extends Fragment {
 		/* Buttons behaviour */
 
 		lockBtn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				//Lock fragment movement
+				// Lock fragment movement
 			}
 		});
-		
-		//TODO --> http://stackoverflow.com/questions/4146848/how-would-i-make-my-google-map-zoom-in-to-my-current-location
-		
-		/* Layer button: toggle map layer type when pressed. There are two
-		 * layer types: Normal (streets only, no satellite) and Hybrid
-		 * (streets and satellite view). */
+
+		// TODO -->
+		// http://stackoverflow.com/questions/4146848/how-would-i-make-my-google-map-zoom-in-to-my-current-location
+
+		/*
+		 * Layer button: toggle map layer type when pressed. There are two layer
+		 * types: Normal (streets only, no satellite) and Hybrid (streets and
+		 * satellite view).
+		 */
 		layerBtn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				if(layer == GoogleMap.MAP_TYPE_NORMAL){
+				if (layer == GoogleMap.MAP_TYPE_NORMAL) {
 					layer = GoogleMap.MAP_TYPE_HYBRID;
 					mMap.setMapType(layer);
-					Log.d("onClickMap","Layer type is: HYBRID");
-				} else if(layer == GoogleMap.MAP_TYPE_HYBRID) {
+					Log.d("onClickMap", "Layer type is: HYBRID");
+				} else if (layer == GoogleMap.MAP_TYPE_HYBRID) {
 					layer = GoogleMap.MAP_TYPE_NORMAL;
 					mMap.setMapType(layer);
-					Log.d("onClickMap","Layer type is: NORMAL");
+					Log.d("onClickMap", "Layer type is: NORMAL");
 				}
 			}
 		});
-		
+
 		locateBtn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				int lat = (int) (latitude /** 1E6*/);
-				   int lng = (int) (longitude /** 1E6*/);
+				/*
+				int lat = (int) (latitude * 1E6);
+				int lng = (int) (longitude * 1E6);
 				GeoPoint point = new GeoPoint(lat, lng);
-				   mc.setCenter(point);
-				   //mapView.invalidate();
+				mc.setCenter(point);
+				mMapView.invalidate();
+				*/
+				
+				LatLng position = new LatLng(latitude, longitude);
+				mMarker.setPosition(position);
+				mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
+				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f));
 			}
 		});
-		
+
 		/*
 		 * Preferences must be initialised here. Otherwise, we get a
 		 * NullPointerException error
 		 */
 		generalPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getActivity().getApplicationContext());
+				.getDefaultSharedPreferences(getActivity()
+						.getApplicationContext());
 
 		/* Check Internet status */
 		final ConnectivityManager con = (ConnectivityManager) getActivity()
@@ -195,7 +207,6 @@ public class MapSectionFragment extends Fragment {
 		handler.postDelayed(runnable, 2000); // for initial delay..
 
 		setUpMapIfNeeded(inflatedView);
-		
 
 		return inflatedView;
 	}
@@ -206,8 +217,8 @@ public class MapSectionFragment extends Fragment {
 			if (mMap != null) {
 				mMarker = mMap.addMarker(new MarkerOptions().position(
 						new LatLng(0, 0)).title("Marker"));
-				mMap.setMapType(layer); //Apply layer to map
-				Log.d("mMap config", "mMap has layer type = "+layer);
+				mMap.setMapType(layer); // Apply layer to map
+				Log.d("mMap config", "mMap has layer type = " + layer);
 
 				// Instantiates a new CircleOptions object and defines the
 				// center and radius
@@ -226,16 +237,15 @@ public class MapSectionFragment extends Fragment {
 				startLocation();
 			}
 		}
-		
-		
+
 	}
-	
+
 	private void update_map() {
-		//Get the race_id
+		// Get the race_id
 		long race = getArguments().getInt("race_id");
-		if(race != 0L) {
-			//TODO: If it's indeed a race, go and get its points
-			
+		if (race != 0L) {
+			// TODO: If it's indeed a race, go and get its points
+
 		}
 	}
 
@@ -372,7 +382,7 @@ public class MapSectionFragment extends Fragment {
 					 * the weather icon
 					 */
 					int code = getWeatherStatus(weatherCode);
-					Log.d("MapSectionFragment", "code: "+code);
+					Log.d("MapSectionFragment", "code: " + code);
 					/*
 					 * Put the final values in the Activity's intent so that
 					 * other fragments can access these variables
