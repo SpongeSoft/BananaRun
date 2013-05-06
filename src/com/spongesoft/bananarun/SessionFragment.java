@@ -36,6 +36,34 @@ public class SessionFragment extends Fragment {
 	TextView timeMeter;
 	long race_id;
 	
+	@Override
+	public void onDestroy() {
+		stopReceiver();
+		super.onDestroy();
+	}
+
+	@Override
+	public void onPause() {
+		stopReceiver();
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+        final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
+        this.getActivity().registerReceiver(mReceiver, myFilter);
+		super.onResume();
+	}
+
+	private void stopReceiver() {
+		try {
+			this.getActivity().unregisterReceiver(mReceiver);
+		} catch(IllegalArgumentException e) {
+			Log.d("receiver", "Unregistered receiver more than once!");
+		}
+	}
+
+
 	AuxMethods aux;
 	
 	public SessionFragment() {

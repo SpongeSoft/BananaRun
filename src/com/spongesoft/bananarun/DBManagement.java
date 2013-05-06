@@ -176,16 +176,7 @@ public class DBManagement {
 	@SuppressLint("SimpleDateFormat")
 	public long setLocation(long raceID, double latitude, double longitude, double altitude, double distance, double speed){
 		// set the format to sql date time, obtained from http://stackoverflow.com/a/819605/1197418
-		
-		//if distance = -1, uses last point
-		if(distance < 0) {
-			if(lastLatitude == -99999 || lastLongitude == -99999) {
-				distance = 0;
-			}else{
-				distance = gps2m((float) latitude, (float) longitude, (float) lastLatitude, (float) lastLongitude);
-			}
-		}
-		
+				
 		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		//Date date = new Date();
 		ContentValues cv = new ContentValues();
@@ -506,8 +497,8 @@ public class DBManagement {
 		List<LatLng> list = new LinkedList<LatLng>();
 		if (c.moveToFirst()){
 			while(!c.isAfterLast()){
-				double longitude = c.getDouble(0);					
-				double latitude = c.getDouble(1);
+				double latitude = c.getDouble(0);					
+				double longitude = c.getDouble(1);
 				LatLng lat = new LatLng(latitude, longitude);
 				Log.d("map", "add point: "+latitude+","+longitude+","+lat.latitude);
 				list.add(lat);

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -25,6 +26,7 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,6 +37,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,6 +56,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.spongesoft.bananarun.R;
@@ -71,12 +75,7 @@ public class MapSectionFragment extends Fragment {
 	private Marker mMarker;
 	private Circle mCircle;
 	private Polyline mPolyline;
-<<<<<<< Updated upstream
-
-=======
-	
 	private DBManagement manager;
->>>>>>> Stashed changes
 	private int layer;
 
 	ImageView lockBtn;
@@ -109,15 +108,11 @@ public class MapSectionFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-<<<<<<< Updated upstream
 		final View inflatedView = inflater.inflate(R.layout.main, container,
 				false);
-
+		final LockableFragmentActivity parentActivity = (LockableFragmentActivity) this.getActivity();
 		layer = GoogleMap.MAP_TYPE_NORMAL; // Set the initial map type
-=======
 		manager = new DBManagement(getActivity());
-		final View inflatedView = inflater.inflate(R.layout.main, container, false);
->>>>>>> Stashed changes
 
 		try {
 			MapsInitializer.initialize(getActivity());
@@ -140,7 +135,11 @@ public class MapSectionFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// Lock fragment movement
+				if(parentActivity.isLocked()) {
+					parentActivity.unlock();
+				}else{
+					parentActivity.lock();
+				}
 			}
 		});
 
@@ -241,7 +240,7 @@ public class MapSectionFragment extends Fragment {
 				// Get back the mutable Circle
 				// mCircle = mMap.addCircle(circleOptions);
 
-				PolylineOptions rectOptions = new PolylineOptions();
+				PolylineOptions rectOptions = new PolylineOptions().width(25).color(Color.BLUE);
 				// //.add(new LatLng(0,0));
 				// Get back the mutable Polyline
 				mPolyline = mMap.addPolyline(rectOptions);
