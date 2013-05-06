@@ -82,7 +82,10 @@ public class StatsFragment extends Fragment {
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				 getBarChart();
+				XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
+			    setBarChartSettings(barChartRenderer);
+				Intent intent = ChartFactory.getBarChartIntent(getActivity().getBaseContext(), getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
+			    startActivity(intent);
 			}
 		 });
 		
@@ -135,12 +138,7 @@ public class StatsFragment extends Fragment {
 		return StatsView;
 	}
 	
-	public void getBarChart(){
-	    XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
-	    setBarChartSettings(barChartRenderer);
-	    Intent intent = ChartFactory.getBarChartIntent(getActivity().getBaseContext(), getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
-	    startActivity(intent);
-	    }
+
 	
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();

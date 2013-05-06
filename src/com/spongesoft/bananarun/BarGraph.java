@@ -56,12 +56,12 @@ public class BarGraph  extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	public void getBarChart(){
+	/*public void getBarChart(){
 	    XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
 	    setBarChartSettings(barChartRenderer);
 	    Intent intent = ChartFactory.getBarChartIntent(this, getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
 	    startActivity(intent);
-	    }
+	    }*/
 	 
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
@@ -87,19 +87,15 @@ public class BarGraph  extends Activity {
 	        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
 	        r.setColor(Color.BLUE);
 	        renderer.addSeriesRenderer(r);
-	        r = new SimpleSeriesRenderer();
-	        r.setColor(Color.GREEN);
-	        renderer.addSeriesRenderer(r);
 	        return renderer;
 	      }
 	 private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
-	        renderer.setChartTitle("Growth comparison company1 vs company2");
-	        renderer.setXTitle("No of Years in industry");
-	        renderer.setYTitle("Profit in millions");
+	        renderer.setChartTitle("run1 vs run2");
+	        renderer.setXTitle("Time");
+	        renderer.setYTitle("Kilometers");
 	        renderer.setXAxisMin(0.5);
-	        renderer.setXAxisMax(10.5);
+	        renderer.setXAxisMax(560);
 	        renderer.setYAxisMin(0);
-	        renderer.setYAxisMax(210);
+	        renderer.setYAxisMax(50);
 	      }
-
 }
