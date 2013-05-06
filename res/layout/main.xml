@@ -12,12 +12,14 @@
 
 	     <ImageView
 	        android:id="@+id/lockButton"
-            android:layout_width="50sp"
-	        android:layout_height="50sp"
+            android:layout_width="40sp"
+	        android:layout_height="40sp"
+	        android:layout_marginLeft="6sp"
+	        android:layout_marginBottom="10sp"
             android:layout_alignLeft="@+id/map" 
         	android:layout_alignBottom="@+id/map" 
             android:contentDescription="@string/lockmap" 
-            android:src="@drawable/lock_button" >
+            android:src="@drawable/open_lock" >
             </ImageView>
 
 	    <ImageView

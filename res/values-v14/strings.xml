@@ -34,5 +34,6 @@
     <string name="last_time">14:45</string>
     <string name="last_session">Last Session:</string>
     <string name="gpsmsg">Remember: enable the GPS!</string>
+    <string name="statHeader">Sessions:</string>
 
 </resources>

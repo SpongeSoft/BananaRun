@@ -108,10 +108,11 @@ public class SessionFragment extends Fragment {
 		kmCounter.setTypeface(font);		
 		timeMeter.setTypeface(font);
 		chronometer.setTypeface(font);
+		sessionTemp.setTypeface(font);
 
 		/* Set weather information in corresponding elements */
 		weatherIcon.setImageResource(weatherCode);
-		sessionTemp.setText(temp);
+		sessionTemp.setText(temp + "º");
 		
 		
 		chronometer.setBase(SystemClock.elapsedRealtime()); //Reset timer
