@@ -136,6 +136,8 @@ public class MapSectionFragment extends Fragment {
 			}
 		});
 		
+		//TODO --> http://stackoverflow.com/questions/4146848/how-would-i-make-my-google-map-zoom-in-to-my-current-location
+		
 		/* Layer button: toggle map layer type when pressed. There are two
 		 * layer types: Normal (streets only, no satellite) and Hybrid
 		 * (streets and satellite view). */
