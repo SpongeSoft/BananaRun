@@ -54,7 +54,7 @@ public class LineChart extends Activity {
 			LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
 			mChartView = ChartFactory.getLineChartView(this, mDataset,
 					mRenderer);
-			mRenderer.setSelectableBuffer(100);
+			//mRenderer.setSelectableBuffer(100);
 			layout.addView(mChartView, new LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		} else
@@ -74,29 +74,32 @@ public class LineChart extends Activity {
 
 	private XYMultipleSeriesDataset getDemoDataset() {
 
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-
-		CategorySeries firstSeries = new CategorySeries("Session");
+		   
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+ 
+        XYSeries firstSeries = new XYSeries("Sample series One");
 		if (arr != null) {
 			for (int i = 0; i < arr.length; i++)
-				firstSeries.add(arr[i][0]);
-			dataset.addSeries(firstSeries.toXYSeries());
+			firstSeries.add(i, arr[i][0]);
+	        dataset.addSeries(firstSeries);
+	 
 		}
 		return dataset;
 	}
 
 	private XYMultipleSeriesRenderer getDemoRenderer() {
-		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-		renderer.setMargins(new int[] { 25, 30, 0, 25 });
-		XYSeriesRenderer r = new XYSeriesRenderer();
-		r.setColor(Color.BLUE);
-		r.setPointStyle(PointStyle.CIRCLE);
-		// r.setFillBelowLine(true);
-		// r.setFillBelowLineColor(Color.WHITE);
-		r.setFillPoints(true);
-		renderer.addSeriesRenderer(r);
-		renderer.setAxesColor(Color.DKGRAY);
-		renderer.setLabelsColor(Color.LTGRAY);
-		return renderer;
+		   XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+	        renderer.setMargins(new int[] { 20, 30, 15, 0 });
+	        XYSeriesRenderer r = new XYSeriesRenderer();
+	        renderer.setAxisTitleTextSize(20);
+	        renderer.setChartTitleTextSize(18);
+	        renderer.setLabelsTextSize(18);
+	        renderer.setLegendTextSize(18);
+	        renderer.setMargins(new int[] {40, 20, 20, 0});
+	        r.setPointStyle(PointStyle.CIRCLE);
+	         r.setFillPoints(true);
+	        r.setColor(Color.BLUE);
+	        renderer.addSeriesRenderer(r);
+	        return renderer;
 	}
 }
