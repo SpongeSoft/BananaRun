@@ -15,5 +15,6 @@
     <string name="lockmap">Lock map</string>
     <string name="locate">My position</string>
     <string name="switchlayer">Change layer</string>
+    <string name="general_stats">General Statistics</string>
 
 </resources>

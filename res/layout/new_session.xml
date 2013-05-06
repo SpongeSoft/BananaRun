@@ -6,24 +6,16 @@
     android:gravity="center"
     android:orientation="vertical" >                
                 
-        <Button
-            android:id="@+id/btn_enter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:text="Start"
-            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btn_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_weight="0.5"
-            android:text="Stop"
-            android:textSize="20sp" />
+        <ImageView
+        android:id="@+id/btnStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/stop_button" >
+    </ImageView>
 
         <TextView
             android:id="@+id/kmeter"
