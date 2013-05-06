@@ -1,6 +1,12 @@
 package com.spongesoft.bananarun;
 
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +17,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.FloatMath;
 import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class DBManagement {
 	
@@ -479,6 +487,36 @@ public class DBManagement {
 		c.close();
 
 		return result;
+	}
+	
+	public List<LatLng> getPoints(long raceID){
+		// TODO Auto-generated method stub
+		
+		String[] columns = new String[] {"latitude", "longitude"};
+		
+		Log.d("db", "getting points for race: "+raceID);
+		Cursor c = ourDB.query("locationTable", 
+				columns, 
+				KEY_L_RACEID + "=" + raceID, 
+				null, null, null, null);
+		String query = "SELECT latitude, longitude FROM " + DATABASE_LOCATION_TABLE + " WHERE " + KEY_L_RACEID + " = " + raceID;
+		Cursor cursor = ourDB.rawQuery(query, null);
+
+		
+		List<LatLng> list = new LinkedList<LatLng>();
+		if (c.moveToFirst()){
+			while(!c.isAfterLast()){
+				double longitude = c.getDouble(0);					
+				double latitude = c.getDouble(1);
+				LatLng lat = new LatLng(latitude, longitude);
+				Log.d("map", "add point: "+latitude+","+longitude+","+lat.latitude);
+				list.add(lat);
+					c.moveToNext();
+			}
+		}
+		c.close();
+
+		return list;
 	}
 	
 	/**
