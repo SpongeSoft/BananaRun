@@ -76,7 +76,7 @@ public class StatsFragment extends Fragment {
 		final View StatsView = inflater.inflate(R.layout.stats, container,
 				false);
 	
-		Log.d("valor", "" + arr.length);
+		//Log.d("valor", "" + arr.length);
 		
 		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
