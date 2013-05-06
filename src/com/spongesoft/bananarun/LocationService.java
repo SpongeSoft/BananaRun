@@ -29,11 +29,7 @@ public class LocationService extends Service implements LocationListener {
 	boolean running = true;
 	DBManagement manager;
 	double race;
-	   @Override
-	    public void onCreate() {
-           final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.TO_SERVICE");
-           registerReceiver(mReceiver, myFilter);
-	    }
+
 	@Override
 	public void onLocationChanged(Location loc) {
 		if(running) {
@@ -51,8 +47,11 @@ public class LocationService extends Service implements LocationListener {
         sendBroadcast(intent);
 		}
 	}
-	
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		
+		final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.TO_SERVICE");
+        registerReceiver(mReceiver, myFilter);
+        
 	    Bundle extras = intent.getExtras();
 	    race = extras.getInt("race_id");
 	    
@@ -87,13 +86,15 @@ public class LocationService extends Service implements LocationListener {
 
 	@Override
 	public void onDestroy() {
-
+		
         unregisterReceiver(mReceiver);
         this.stopForeground(true);
         
         super.onDestroy();
 
 	}
+	
+
  
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -151,6 +152,7 @@ public class LocationService extends Service implements LocationListener {
 	 
 	 private void stopReceiving() {
 		 locationManager.removeUpdates(this);
+		 this.stopSelf();
 	 }
 	 
 	 
@@ -166,6 +168,7 @@ public class LocationService extends Service implements LocationListener {
 		                        	manager.close();
 		                        	running = false;
 		                        	stopReceiving();
+		                        	
 		                        }
 
 		            }
