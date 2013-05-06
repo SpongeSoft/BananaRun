@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.util.FloatMath;
 
 public class DBManagement {
@@ -256,6 +257,21 @@ public class DBManagement {
 
 	
 	// -------------------- All getters --------------------
+	/**
+	 * Returns the number of races
+	 * @return then number of races
+	 */
+	public int getRaceCount(){
+		int result = -1;
+		
+		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(" + KEY_S_RACEID + 
+				" FROM " + DATABASE_SESSION_TABLE);
+
+		result = (int) s.simpleQueryForLong();
+		
+		return result;
+	}
+	
 	/**
 	 * Returns the params of a specific race.
 	 * As an Array!
