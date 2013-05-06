@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spongesoft.dietapp"
+    package="com.spongesoft.bananarun"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -30,6 +30,11 @@
         <activity
             android:name="com.spongesoft.bananarun.SessionSettingsActivity">
         </activity>
+
+        <activity
+            android:name="com.spongesoft.bananarun.SessionActivity"
+            android:launchMode="singleTask">
+        </activity>
         <activity
             android:name="com.spongesoft.bananarun.MyMapActivity"
             android:label="@string/title_activity_map" >
@@ -42,7 +47,10 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBNBdYLGe0Eo7Wbev7oGA6GHmIWwLee0rE" />
 
-        
+           <service
+        android:name="com.spongesoft.bananarun.LocationService"
+        android:label="dietApp Location Service" >
+    	</service>
                 <uses-library android:name="com.google.android.maps" />
     </application>
     
@@ -62,8 +70,8 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 <permission 
-android:name="com.spongesoft.dietapp.MAPS_RECEIVE" 
+android:name="com.spongesoft.bananarun.MAPS_RECEIVE" 
 android:protectionLevel="signature"></permission>
 <uses-permission 
-android:name="com.spongesoft.dietapp.MAPS_RECEIVE"/>
+android:name="com.spongesoft.bananarun.MAPS_RECEIVE"/>
 </manifest>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.spongesoft.bananarun.LineChart;
 import com.spongesoft.bananarun.MainActivity;
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -77,7 +77,7 @@ public class ListGraphsActivity extends Activity {
 		quickAction.setOnDismissListener(new QuickAction.OnDismissListener() {			
 			@Override
 			public void onDismiss() {
-				Toast.makeText(getApplicationContext(), "Dismissed", Toast.LENGTH_SHORT).show();
+				/*Toast.makeText(getApplicationContext(), "Dismissed", Toast.LENGTH_SHORT).show();*/
 			}
 		});
 		
