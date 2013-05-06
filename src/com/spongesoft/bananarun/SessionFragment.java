@@ -47,7 +47,7 @@ public class SessionFragment extends Fragment {
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
 		
-		race_id = getArguments().getInt("race_id");
+		race_id = getArguments().getLong("race_id");
 		manager = new DBManagement(this.getActivity());
 		manager.open();
 		final View SessionView = inflater.inflate(R.layout.new_session,
