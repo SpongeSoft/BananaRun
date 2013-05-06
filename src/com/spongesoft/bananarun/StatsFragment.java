@@ -85,10 +85,9 @@ public class StatsFragment extends Fragment {
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
-			    setBarChartSettings(barChartRenderer);
-				Intent intent = ChartFactory.getBarChartIntent(getActivity().getBaseContext(), getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
-			    startActivity(intent);
+				
+			    Intent newSession = new Intent(getActivity().getBaseContext(), ListBarGraphs.class);
+				StatsView.getContext().startActivity(newSession);
 			}
 		 });
 		
