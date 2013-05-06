@@ -25,7 +25,7 @@ public class DBManagement {
 	 */
 	// ---------- Database params and declarations ----------
 	// DB name and tables
-	private static final String DATABASE_NAME = "RunningDB";
+	private static final String DATABASE_NAME = "RunningDB.db";
 	private static final String DATABASE_SESSION_TABLE = "sessionTable";
 	private static final String DATABASE_LOCATION_TABLE = "locationTable";
 	private static final int DATABASE_VERSION = 1;
