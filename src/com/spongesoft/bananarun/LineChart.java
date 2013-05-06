@@ -12,8 +12,10 @@ import com.spongesoft.bananarun.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
@@ -25,25 +27,25 @@ public class LineChart extends Activity {
 	private GraphicalView mChartView;
 	DBManagement entry;
 	double[][] arr;
-
+	SharedPreferences preferences;
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.line);
 
+		preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 		entry = new DBManagement(this);
 		entry.open();
 		/*Intent currentIntent = getIntent();
 		double id_race = currentIntent.getDoubleExtra("statsID", -1.0);
 */		
-		Bundle extras = getIntent().getExtras();
-		double id_race  = extras.getDouble("statsID",-1.0);
-		Intent nextIntent = getIntent();
-		double graph_type = (double)nextIntent.getIntExtra("graphID", -1);
+		long id_race  = preferences.getLong("statsID", -1);
+		double graph_type = (double)preferences.getInt("graphID", -1);
 
 		Log.d("valor", id_race + " , " + graph_type);
-		arr = entry.getRaceParam((long) id_race, (int) graph_type);
+		arr = entry.getRaceParam( id_race, (int) graph_type);
 		Log.d("valor", "" + arr.length);
 		entry.close();
 
