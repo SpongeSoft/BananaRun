@@ -75,7 +75,7 @@ public class StatsFragment extends Fragment {
 		carrera1.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
 				HomeView.getContext().startActivity(newSession);
 			}
 		 });
@@ -85,7 +85,7 @@ public class StatsFragment extends Fragment {
 		carrera2.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
 				HomeView.getContext().startActivity(newSession);
 			}
 		 });
@@ -95,7 +95,7 @@ public class StatsFragment extends Fragment {
 		carrera3.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
 				HomeView.getContext().startActivity(newSession);
 			}
 		 });
@@ -105,7 +105,7 @@ public class StatsFragment extends Fragment {
 		carrera4.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ExampleActivity.class);
+				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
 				HomeView.getContext().startActivity(newSession);
 			}
 		 });
@@ -141,12 +141,12 @@ public class StatsFragment extends Fragment {
 	
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-	                CategorySeries firstSeries = new CategorySeries("Growth of Company1");
+	                CategorySeries firstSeries = new CategorySeries("General 1");
 	                for(int i=0;i<firstData.length;i++)
 	                    firstSeries.add(firstData[i]);
 	                barChartDataset.addSeries(firstSeries.toXYSeries());
 	         
-	             CategorySeries secondSeries = new CategorySeries("Growth of Company2");
+	             CategorySeries secondSeries = new CategorySeries("General 2");
 	                for(int j=0;j<secondData.length;j++)
 	                    secondSeries.add(secondData[j]);
 	                barChartDataset.addSeries(secondSeries.toXYSeries());
