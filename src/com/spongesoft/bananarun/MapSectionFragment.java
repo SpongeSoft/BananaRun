@@ -212,7 +212,7 @@ public class MapSectionFragment extends Fragment {
 				// Get back the mutable Polyline
 				// mPolyline = mMap.addPolyline(rectOptions);
 
-				//startLocation();
+				startLocation();
 			}
 		}
 		
