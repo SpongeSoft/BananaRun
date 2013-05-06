@@ -25,7 +25,7 @@
             android:name="com.spongesoft.bananarun.UserSettingActivity">
             </activity>
              <activity 
-            android:name="com.spongesoft.bananarun.ExampleActivity">
+            android:name="com.spongesoft.bananarun.ListGraphsActivity">
             </activity>
         <activity
             android:name="com.spongesoft.bananarun.SessionSettingsActivity">

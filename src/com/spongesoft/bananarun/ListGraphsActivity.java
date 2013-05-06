@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-public class ExampleActivity extends Activity {
+public class ListGraphsActivity extends Activity {
 	//action id
 	private static final int ID_UP     = 1;
 	private static final int ID_DOWN   = 2;
@@ -56,16 +56,16 @@ public class ExampleActivity extends Activity {
                  
 				//here we can filter which action item was clicked with pos or actionId parameter
 				if (actionId == ID_SEARCH) {
-					Intent lineChartIntent=new Intent(ExampleActivity.this,LineChart.class);
+					Intent lineChartIntent=new Intent(ListGraphsActivity.this,LineChart.class);
 	                startActivity(lineChartIntent);
 					
 					//Toast.makeText(getApplicationContext(), "Let's do some search action", Toast.LENGTH_SHORT).show();
 				} else if (actionId == ID_DOWN) {
-					Intent lineChartIntent=new Intent(ExampleActivity.this,LineChart.class);
+					Intent lineChartIntent=new Intent(ListGraphsActivity.this,LineChart.class);
 	                startActivity(lineChartIntent);
 					//Toast.makeText(getApplicationContext(), "I have no info this time", Toast.LENGTH_SHORT).show();
 				} else if (actionId == ID_UP){
-					Intent lineChartIntent=new Intent(ExampleActivity.this,LineChart.class);
+					Intent lineChartIntent=new Intent(ListGraphsActivity.this,LineChart.class);
 	                startActivity(lineChartIntent);
 					//Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
 				}
