@@ -76,19 +76,12 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/limit_string"
-        android:layout_alignRight="@+id/limit_picker"
+        android:layout_below="@+id/limit_group"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
         android:layout_centerVertical="true"
         android:textSize="20sp"
         android:textStyle="bold" />
-    <TextView
-        android:id="@+id/motivation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/message"
-        android:layout_alignLeft="@+id/message"
-        android:text="@string/motivation"
-        android:textStyle="bold"
-        android:textSize="25sp" />
 
 </RelativeLayout>
