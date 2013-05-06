@@ -17,8 +17,7 @@
             android:layout_alignLeft="@+id/map" 
         	android:layout_alignBottom="@+id/map" 
             android:contentDescription="@string/lockmap" 
-            android:src="@drawable/lock_button" 
-            android:visibility="invisible" >"
+            android:src="@drawable/lock_button" >
             </ImageView>
 
 	    <ImageView
