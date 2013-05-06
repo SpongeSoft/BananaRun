@@ -31,7 +31,7 @@ public class ListBarGraphs extends Activity {
 	private static final int ID_INFO   = 4;
 	private static final int ID_ERASE  = 5;	
 	private static final int ID_OK     = 6;
-	int[] firstData={23,56};
+	int[] firstData={23,56,58,88};
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -139,7 +139,7 @@ public class ListBarGraphs extends Activity {
 	        renderer.setXTitle("Time");
 	        renderer.setYTitle("Kilometers");
 	        renderer.setXAxisMin(0.5);
-	        renderer.setXAxisMax(560);
+	        renderer.setXAxisMax(10);
 	        renderer.setYAxisMin(0);
 	        renderer.setYAxisMax(50);
 	      }
