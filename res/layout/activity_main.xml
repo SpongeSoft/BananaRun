@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <android.support.v4.view.ViewPager
+    <com.spongesoft.bananarun.LockableViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
             android:textColor="#fff" />
-    </android.support.v4.view.ViewPager>
+    </com.spongesoft.bananarun.LockableViewPager>
 
     <!-- hack to fix ugly black artefact with maps v2 -->
     <!-- source: http://stackoverflow.com/questions/13837697/viewpager-with-google-maps-api-v2-mysterious-black-view -->

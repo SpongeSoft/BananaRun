@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-public class SessionActivity extends FragmentActivity {
+public class SessionActivity extends LockableFragmentActivity {
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
@@ -42,6 +42,7 @@ public class SessionActivity extends FragmentActivity {
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
+		viewpager = (LockableViewPager) mViewPager;
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		/* Initial tab is the HOME section */
 		mViewPager.setCurrentItem(0);
