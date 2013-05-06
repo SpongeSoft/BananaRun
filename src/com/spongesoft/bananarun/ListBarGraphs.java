@@ -38,10 +38,10 @@ public class ListBarGraphs extends Activity {
 
 		setContentView(R.layout.selectgraph);
 
-		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Grafica1", getResources().getDrawable(R.drawable.menu_ok));
-		ActionItem prevItem 	= new ActionItem(ID_UP, "Grafica2", getResources().getDrawable(R.drawable.menu_ok));
-        ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Grafica3", getResources().getDrawable(R.drawable.menu_ok));
-        ActionItem item	= new ActionItem(ID_OK, "Grafica4", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Time", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem prevItem 	= new ActionItem(ID_UP, "Average Speed", getResources().getDrawable(R.drawable.menu_ok));
+        ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Distance", getResources().getDrawable(R.drawable.menu_ok));
+        ActionItem item	= new ActionItem(ID_OK, "Kcal", getResources().getDrawable(R.drawable.menu_ok));
         
         //use setSticky(true) to disable QuickAction dialog being dismissed after an item is clicked
         prevItem.setSticky(true);
