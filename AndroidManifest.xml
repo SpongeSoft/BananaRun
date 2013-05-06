@@ -46,7 +46,10 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBNBdYLGe0Eo7Wbev7oGA6GHmIWwLee0rE" />
 
-        
+           <service
+        android:name="com.spongesoft.bananarun.LocationService"
+        android:label="dietApp Location Service" >
+    	</service>
                 <uses-library android:name="com.google.android.maps" />
     </application>
     
