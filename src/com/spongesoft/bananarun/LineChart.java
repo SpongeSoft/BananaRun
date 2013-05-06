@@ -47,8 +47,7 @@ package com.spongesoft.bananarun;
 	        mRenderer.setChartTitleTextSize(20);
 	        mRenderer.setLabelsTextSize(15);
 	        mRenderer.setLegendTextSize(15);
-	        mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
-	        mRenderer.setZoomButtonsVisible(true);
+	        mRenderer.setMargins(new int[] { 40, 20, 20, 0 });
 	        mRenderer.setPointSize(10);
 	    }
 	 
