@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/statslayout"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:clickable="true"
@@ -19,18 +19,12 @@
         android:layout_marginRight="30sp"
         android:layout_marginLeft="30sp"
         android:layout_marginTop="20sp" />
-    
-    <LinearLayout 
-        android:id="@+id/statsSessionLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/generalStats">
         
         <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:id="@+id/statsListview"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/generalStats" >
         </ListView>
-    </LinearLayout>
     
 </RelativeLayout>
