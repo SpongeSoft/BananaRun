@@ -43,11 +43,11 @@ public class BarGraph  extends Activity {
 		/*Button genBarChart=(Button)findViewById(R.id.generateBarChart);
 		genBarChart.setOnClickListener(new OnClickListener(){
 		            public void onClick(View v) {
-		                getBarChart();
+		               
 		            }
 		        });*/
 		
-		
+		 getBarChart();
 	}
 
 	@Override
@@ -56,12 +56,12 @@ public class BarGraph  extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	/*public void getBarChart(){
+	public void getBarChart(){
 	    XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
 	    setBarChartSettings(barChartRenderer);
 	    Intent intent = ChartFactory.getBarChartIntent(this, getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
 	    startActivity(intent);
-	    }*/
+	    }
 	 
 	 private XYMultipleSeriesDataset getBarDemoDataset() {
 	        XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
