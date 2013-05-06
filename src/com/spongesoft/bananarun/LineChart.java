@@ -102,4 +102,6 @@ public class LineChart extends Activity {
 	        renderer.addSeriesRenderer(r);
 	        return renderer;
 	}
+	
+	
 }
