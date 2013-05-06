@@ -281,7 +281,7 @@ public class DBManagement {
 		int result = -1;
 		
 		SQLiteStatement s = ourDB.compileStatement("SELECT COUNT(*" + 
-				") FROM " + DATABASE_SESSION_TABLE + 
+				") FROM " + DATABASE_LOCATION_TABLE + 
 				" WHERE " + KEY_L_RACEID + "=" + raceID);
 
 		result = (int) s.simpleQueryForLong();
