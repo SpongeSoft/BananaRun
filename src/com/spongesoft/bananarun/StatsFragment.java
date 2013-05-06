@@ -93,13 +93,12 @@ public class StatsFragment extends Fragment {
 		
 		entry.open();
 		int numSessions = entry.getRaceCount();
+		double distance[][] = entry.getSessionIDsAndDistances();
 		entry.close();
 		
-		/*String[] list = new String[] {"Session 1", "Session 2", "Session 3",
-				"Session 4", "Session 5"};*/
 		ArrayList<String> list = new ArrayList<String>();
 	    for (int j = 0; j < numSessions; j++) {
-	      list.add("Session"+j);
+	      list.add("Session " + (j+1) + " - " + distance[1][j]);
 	    }
 	    
 		adapter = new ArrayAdapter<String>(getActivity(),
@@ -132,7 +131,6 @@ public class StatsFragment extends Fragment {
 	                adb.setNegativeButton("Cancel", null);
 	                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
 	                    public void onClick(DialogInterface dialog, int which) {
-	                       // MyDataObject.remove(positionToRemove);
 	                    	entry.open();
 	                    	entry.deleteRace(positionToRemove);
 	                    	entry.close();
