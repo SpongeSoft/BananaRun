@@ -19,7 +19,7 @@
 			android:id="@+id/btn1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="Seleccionar grafica" />
+			android:text="Select a graph" />
 		
 	</LinearLayout>
 	
