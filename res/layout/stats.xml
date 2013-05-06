@@ -1,100 +1,149 @@
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relayout"
+    android:id="@+id/statslayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:gravity="center_vertical"
-    android:longClickable="true" >
+    android:longClickable="true"
+    android:layout_gravity="center" >
 
-   <TableLayout 
-android:id="@+id/LinearLayout1"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:layout_gravity="center"
-android:orientation="horizontal" >
-<TableRow>
-<Button
-    android:id="@+id/general"
-    android:layout_width="0dp"
-    android:layout_height="100dp"
-    android:layout_weight="4"
-    android:text="Estadisticas generales" />
+    <Button 
+        android:id="@+id/generalStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/general_stats"
+        android:layout_marginRight="30sp"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="20sp" />
+    
+    <Button
+        android:id="@+id/session1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/generalStats"
+        android:layout_marginTop="15dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/session1Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session1"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/session2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/session1"
+        android:layout_marginTop="5dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/session2Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session2"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/session3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/session2"
+        android:layout_marginTop="5dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
-</TableRow>
-<TableRow>
-<Button
-    android:id="@+id/button1"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="3"
-    android:text="Carrera 1" />
+    <Button
+        android:id="@+id/session3Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session3"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/session4"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/session3"
+        android:layout_marginTop="5dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/session4Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session4"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/session5"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/session4"
+        android:layout_marginTop="5dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
-<Button
-    android:id="@+id/button"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="1"
-    android:text="B" />
-</TableRow>
-<TableRow>
-<Button
-    android:id="@+id/button2"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="3"
-    android:text="Carrera 2" />
+    <Button
+        android:id="@+id/session5Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session5"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/session6"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/session5"
+        android:layout_marginTop="5dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/session6Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session6"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
+    <Button
+        android:id="@+id/session7"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/generalStats"
+        android:layout_below="@+id/session6"
+        android:layout_marginTop="5dp"
+        android:text="@string/general_stats"
+        android:visibility="invisible" />
 
-<Button
-    android:id="@+id/button1"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="1"
-    android:text="B" />
-</TableRow>
-<TableRow>
-<Button
-    android:id="@+id/button3"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="3"
-    android:text="Carrera 3" />
-
-
-<Button
-    android:id="@+id/button1"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="1"
-    android:text="B" />
-</TableRow>
-<TableRow>
-<Button
-    android:id="@+id/button4"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="3"
-    android:text="Carrera 4" />
-
-
-<Button
-    android:id="@+id/button1"
-    android:layout_width="0dp"
-    android:layout_height="75dp"
-    android:layout_weight="1"
-    android:text="B" />
-</TableRow>
-   
-  </TableLayout>
-  
-   
- 
-  
-
+    <Button
+        android:id="@+id/session7Close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/session7"
+        android:layout_alignRight="@+id/generalStats"
+        android:visibility="invisible" />
+    
 </RelativeLayout>

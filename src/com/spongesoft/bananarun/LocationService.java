@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class LocationService extends Service implements LocationListener {
 	LocationManager locationManager;
 	Location previousLocation;
-	
+	boolean running = true;
 	DBManagement manager;
 	double race;
 	   @Override
@@ -36,6 +36,7 @@ public class LocationService extends Service implements LocationListener {
 	    }
 	@Override
 	public void onLocationChanged(Location loc) {
+		if(running) {
 		Toast.makeText(this,"Lat: " + String.valueOf(loc.getLatitude()) + " Long: " + String.valueOf(loc.getLongitude()),Toast.LENGTH_SHORT).show();
 		if(previousLocation == null) {
 			manager.setLocation((long) race, loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), 0, loc.getSpeed());
@@ -48,11 +49,12 @@ public class LocationService extends Service implements LocationListener {
         final Intent intent = new Intent("com.spongesoft.bananarun.LOCATION_UPDATED");
         intent.putExtra("data", loc);
         sendBroadcast(intent);
+		}
 	}
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Bundle extras = intent.getExtras();
-	    race = extras.getFloat("race_id");
+	    race = extras.getInt("race_id");
 	    
         Toast.makeText(this, "Service started, race id: "+race, Toast.LENGTH_LONG).show();
         manager = new DBManagement(this);
@@ -84,6 +86,16 @@ public class LocationService extends Service implements LocationListener {
 	}
 
 	@Override
+	public void onDestroy() {
+
+        unregisterReceiver(mReceiver);
+        this.stopForeground(true);
+        
+        super.onDestroy();
+
+	}
+ 
+	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
 		return null;
@@ -109,7 +121,7 @@ public class LocationService extends Service implements LocationListener {
 	 private void createNotification() {
 		 Intent notificationIntent = new Intent(this, SessionActivity.class);
 		 notificationIntent.putExtra("stopNotif", true);
-		 notificationIntent.putExtra("race_id", race);
+		 notificationIntent.putExtra("race_id", (int) race);
 		 PendingIntent contentIntent = PendingIntent.getActivity(this,
 		         12345, notificationIntent,
 		         PendingIntent.FLAG_CANCEL_CURRENT);
@@ -137,6 +149,10 @@ public class LocationService extends Service implements LocationListener {
 		 startForeground(143214321,n);
 	 }
 	 
+	 private void stopReceiving() {
+		 locationManager.removeUpdates(this);
+	 }
+	 
 	 
 
 		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -148,19 +164,12 @@ public class LocationService extends Service implements LocationListener {
 		                        	//Stop the service and mark the race as over
 		                        	manager.updateRace((long) race);
 		                        	manager.close();
-		                        	stopSelf();
+		                        	running = false;
+		                        	stopReceiving();
 		                        }
 
 		            }
 		
 		};
 		
-		public void onDestroy() {
-
-            unregisterReceiver(mReceiver);
-
-            super.onDestroy();
-
-		}
-	 
 }

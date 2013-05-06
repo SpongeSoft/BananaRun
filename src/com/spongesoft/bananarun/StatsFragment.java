@@ -26,7 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.spongesoft.dietapp.R;
+import com.spongesoft.bananarun.R;
 
 public class StatsFragment extends Fragment {
 	/**
@@ -61,7 +61,7 @@ public class StatsFragment extends Fragment {
 		final View HomeView = inflater
 				.inflate(R.layout.stats, container, false);
 		
-		Button genStats = (Button) HomeView.findViewById(R.id.general);
+		Button genStats = (Button) HomeView.findViewById(R.id.generalStats);
 		
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -70,7 +70,7 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		Button carrera1 = (Button) HomeView.findViewById(R.id.button1);
+		Button carrera1 = (Button) HomeView.findViewById(R.id.session1);
 		
 		carrera1.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -80,7 +80,7 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		Button carrera2 = (Button) HomeView.findViewById(R.id.button2);
+		Button carrera2 = (Button) HomeView.findViewById(R.id.session2);
 		
 		carrera2.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -90,7 +90,7 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		Button carrera3=(Button) HomeView.findViewById(R.id.button3);
+		Button carrera3=(Button) HomeView.findViewById(R.id.session3);
 		
 		carrera3.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -100,7 +100,7 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		Button carrera4 = (Button) HomeView.findViewById(R.id.button4);
+		Button carrera4 = (Button) HomeView.findViewById(R.id.session4);
 		
 		carrera4.setOnClickListener(new View.OnClickListener(){
 			@Override
