@@ -93,12 +93,12 @@ public class StatsFragment extends Fragment {
 		
 		entry.open();
 		int numSessions = entry.getRaceCount();
-		double distance[][] = entry.getSessionIDsAndDistances();
+		//double distance[][] = entry.getSessionIDsAndDistances();
 		entry.close();
 		
 		ArrayList<String> list = new ArrayList<String>();
 	    for (int j = 0; j < numSessions; j++) {
-	      list.add("Session " + (j+1) + " - " + distance[1][j]);
+	      list.add("Session " + (j+1) + " - " /*+ distance[1][j]*/);
 	    }
 	    
 		adapter = new ArrayAdapter<String>(getActivity(),
@@ -110,8 +110,8 @@ public class StatsFragment extends Fragment {
 	          @Override
 	          public void onItemClick(AdapterView<?> parent, final View view,
 	              int position, long id) {
-	        	  final String item = (String) parent.getItemAtPosition(position);
-		            Toast.makeText(getActivity().getApplicationContext(), "Selected item: "+item, Toast.LENGTH_SHORT).show();         
+	        	  Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
+					StatsView.getContext().startActivity(newSession);         
 	          }  
 
 	        });
