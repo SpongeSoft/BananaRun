@@ -33,9 +33,11 @@ public class SessionFragment extends Fragment {
 	DBManagement manager;
 	
 	TextView kmCounter;
-	TextView calorieMeter;
 	TextView timeMeter;
 	long race_id;
+	
+	AuxMethods aux;
+	
 	public SessionFragment() {
 	}
 
@@ -58,8 +60,6 @@ public class SessionFragment extends Fragment {
 		chronometer = (Chronometer) SessionView.findViewById(R.id.chronometer);
 		
 		kmCounter = (TextView) SessionView.findViewById(R.id.kmeter);
-		calorieMeter = (TextView) SessionView.findViewById(R.id.calories);
-		TextView caloriesVal = (TextView) SessionView.findViewById(R.id.caloriesValue);
 		timeMeter = (TextView) SessionView.findViewById(R.id.timer);
 		ImageView weatherIcon = (ImageView) SessionView.findViewById(R.id.sessionWeatherIcon);
 		TextView sessionTemp = (TextView) SessionView.findViewById(R.id.temperature);
@@ -70,13 +70,14 @@ public class SessionFragment extends Fragment {
 		Log.d("Chronometer", "WeatherCode = "+weatherCode); 
 		String temp = prefs.getString("temperature", "??"); //Weather temperature
 		
+        
+        aux = new AuxMethods(prefs);
+		
 		/* Set font to TextView components */
 		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
 				"fonts/bradbunr.ttf");
 		
 		kmCounter.setTypeface(font);		
-		calorieMeter.setTypeface(font);
-		caloriesVal.setTypeface(font);
 		timeMeter.setTypeface(font);
 		chronometer.setTypeface(font);
 
@@ -171,8 +172,8 @@ public class SessionFragment extends Fragment {
 	};
 	private void updateStats() {
 		ContentValues stats = manager.getStats(race_id);
-		kmCounter.setText(stats.getAsString(manager.KEY_S_TOTAL_DISTANCE));
-		timeMeter.setText(stats.getAsString(manager.KEY_S_TOTAL_TIME));
+		kmCounter.setText(aux.getDistance(Double.parseDouble(stats.getAsString(manager.KEY_S_TOTAL_DISTANCE))));
+		//timeMeter.setText(stats.getAsString(manager.KEY_S_TOTAL_TIME));
 		
 		Log.d("stats", "raceID: "+race_id+" total_dist: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE)+"total_time: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE));
 	}
