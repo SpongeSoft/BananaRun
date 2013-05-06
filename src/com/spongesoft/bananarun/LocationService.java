@@ -86,6 +86,16 @@ public class LocationService extends Service implements LocationListener {
 	}
 
 	@Override
+	public void onDestroy() {
+
+        unregisterReceiver(mReceiver);
+        this.stopForeground(true);
+        
+        super.onDestroy();
+
+	}
+ 
+	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
 		return null;
@@ -162,12 +172,4 @@ public class LocationService extends Service implements LocationListener {
 		
 		};
 		
-		public void onDestroy() {
-
-            unregisterReceiver(mReceiver);
-
-            super.onDestroy();
-
-		}
-	 
 }
