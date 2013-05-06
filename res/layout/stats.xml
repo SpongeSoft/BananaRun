@@ -13,12 +13,17 @@
 
     <Button 
         android:id="@+id/generalStats"
+        android:background="@drawable/background_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45sp"
         android:text="@string/general_stats"
         android:layout_marginRight="30sp"
         android:layout_marginLeft="30sp"
-        android:layout_marginTop="20sp" />
+        android:layout_marginTop="20sp"
+        android:textColor="@color/text_colour"
+        android:textStyle="bold"
+        android:textSize="25sp"
+         />
         <TextView
             android:id="@+id/header"
             android:layout_width="match_parent"

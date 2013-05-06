@@ -82,7 +82,14 @@ public class StatsFragment extends Fragment {
 
 		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
 		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
-
+		TextView Sessions = (TextView) StatsView.findViewById(R.id.header);
+		
+		Typeface font = Typeface.createFromAsset(getActivity()
+				.getAssets(), "fonts/bradbunr.ttf");
+		Sessions.setTypeface(font);
+		genStats.setTypeface(font);
+		
+		
 		genStats.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
