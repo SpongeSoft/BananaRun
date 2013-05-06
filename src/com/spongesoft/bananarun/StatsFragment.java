@@ -24,6 +24,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.spongesoft.bananarun.R;
@@ -40,6 +41,7 @@ public class StatsFragment extends Fragment {
 	 * Buttons and whatnot
 	 */
 	DBManagement entry;
+	ListView lv;
 
 	/**
 	 * Methods
@@ -58,10 +60,10 @@ public class StatsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
-		final View HomeView = inflater
+		final View StatsView = inflater
 				.inflate(R.layout.stats, container, false);
 		
-		Button genStats = (Button) HomeView.findViewById(R.id.generalStats);
+		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
 		
 		genStats.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -70,45 +72,7 @@ public class StatsFragment extends Fragment {
 			}
 		 });
 		
-		Button carrera1 = (Button) HomeView.findViewById(R.id.session1);
-		
-		carrera1.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
-		Button carrera2 = (Button) HomeView.findViewById(R.id.session2);
-		
-		carrera2.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
-		Button carrera3=(Button) HomeView.findViewById(R.id.session3);
-		
-		carrera3.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
-		
-		Button carrera4 = (Button) HomeView.findViewById(R.id.session4);
-		
-		carrera4.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				Intent newSession = new Intent(getActivity().getBaseContext(), ListGraphsActivity.class);
-				HomeView.getContext().startActivity(newSession);
-			}
-		 });
+		lv = (ListView) StatsView.findViewById(R.id.listview);
 		
 
 		/*TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
@@ -129,7 +93,7 @@ public class StatsFragment extends Fragment {
 		
 		*/
 		
-		return HomeView;
+		return StatsView;
 	}
 	
 	public void getBarChart(){
