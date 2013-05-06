@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spongesoft.dietapp"
+    package="com.spongesoft.bananarun"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -62,8 +62,8 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 <permission 
-android:name="com.spongesoft.dietapp.MAPS_RECEIVE" 
+android:name="com.spongesoft.bananarun.MAPS_RECEIVE" 
 android:protectionLevel="signature"></permission>
 <uses-permission 
-android:name="com.spongesoft.dietapp.MAPS_RECEIVE"/>
+android:name="com.spongesoft.bananarun.MAPS_RECEIVE"/>
 </manifest>
