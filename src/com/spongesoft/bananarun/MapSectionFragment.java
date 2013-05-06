@@ -71,7 +71,12 @@ public class MapSectionFragment extends Fragment {
 	private Marker mMarker;
 	private Circle mCircle;
 	private Polyline mPolyline;
+<<<<<<< Updated upstream
 
+=======
+	
+	private DBManagement manager;
+>>>>>>> Stashed changes
 	private int layer;
 
 	ImageView lockBtn;
@@ -104,10 +109,15 @@ public class MapSectionFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+<<<<<<< Updated upstream
 		final View inflatedView = inflater.inflate(R.layout.main, container,
 				false);
 
 		layer = GoogleMap.MAP_TYPE_NORMAL; // Set the initial map type
+=======
+		manager = new DBManagement(getActivity());
+		final View inflatedView = inflater.inflate(R.layout.main, container, false);
+>>>>>>> Stashed changes
 
 		try {
 			MapsInitializer.initialize(getActivity());
@@ -155,6 +165,7 @@ public class MapSectionFragment extends Fragment {
 					mMap.setMapType(layer);
 					Log.d("onClickMap", "Layer type is: NORMAL");
 				}
+				update_map();
 			}
 		});
 
@@ -230,10 +241,10 @@ public class MapSectionFragment extends Fragment {
 				// Get back the mutable Circle
 				// mCircle = mMap.addCircle(circleOptions);
 
-				// PolylineOptions rectOptions = new PolylineOptions();
+				PolylineOptions rectOptions = new PolylineOptions();
 				// //.add(new LatLng(0,0));
 				// Get back the mutable Polyline
-				// mPolyline = mMap.addPolyline(rectOptions);
+				mPolyline = mMap.addPolyline(rectOptions);
 
 				startLocation();
 			}
@@ -242,11 +253,17 @@ public class MapSectionFragment extends Fragment {
 	}
 
 	private void update_map() {
-		// Get the race_id
-		long race = getArguments().getInt("race_id");
-		if (race != 0L) {
-			// TODO: If it's indeed a race, go and get its points
+		//Get the race_id
+		long race = getArguments().getLong("race_id");
+		if(race != 0L) {
+			manager.open();
+			//TODO: If it's indeed a race, go and get its points
+			List<LatLng> points = manager.getPoints(race);
+			mPolyline.setPoints(points);
+			Log.d("map", "updating map, "+points.size()+" points ("+points.get(0).latitude+")");
+			mMap.animateCamera(CameraUpdateFactory.newLatLng(points.get(0)));
 
+			manager.close();
 		}
 	}
 
