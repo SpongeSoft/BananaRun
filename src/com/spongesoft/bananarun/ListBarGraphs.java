@@ -11,6 +11,7 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.spongesoft.bananarun.LineChart;
@@ -22,6 +23,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -133,7 +136,9 @@ public class ListBarGraphs extends Activity {
 		});
 		
 		//show on btn1
-		Button btn1 = (Button) this.findViewById(R.id.btn1);
+		Button btn1 = (Button) findViewById(R.id.btn1);
+		Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/bradbunr.ttf");
+		btn1.setTypeface(font);
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
