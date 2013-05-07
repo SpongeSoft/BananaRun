@@ -218,6 +218,7 @@ public class LocationService extends Service implements LocationListener, OnInit
 	};
 
 	private void FinishOnLimit() {
+		
 		ContentValues stats = manager.getStats((long) race);
 		int distance = stats.getAsInteger(manager.KEY_S_TOTAL_DISTANCE);
 		int distanceKm = distance / 1000;
@@ -229,7 +230,6 @@ public class LocationService extends Service implements LocationListener, OnInit
 		
 		if (pickerType != 2) {
 
-
 			if (pickerType == 1) {
 				if (unitsSystem.equals("1")) {
 					distance = distance / 1000;
@@ -238,23 +238,21 @@ public class LocationService extends Service implements LocationListener, OnInit
 				}
 
 				if (distance >= pickerValue) {
+					manager.updateRace((long) race);
 					manager.close();
 					running = false;
 					stopReceiving();
-
 					sendBroadcast(new Intent("xyz"));
 				}
 			} else if (pickerType == 0) {
 				int time = timeSeconds / 60;
-				Log.d("mierda", time + ":" + pickerValue);
 				if (time >= pickerValue) {
+					manager.updateRace((long) race);
 					manager.close();
 					running = false;
 					stopReceiving();
-
 					sendBroadcast(new Intent("xyz"));
 				}
-
 			}
 		}
 	}
