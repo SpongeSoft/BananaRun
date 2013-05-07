@@ -29,5 +29,12 @@
     <string name="totalDistanceStr">Distancia total:</string>
     <string name="timePerDistanceStr">Tiempo por distancia</string>
     <string name="kilocaloriesStr">Kilocalorías:</string>
+        
+	<string name="timeStat">Tiempo</string>
+	<string name="distStat">Distancia</string>
+	<string name="calStat">KCal</string>
+	<string name="speedStat">Velocidad media</string>
+	<string name="toastStat">Registro vacío</string>
+	<string name="speedStat2">Velocidad</string>
 
 </resources>

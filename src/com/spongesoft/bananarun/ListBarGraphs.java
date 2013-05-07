@@ -74,10 +74,10 @@ public class ListBarGraphs extends Activity {
 		
 		
 	
-		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Time", getResources().getDrawable(R.drawable.menu_ok));
-		ActionItem prevItem 	= new ActionItem(ID_UP, "Average Speed", getResources().getDrawable(R.drawable.menu_ok));
-        ActionItem searchItem 	= new ActionItem(ID_SEARCH, "Distance", getResources().getDrawable(R.drawable.menu_ok));
-        ActionItem item	= new ActionItem(ID_OK, "Kcal", getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem nextItem 	= new ActionItem(ID_DOWN, getResources().getString(R.string.timeStat), getResources().getDrawable(R.drawable.menu_ok));
+		ActionItem prevItem 	= new ActionItem(ID_UP, getResources().getString(R.string.speedStat), getResources().getDrawable(R.drawable.menu_ok));
+        ActionItem searchItem 	= new ActionItem(ID_SEARCH, getResources().getString(R.string.distStat), getResources().getDrawable(R.drawable.menu_ok));
+        ActionItem item	= new ActionItem(ID_OK, getResources().getString(R.string.calStat), getResources().getDrawable(R.drawable.menu_ok));
         
         //use setSticky(true) to disable QuickAction dialog being dismissed after an item is clicked
         prevItem.setSticky(true);
@@ -111,7 +111,7 @@ public class ListBarGraphs extends Activity {
 						getBarChart(actionItem.getTitle());
 						}
 						else{
-							Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
 						}
 				} else if (actionId == ID_DOWN) {
 					arr = entry.getSessionsParam(1);
@@ -120,7 +120,7 @@ public class ListBarGraphs extends Activity {
 					getBarChart(actionItem.getTitle());
 					}
 					else{
-						Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
 					}
 					
 				} else if (actionId == ID_UP){
@@ -130,7 +130,7 @@ public class ListBarGraphs extends Activity {
 						getBarChart(actionItem.getTitle());
 						}
 						else{
-							Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
 						}
 				}
 				else if (actionId == ID_OK){
@@ -140,7 +140,7 @@ public class ListBarGraphs extends Activity {
 						getBarChart(actionItem.getTitle());
 						}
 						else{
-							Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
 						}
 			}
 				entry.close();
