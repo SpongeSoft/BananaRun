@@ -37,9 +37,10 @@ public class AuxMethods {
 	public int[] getHeightAndWeight(){
 		
 		int[] abundle = new int[2];
-		abundle[0] = preferences.getInt("prefUserHeight", 75);
-		abundle[1] = preferences.getInt("prefUserWeight", 178);
-		
+
+		abundle[0] = Integer.valueOf(preferences.getString("prefUserHeight", "75"));
+		abundle[1] = Integer.valueOf(preferences.getString("prefUserWeight", "178"));
+
 		return abundle;
 	}
 }

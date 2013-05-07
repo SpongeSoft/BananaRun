@@ -216,13 +216,20 @@ public class MapSectionFragment extends Fragment {
 				mc.setCenter(point);
 				mMapView.invalidate();
 				*/
-				
 				List<LatLng> positions = mPolyline.getPoints();
+				
+				if(positions.size() > 0) {
 				LatLng position = positions.get(positions.size()-1);
 				mMarker.setPosition(position);
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
 				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f));
+				}else{
+					mMap.animateCamera(CameraUpdateFactory.newLatLng(mMarker.getPosition()));
+					mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17.0f));
+
+				}
 			}
+				
 		});
 
 		/*
@@ -277,7 +284,7 @@ public class MapSectionFragment extends Fragment {
 				// Get back the mutable Circle
 				// mCircle = mMap.addCircle(circleOptions);
 
-				PolylineOptions rectOptions = new PolylineOptions().width(25).color(Color.BLUE);
+				PolylineOptions rectOptions = new PolylineOptions().width(7).color(Color.BLUE);
 				// //.add(new LatLng(0,0));
 				// Get back the mutable Polyline
 				mPolyline = mMap.addPolyline(rectOptions);
@@ -297,9 +304,11 @@ public class MapSectionFragment extends Fragment {
 			List<LatLng> points = manager.getPoints(race);
 			mPolyline.setPoints(points);
 			//Only move if the UI is not locked
+			if(points.size() > 2) {
 			mMarker.setPosition(points.get(points.size()-1));
 			if(!parentActivity.isLocked()) {
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(points.get(points.size()-1)));
+			}
 			}
 			manager.close();
 		}
