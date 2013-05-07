@@ -158,6 +158,7 @@ public class StatsFragment extends Fragment {
 					public void onClick(DialogInterface dialog, int which) {
 						entry.open();
 						entry.deleteRace(positionToRemove);
+						distance = entry.getSessionsIdsAndDistance();
 						entry.close();
 						adapter.remove(adapter.getItem(position));
 						adapter.notifyDataSetChanged();
