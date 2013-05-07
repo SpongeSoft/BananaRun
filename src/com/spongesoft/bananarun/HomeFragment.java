@@ -1,7 +1,5 @@
 package com.spongesoft.bananarun;
 
-import java.util.concurrent.TimeUnit;
-
 import com.spongesoft.bananarun.R;
 
 import android.app.Activity;
@@ -32,13 +30,14 @@ public class HomeFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	public final int MODE_PRIVATE = 0;
 
+	/* Global variables */
 	boolean updateFlag;
 	ImageView weatherIcon;
 	TextView temperatureText;
 	SharedPreferences generalPrefs;
 	Handler handler;
 	String temp;
-	DBManagement entry;
+	DBManagement entry; // Database Helper Object
 	int wCode;
 
 	public HomeFragment() {
@@ -47,22 +46,24 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		entry = new DBManagement(activity);
+		entry = new DBManagement(activity); // Create DB Helper object
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// Create a new TextView and set its text to the fragment's section
-		// number argument value.
+
 		final View HomeView = inflater.inflate(R.layout.home_tab, container,
 				false);
 
-		// RelativeLayout rl = (RelativeLayout)view.findViewById(R.id.relayout);
-		// Color textos #b45d1d
+		/* Reference XML layout elements */
 		ImageView startButton = (ImageView) HomeView
 				.findViewById(R.id.startbutton);
 
+		/*
+		 * Weather and preference icons require special handling in order to put
+		 * them in front of a background image
+		 */
 		ImageView prefsBackground = (ImageView) HomeView
 				.findViewById(R.id.preferencesbackground);
 		prefsBackground.setVisibility(View.VISIBLE);
@@ -71,22 +72,34 @@ public class HomeFragment extends Fragment {
 				.findViewById(R.id.weatherbackground);
 		weatherBackground.setVisibility(View.VISIBLE);
 
+		/* Reference weather elements from XML layout */
 		weatherIcon = (ImageView) HomeView.findViewById(R.id.weathericon);
 		temperatureText = (TextView) HomeView.findViewById(R.id.temperature);
+
+		/* Apply text style to temperature TextView */
 		Typeface lTemperaturetypeFace = Typeface.createFromAsset(getActivity()
 				.getAssets(), "fonts/bradbunr.ttf");
 		temperatureText.setTypeface(lTemperaturetypeFace);
 
+		/* Initialize global preferences for future uses */
 		generalPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getActivity().getApplicationContext());
+				.getDefaultSharedPreferences(getActivity()
+						.getApplicationContext());
 		updateFlag = true;
 
+		/*
+		 * When started, force the default temperature and weather icon to be
+		 * the 'Non-available' weather set
+		 */
 		SharedPreferences.Editor editor = generalPrefs.edit();
 		editor.putInt("code", R.drawable.img3200);
 		editor.putString("temperature", "??");
 		editor.commit();
 
-		/* Button is pressed */
+		/*
+		 * Start button is pressed. Kill activity and create settings session
+		 * activity
+		 */
 		startButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -108,13 +121,11 @@ public class HomeFragment extends Fragment {
 			@Override
 			public void onAnimationStart(Animation animation) {
 				// Do nothing
-
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
 				// Do nothing
-
 			}
 
 			@Override
@@ -133,10 +144,12 @@ public class HomeFragment extends Fragment {
 			public void onClick(View v) {
 				v.startAnimation(rotate); // START
 			}
-
 		});
 
-		/* Change textviews' font to bradrunr, located in assets/fonts */
+		/*
+		 * Change remaining Textviews' font style to 'bradrunr', located in
+		 * assets/fonts
+		 */
 
 		/* 'Last session' String */
 		TextView lastSession = (TextView) HomeView
@@ -156,27 +169,43 @@ public class HomeFragment extends Fragment {
 		Typeface lTimetypeFace = Typeface.createFromAsset(getActivity()
 				.getAssets(), "fonts/bradbunr.ttf");
 		lastTime.setTypeface(lTimetypeFace);
-		
+
+		/*
+		 * Retrieve user's last session, if any, and display its basic data in
+		 * the central region of the screen (distance and time).
+		 */
 		int lastRaceID = generalPrefs.getInt("lastRaceID", -1);
-		if(lastRaceID == -1){
+		if (lastRaceID == -1) {
+			/* There are no sessions: display default message */
 			lastDistance.setVisibility(View.INVISIBLE);
 			lastTime.setVisibility(View.INVISIBLE);
-			
-			lastSession.setText(getResources().getString(R.string.defaultMessage));
-		}else{
+
+			lastSession.setText(getResources().getString(
+					R.string.defaultMessage));
+		} else {
+			/*
+			 * There is at least one stored session in the database. Update the
+			 * layout elements
+			 */
 			entry.open();
-			double[] infoArray =  entry.getParamsForSpecificRace((long)lastRaceID);
+			double[] infoArray = entry
+					.getParamsForSpecificRace((long) lastRaceID);
 
 			AuxMethods aux = new AuxMethods(generalPrefs);
 			String dist = aux.getDistance(infoArray[4]);
-			
+
 			lastDistance.setText(dist);
-			lastTime.setText((int)(infoArray[3]/60)+":"+(int)(infoArray[3]%60)+"");
-			
+			lastTime.setText((int) (infoArray[3] / 60) + ":"
+					+ (int) (infoArray[3] % 60) + "");
+
 			entry.close();
 		}
 
-		/* Updating weather info on screen every 5 minutes */
+		/*
+		 * Updating weather info on screen every 5 minutes. The handler reads
+		 * the application's preferences for new temperature and weather icon
+		 * values.
+		 */
 		handler = new Handler();
 
 		Runnable runnable = new Runnable() {
