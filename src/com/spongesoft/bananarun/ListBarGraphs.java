@@ -170,8 +170,8 @@ public class ListBarGraphs extends Activity {
 		entry.open();
 		double[][] allSessions = entry.getSessionsIdsAndDistance();
 		if(allSessions!=null){
-		int numSession = allSessions[0].length;
-		
+		int numSession = entry.getRaceCount();
+		Log.d("sesion",""+numSession);
 		
 		sessionsInfo = new double[5];
 		
