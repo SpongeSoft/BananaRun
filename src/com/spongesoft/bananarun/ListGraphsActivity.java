@@ -31,7 +31,6 @@ public class ListGraphsActivity extends Activity {
 	// action id
 	private static final int ID_DISTANCE = 1;
 	private static final int ID_SPEED = 2;
-	private static final int ID_ALTITUDE = 3;
 	SharedPreferences preferences;
 	DBManagement entry;
 	double[][] arr;
@@ -60,8 +59,7 @@ public class ListGraphsActivity extends Activity {
 				getResources().getDrawable(R.drawable.menu_ok));
 		ActionItem prevItem = new ActionItem(ID_SPEED, "Speed", getResources()
 				.getDrawable(R.drawable.menu_ok));
-		ActionItem searchItem = new ActionItem(ID_ALTITUDE, "Altitude",
-				getResources().getDrawable(R.drawable.menu_ok));
+	
 
 		// use setSticky(true) to disable QuickAction dialog being dismissed
 		// after an item is clicked
@@ -77,7 +75,7 @@ public class ListGraphsActivity extends Activity {
 		// add action items into QuickAction
 		quickAction.addActionItem(nextItem);
 		quickAction.addActionItem(prevItem);
-		quickAction.addActionItem(searchItem);
+		
 
 		// Set listener for action item clicked
 		quickAction
@@ -98,8 +96,8 @@ public class ListGraphsActivity extends Activity {
 								total_distance = entry
 										.getParamsForSpecificRace(id_race);
 								if (total_distance[4] > 10) {
-									String title_serie = "Distance in ";
-									getLineChart(actionItem.getTitle(),
+									String title_serie = "Distance in m ";
+									getLineChart2(actionItem.getTitle(),
 											title_serie);
 								} else {
 									Toast.makeText(getApplicationContext(),
@@ -122,7 +120,7 @@ public class ListGraphsActivity extends Activity {
 										.getParamsForSpecificRace(id_race);
 								if (total_distance[4] > 10) {
 									String title_serie = "Speed in m/s";
-									getLineChart(actionItem.getTitle(),
+									getLineChart1(actionItem.getTitle(),
 											title_serie);
 								} else {
 									Toast.makeText(getApplicationContext(),
@@ -137,31 +135,7 @@ public class ListGraphsActivity extends Activity {
 
 							entry.close();
 
-						} else if (actionId == ID_ALTITUDE) {
-
-							arr = entry.getRaceParam(id_race, actionId);
-							if (arr != null) {
-
-								total_distance = entry
-										.getParamsForSpecificRace(id_race);
-								if (total_distance[4] > 10) {
-									String title_serie = "Altitude in ";
-									getLineChart(actionItem.getTitle(),
-											title_serie);
-								} else {
-									Toast.makeText(getApplicationContext(),
-											"Registro vacio",
-											Toast.LENGTH_SHORT).show();
-								}
-							} else {
-								Toast.makeText(getApplicationContext(),
-										"Registro vacio", Toast.LENGTH_SHORT)
-										.show();
-							}
-
-							entry.close();
-
-						}
+						} 
 					}
 				});
 
@@ -179,11 +153,9 @@ public class ListGraphsActivity extends Activity {
 		});
 
 		// show on btn1
-		Button btn1 = (Button) this.findViewById(R.id.btn1);
-		Typeface font = Typeface.createFromAsset(this.getAssets(),
-				"fonts/bradbunr.ttf");
+		Button btn1 = (Button) findViewById(R.id.btn1);
+		Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/bradbunr.ttf");
 		btn1.setTypeface(font);
-
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -193,10 +165,17 @@ public class ListGraphsActivity extends Activity {
 
 	}
 
-	public void getLineChart(String name, String title) {
+	public void getLineChart1(String name, String title) {
 		setLineSettings(mRenderer, name);
 		Intent intent = ChartFactory.getLineChartIntent(this,
-				getDemoDataset(title, name), mRenderer);
+				getDemoDataset(title), mRenderer);
+		startActivity(intent);
+	}
+	
+	public void getLineChart2(String name, String title) {
+		setLineSettings(mRenderer, name);
+		Intent intent = ChartFactory.getLineChartIntent(this,
+				getDemoDataset2(title), mRenderer);
 		startActivity(intent);
 	}
 
@@ -207,34 +186,44 @@ public class ListGraphsActivity extends Activity {
 		renderer.setFitLegend(false);
 		renderer.setAxesColor(Color.BLACK);
 		renderer.setShowGrid(true);
-		renderer.setXAxisMin(0.5);
-		// renderer.setXAxisMax(setmaxvalueX(arr));
-		renderer.setYAxisMin(0);
+		//renderer.setXAxisMin(0.5);
+		//renderer.setXAxisMax(10.5);
+		//renderer.setYAxisMin(0);
 		renderer.setZoomEnabled(false);
 		renderer.setZoomButtonsVisible(true);
-		renderer.setYAxisMax(setmaxvalueY(arr));
+		//renderer.setYAxisMax(setmaxvalueY(arr));
 	}
 
-	private XYMultipleSeriesDataset getDemoDataset(String title, String name) {
+	private XYMultipleSeriesDataset getDemoDataset(String title) {
 
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		XYSeries firstSeries = new XYSeries(title);
-		/*
-		 * double sum=0; if(name.equals("Distance")){
-		 * 
-		 * for (int i = 0; i < arr.length; i++) { sum+= arr[i][0];
-		 * firstSeries.add(i,sum); dataset.addSeries(firstSeries); }
-		 * 
-		 * }else {
-		 */
-		for (int i = 0; i < arr.length; i++)
-			firstSeries.add(i, arr[i][0]);
-		dataset.addSeries(firstSeries);
-		// }
+
+	    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+
+	   
+
+	    XYSeries firstSeries = new XYSeries(title);
+	    for (int i = 0; i < arr.length; i++)
+	      firstSeries.add(i, arr[i][0]);
+	    dataset.addSeries(firstSeries);
+	 
 
 		return dataset;
 	}
+	private XYMultipleSeriesDataset getDemoDataset2(String title) {
 
+
+	    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+	    XYSeries firstSeries = new XYSeries(title);
+	    double sum=0;
+	    for (int i = 0; i < arr.length; i++){
+	    	sum+=arr[i][0];
+	    	firstSeries.add(i, sum);
+	    }
+	    dataset.addSeries(firstSeries);
+	    
+
+		return dataset;
+	}
 	private XYMultipleSeriesRenderer getDemoRenderer() {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setMargins(new int[] { 20, 30, 15, 0 });
@@ -254,7 +243,8 @@ public class ListGraphsActivity extends Activity {
 	public int setmaxvalueY(double arr[][]) {
 		double max_value = arr[0][0];
 		for (int i = 1; i < arr.length; i++) {
-			if (max_value < arr[i][0]) {
+			if (max_value < arr[i][0]) 
+			{
 				max_value = arr[i][0];
 			}
 
