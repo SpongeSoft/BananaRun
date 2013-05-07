@@ -43,4 +43,10 @@ public class AuxMethods {
 
 		return abundle;
 	}
+	
+	public double stripDecimals(double value) {
+		DecimalFormat twoDForm = new DecimalFormat("#.##",new DecimalFormatSymbols(Locale.US));
+		return Double.valueOf(twoDForm.format(value));
+
+	}
 }

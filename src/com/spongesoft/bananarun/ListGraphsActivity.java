@@ -84,11 +84,11 @@ public class ListGraphsActivity extends Activity {
 		sessionsInfo[4] += singleSession[6]; // Calories burnt
 
 		AuxMethods aux = new AuxMethods(preferences);
-		meanSpeed.setText(aux.getDistance(sessionsInfo[0]) + "");
+		meanSpeed.setText(aux.getDistance(sessionsInfo[0]) + "/h");
 		averageTime.setText((sessionsInfo[1]) + " min");
 		totalDistance.setText(aux.getDistance(sessionsInfo[2]));
-		timePerDistance.setText((sessionsInfo[3]) + "");
-		totalKilocalories.setText(sessionsInfo[4] + "");
+		timePerDistance.setText((aux.stripDecimals(sessionsInfo[3]))+"");
+		totalKilocalories.setText(aux.stripDecimals(sessionsInfo[4]) + "");
 
 		entry.close();
 

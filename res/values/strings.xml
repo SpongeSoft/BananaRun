@@ -53,7 +53,7 @@
     <string name="averageSpeedStr">Average Speed:</string>
     <string name="averageTimeStr">Average Time:</string>
     <string name="totalDistanceStr">Total Distance:</string>
-    <string name="timePerDistanceStr">Time Per Distance</string>
+    <string name="timePerDistanceStr">Time Per Distance:</string>
     <string name="kilocaloriesStr">Kilocalories:</string>
 	<string name="timeStat">Time</string>
 	<string name="distStat">Distance</string>

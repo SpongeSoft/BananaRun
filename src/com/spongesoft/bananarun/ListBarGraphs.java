@@ -205,11 +205,11 @@ public class ListBarGraphs extends Activity {
 			}
 
 			AuxMethods aux = new AuxMethods(preferences);
-			meanSpeed.setText((sessionsInfo[0] / numSession) + "");
+			meanSpeed.setText((aux.getDistance(sessionsInfo[0] / numSession)) + "");
 			averageTime.setText((sessionsInfo[1] / numSession) + "");
 			totalDistance.setText(aux.getDistance(sessionsInfo[2]));
-			timePerDistance.setText((sessionsInfo[3] / numSession) + "");
-			totalKilocalories.setText(sessionsInfo[4] + "");
+			timePerDistance.setText((aux.stripDecimals(sessionsInfo[3] / numSession)) + "");
+			totalKilocalories.setText(aux.stripDecimals(sessionsInfo[4]) + "");
 
 			entry.close();
 		} else {
