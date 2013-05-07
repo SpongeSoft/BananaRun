@@ -31,7 +31,6 @@ public class ListGraphsActivity extends Activity {
 	// action id
 	private static final int ID_DISTANCE = 1;
 	private static final int ID_SPEED = 2;
-	private static final int ID_ALTITUDE = 3;
 	SharedPreferences preferences;
 	DBManagement entry;
 	double[][] arr;
@@ -60,8 +59,7 @@ public class ListGraphsActivity extends Activity {
 				getResources().getDrawable(R.drawable.menu_ok));
 		ActionItem prevItem = new ActionItem(ID_SPEED, "Speed", getResources()
 				.getDrawable(R.drawable.menu_ok));
-		ActionItem searchItem = new ActionItem(ID_ALTITUDE, "Altitude",
-				getResources().getDrawable(R.drawable.menu_ok));
+	
 
 		// use setSticky(true) to disable QuickAction dialog being dismissed
 		// after an item is clicked
@@ -77,7 +75,7 @@ public class ListGraphsActivity extends Activity {
 		// add action items into QuickAction
 		quickAction.addActionItem(nextItem);
 		quickAction.addActionItem(prevItem);
-		quickAction.addActionItem(searchItem);
+		
 
 		// Set listener for action item clicked
 		quickAction
@@ -137,31 +135,7 @@ public class ListGraphsActivity extends Activity {
 
 							entry.close();
 
-						} else if (actionId == ID_ALTITUDE) {
-
-							arr = entry.getRaceParam(id_race, actionId);
-							if (arr != null) {
-
-								total_distance = entry
-										.getParamsForSpecificRace(id_race);
-								if (total_distance[4] > 10) {
-									String title_serie = "Altitude in ";
-									getLineChart1(actionItem.getTitle(),
-											title_serie);
-								} else {
-									Toast.makeText(getApplicationContext(),
-											"Registro vacio",
-											Toast.LENGTH_SHORT).show();
-								}
-							} else {
-								Toast.makeText(getApplicationContext(),
-										"Registro vacio", Toast.LENGTH_SHORT)
-										.show();
-							}
-
-							entry.close();
-
-						}
+						} 
 					}
 				});
 
