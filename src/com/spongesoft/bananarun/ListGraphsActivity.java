@@ -35,6 +35,8 @@ public class ListGraphsActivity extends Activity {
 	DBManagement entry;
 	double[][] arr;
 	long id_race ; 
+	double distance[][];
+	double total_distance[];
 	private XYMultipleSeriesRenderer mRenderer = getDemoRenderer();
 	
 	@Override
@@ -89,12 +91,16 @@ public class ListGraphsActivity extends Activity {
 						if (actionId == ID_DISTANCE) {
 												
 							arr = entry.getRaceParam(id_race, actionId);
-							
 							if(arr!=null){
+							
+							total_distance=entry.getParamsForSpecificRace(id_race);
+							if(total_distance[4]>10){
 							String title_serie="Distance in ";
 							getLineChart(actionItem.getTitle(),title_serie);
+							}else{
+							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
 							}
-							else{
+							}else{
 								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
 							}
 
@@ -102,28 +108,37 @@ public class ListGraphsActivity extends Activity {
 						} else if (actionId == ID_SPEED) {
 											
 							arr = entry.getRaceParam(id_race, actionId);
-							Log.d("actionId", arr[0][0]+"");
-							
 							if(arr!=null){
-							String title_serie="Speed in ";
+							
+							total_distance=entry.getParamsForSpecificRace(id_race);
+							if(total_distance[4]>10){
+							String title_serie="Speed in m/s";
 							getLineChart(actionItem.getTitle(),title_serie);
+							}else{
+							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
 							}
-							else{
+							}else{
 								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
 							}
+
 							entry.close();
 							
 						} else if (actionId == ID_ALTITUDE) {
 												
 							arr = entry.getRaceParam(id_race, actionId);
-							
 							if(arr!=null){
+							
+							total_distance=entry.getParamsForSpecificRace(id_race);
+							if(total_distance[4]>10){
 							String title_serie="Altitude in ";
 							getLineChart(actionItem.getTitle(),title_serie);
+							}else{
+							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
 							}
-							else{
+							}else{
 								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
 							}
+
 							entry.close();
 							
 						}
