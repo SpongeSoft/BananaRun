@@ -163,9 +163,14 @@ public class HomeFragment extends Fragment {
 			
 			lastSession.setText(getResources().getString(R.string.defaultMessage));
 		}else{
-			double[] infoArray =  entry.getParamsForSpecificRace(lastRaceID);
-			lastDistance.setText(infoArray[4]+"");
-			lastTime.setText(infoArray[3]+"");
+			entry.open();
+			double[] infoArray =  entry.getParamsForSpecificRace((long)lastRaceID);
+			java.util.Date time=new java.util.Date((long)infoArray[3]*1000);
+			AuxMethods aux = new AuxMethods(generalPrefs);
+			String dist = aux.getDistance(infoArray[4]);
+			lastDistance.setText(dist);
+			lastTime.setText(time+"");
+			entry.close();
 		}
 		
 
