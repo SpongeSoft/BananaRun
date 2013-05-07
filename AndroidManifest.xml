@@ -12,38 +12,44 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Bananarun" >
+        android:theme="@style/Theme.Bananarun">
         <activity
-            android:name="com.spongesoft.bananarun.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.spongesoft.bananarun.MainActivity" 
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity 
-            android:name="com.spongesoft.bananarun.UserSettingActivity">
+            android:name="com.spongesoft.bananarun.UserSettingActivity" 
+        android:screenOrientation="portrait">
             </activity>
              <activity 
-            android:name="com.spongesoft.bananarun.ListGraphsActivity">
+            android:name="com.spongesoft.bananarun.ListGraphsActivity" 
+        android:screenOrientation="portrait">
             </activity>
         <activity
-            android:name="com.spongesoft.bananarun.SessionSettingsActivity">
+            android:name="com.spongesoft.bananarun.SessionSettingsActivity" 
+        android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name="com.spongesoft.bananarun.SessionActivity"
+            android:name="com.spongesoft.bananarun.SessionActivity" 
+        android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name="com.spongesoft.bananarun.MyMapActivity"
+            android:name="com.spongesoft.bananarun.MyMapActivity" 
+        android:screenOrientation="portrait"
             android:label="@string/title_activity_map" >
         </activity>
         
-           <activity android:name="com.spongesoft.bananarun.LineChart" />
-        <activity android:name="com.spongesoft.bananarun.BarGraph" />
-        <activity android:name="org.achartengine.GraphicalActivity" />
-         <activity android:name="com.spongesoft.bananarun.ListBarGraphs" />
+        <activity android:name="org.achartengine.GraphicalActivity"  
+        android:screenOrientation="portrait"/>
+         <activity android:name="com.spongesoft.bananarun.ListBarGraphs" 
+        android:screenOrientation="portrait" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBNBdYLGe0Eo7Wbev7oGA6GHmIWwLee0rE" />
