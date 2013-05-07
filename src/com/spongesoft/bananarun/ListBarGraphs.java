@@ -72,28 +72,7 @@ public class ListBarGraphs extends Activity {
 		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
 		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
 		
-		entry.open();
-		double[][] allSessions = entry.getSessionsIdsAndDistance();
-		int numSession = allSessions[0].length;
-		sessionsInfo = new double[5];
 		
-		for(int i=0;i<numSession;i++){
-			double[] singleSession = entry.getParamsForSpecificRace((long)allSessions[i][0]);
-			sessionsInfo[0] +=singleSession[2]; //Average speed
-			sessionsInfo[1] +=singleSession[3]; //Total time
-			sessionsInfo[2] +=singleSession[4]; //Total distance
-			sessionsInfo[3] +=singleSession[5]; //Average time per Km
-			sessionsInfo[4] +=singleSession[6]; //Calories burnt
-		}
-		
-		AuxMethods aux = new AuxMethods(preferences);
-		meanSpeed.setText((sessionsInfo[0]/numSession)+"");
-		averageTime.setText((sessionsInfo[1]/numSession)+"");
-		totalDistance.setText(aux.getDistance(sessionsInfo[2]));
-		timePerDistance.setText((sessionsInfo[3]/numSession)+"");
-		totalKilocalories.setText(sessionsInfo[4]+"");
-		
-		entry.close();
 	
 		ActionItem nextItem 	= new ActionItem(ID_DOWN, "Time", getResources().getDrawable(R.drawable.menu_ok));
 		ActionItem prevItem 	= new ActionItem(ID_UP, "Average Speed", getResources().getDrawable(R.drawable.menu_ok));
@@ -187,8 +166,34 @@ public class ListBarGraphs extends Activity {
 				quickAction.show(v);
 			}
 		});
-
+	
+		entry.open();
+		double[][] allSessions = entry.getSessionsIdsAndDistance();
+		if(allSessions!=null){
+		int numSession = allSessions[0].length;
+		sessionsInfo = new double[5];
 		
+		for(int i=0;i<numSession;i++){
+			double[] singleSession = entry.getParamsForSpecificRace((long)allSessions[i][0]);
+			sessionsInfo[0] +=singleSession[2]; //Average speed
+			sessionsInfo[1] +=singleSession[3]; //Total time
+			sessionsInfo[2] +=singleSession[4]; //Total distance
+			sessionsInfo[3] +=singleSession[5]; //Average time per Km
+			sessionsInfo[4] +=singleSession[6]; //Calories burnt
+		}
+		
+		AuxMethods aux = new AuxMethods(preferences);
+		meanSpeed.setText((sessionsInfo[0]/numSession)+"");
+		averageTime.setText((sessionsInfo[1]/numSession)+"");
+		totalDistance.setText(aux.getDistance(sessionsInfo[2]));
+		timePerDistance.setText((sessionsInfo[3]/numSession)+"");
+		totalKilocalories.setText(sessionsInfo[4]+"");
+		
+		entry.close();
+		}
+		else{
+			entry.close();
+		}
 	}
 
 	public void getBarChart(String name) {
