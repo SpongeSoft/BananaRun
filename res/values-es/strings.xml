@@ -65,5 +65,8 @@
 	<string name="cancel">Cancelar</string>
 	<string name="overview">Resumen:</string>
 	<string name="selectGraph">Elige gráfica aquí</string>
+	<string name="limitTTS">Has llegado al límite, carrera finalizada.</string>
+	<string name="servText">Haz click para ver estadísticas y más</string>
+	<string name="kmLang">Kilómetros</string>
     
 </resources>
