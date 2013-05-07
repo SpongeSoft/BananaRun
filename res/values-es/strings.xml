@@ -5,36 +5,59 @@
     <string name="title_section3">Mapa</string>
     <string name="title_section2">Inicio</string>
     <string name="title_section1">Historial</string>
-    <string name="menu_settings">Preferencias</string>
-    <string name="title_activity_map">MapActivity</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="logo_description">Botón de inicio</string>
+    <string name="logo_prefs_description">Botón de preferencias</string>
     <string name="action_settings">Ajustes</string>
-    <string name="hello_world">¡Hola mundo!</string>
+    <!-- Preferences strings from example -->
+    <string name="pref_send_report">Enviar informe de errores</string>
+    <string name="pref_send_report_summary">Ayuda a corregir errores</string>
+    <string name="pref_sync_frequency">Frecuencia de sincronización</string>
+    <string name="pref_sync_frequency_summary">Ajustar la frecuencia de sincronización</string>
+    <string name="pref_user_info">Información del usuario</string>
+    <string name="pref_user_height">Altura</string>
+    <string name="pref_user_heightVal">170 cm</string>
+    <string name="pref_user_weight">Peso</string>
+    <string name="pref_user_weightVal">60 Kg</string>
+    <string name="pref_options">Otras opciones</string>
+    <string name="pref_unit_systems">Unidades</string>
+    <string name="pref_units_summary">Sistema metrico</string>
+    <string name="pref_gps">Activar GPS</string>
+    <string name="pref_gps_summary">Activar geolocalización</string>
+    <string name="logo_wback_description">Fondo del tiempo</string>
+    <string name="logo_weather_description">Icono del tiempo</string>
+    <string name="timelimit">Límite de tiempo</string>
+    <string name="distancelimit">Límite de distancia</string>
+    <string name="freerunning">Carrera sin límites</string>
+    <string name="limitstring">¿Cualquier límite?</string>
+    <string name="last_distance">----</string>
+    <string name="last_time">----</string>
+    <string name="last_session">Última sesión:</string>
+    <string name="gpsmsg">¡No te olvides de activar el GPS!</string>
+    <string name="statHeader">Sesiones:</string>
+
     <string name="calories">Calorias: </string>
+    
     <string name="timer">Tiempo: </string>
-    <string name="motivation">Motivación: </string>
+    <string name="motivation">Motivación:</string>
     <string name="lockmap">Bloquear mapa</string>
     <string name="locate">Mi posición</string>
     <string name="switchlayer">Cambiar capa</string>
     <string name="general_stats">Estadísticas generales</string>
-    <string name="gpsmsg">Recuerda: ¡Activa el GPS!</string>
-    <string name="statHeader">Sesiones:</string>
-    <string name="defaultMessage">¡Pulsa el botón \'Run\' para comenzar tu aventura!</string>
-    <string name="GPSerror">¡Por favor, activa el GPS para empezar!</string>
-    <string name="last_session">Última sesión:</string>
+    <string name="defaultMessage">¡Presiona el botón \'Correr\' para empezar tu aventura!</string>
+    <string name="GPSerror">Por favor, ¡activa el GPS!</string>
     
-    
-    <string name="sessionDate">Fecha de sesión:</string>
-    <string name="averageSpeedStr">Velocidad Media:</string>
+    <string name="sessionDate">Fecha de la sesión:</string>
+    <string name="averageSpeedStr">Velocidad media:</string>
     <string name="averageTimeStr">Tiempo medio:</string>
     <string name="totalDistanceStr">Distancia total:</string>
-    <string name="timePerDistanceStr">Tiempo por distancia</string>
-    <string name="kilocaloriesStr">Kilocalorías:</string>
-        
+    <string name="timePerDistanceStr">Distancia sobre tiempo</string>
+    <string name="kilocaloriesStr">Kilocalorias:</string>
 	<string name="timeStat">Tiempo</string>
 	<string name="distStat">Distancia</string>
 	<string name="calStat">KCal</string>
 	<string name="speedStat">Velocidad media</string>
-	<string name="toastStat">Registro vacío</string>
+	<string name="toastStat">Registro vacio</string>
 	<string name="speedStat2">Velocidad</string>
-
+    
 </resources>
