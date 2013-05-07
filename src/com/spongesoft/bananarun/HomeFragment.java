@@ -123,7 +123,6 @@ public class HomeFragment extends Fragment {
 				Intent prefs = new Intent(getActivity().getBaseContext(),
 						UserSettingActivity.class);
 				HomeView.getContext().startActivity(prefs);
-
 			}
 		});
 
