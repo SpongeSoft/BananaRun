@@ -55,7 +55,7 @@ public class SessionFragment extends Fragment {
 	public void onResume() {
         final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
         this.getActivity().registerReceiver(mReceiver, myFilter);
-        getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
+        this.getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
 		super.onResume();
 	}
 
@@ -77,10 +77,11 @@ public class SessionFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
+		
 		
         final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
         this.getActivity().registerReceiver(mReceiver, myFilter);
+        this.getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
 		// Create a new TextView and set its text to the fragment's section
 		// number argument value.
 		
@@ -230,7 +231,7 @@ public class SessionFragment extends Fragment {
 		
 		Intent backToHome = new Intent (getActivity().getApplicationContext(), MainActivity.class);
         startActivity(backToHome);
-        getActivity().finish();
+        this.getActivity().finish();
 		
 	}
 	
