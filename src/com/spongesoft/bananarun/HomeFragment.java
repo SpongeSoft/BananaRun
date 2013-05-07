@@ -147,11 +147,15 @@ public class HomeFragment extends Fragment {
 		Typeface lTimetypeFace = Typeface.createFromAsset(getActivity()
 				.getAssets(), "fonts/bradbunr.ttf");
 		lastTime.setTypeface(lTimetypeFace);
-
-		// TextView textView = new TextView(getActivity());
-		// textView.setGravity(Gravity.CENTER);
-		// textView.setText(Integer.toString(getArguments().getInt(
-		// ARG_SECTION_NUMBER)));
+		
+		int lastRaceID = generalPrefs.getInt("lastRaceID", -1);
+		if(lastRaceID == -1){
+			lastDistance.setVisibility(View.INVISIBLE);
+			lastTime.setVisibility(View.INVISIBLE);
+			
+			lastSession.setText(getResources().getString(R.string.defaultMessage));
+		}
+		
 
 		/* Updating weather info on screen every 5 minutes */
 		handler = new Handler();
