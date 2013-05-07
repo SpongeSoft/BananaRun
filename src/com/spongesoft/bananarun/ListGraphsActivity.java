@@ -26,6 +26,9 @@ import android.widget.Toast;
  * http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
  */
 
+/**
+ * The Activity will show a list of specific values from a session and graphs of them
+ */
 
 
 public class ListGraphsActivity extends Activity {
@@ -74,8 +77,9 @@ public class ListGraphsActivity extends Activity {
 		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
 		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
 
+		/* Printing the values in the screen */
 		entry.open();
-
+		
 		sessionsInfo = new double[5];
 
 		double[] singleSession = entry.getParamsForSpecificRace(id_race);
@@ -95,7 +99,9 @@ public class ListGraphsActivity extends Activity {
 		totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
 
 		entry.close();
-
+		
+		/* Defining action items */
+		
 		ActionItem nextItem = new ActionItem(ID_DISTANCE, getResources()
 				.getString(R.string.distStat), getResources().getDrawable(
 				R.drawable.menu_ok));
@@ -216,6 +222,11 @@ public class ListGraphsActivity extends Activity {
 		});
 
 	}
+	
+	
+	/*
+	 * Defining the functions for plotting the line chart
+	 */
 
 	public void getLineChart1(String name, String title) {
 		setLineSettings(mRenderer, name);
@@ -230,7 +241,9 @@ public class ListGraphsActivity extends Activity {
 				getDemoDataset2(title), mRenderer);
 		startActivity(intent);
 	}
-
+	
+	/* Setting some style to the graph */
+	
 	private void setLineSettings(XYMultipleSeriesRenderer renderer, String name) {
 		renderer.setChartTitle(name);
 		renderer.setApplyBackgroundColor(false);
@@ -243,6 +256,8 @@ public class ListGraphsActivity extends Activity {
 		renderer.setYLabels(RESULT_OK);
 
 	}
+	
+	/* Taken the values to be printed if is not the distance graph */
 
 	private XYMultipleSeriesDataset getDemoDataset(String title) {
 
@@ -255,6 +270,8 @@ public class ListGraphsActivity extends Activity {
 
 		return dataset;
 	}
+	
+	/* Taken the values to be printed if is the distance graph*/
 
 	private XYMultipleSeriesDataset getDemoDataset2(String title) {
 
@@ -269,7 +286,9 @@ public class ListGraphsActivity extends Activity {
 
 		return dataset;
 	}
-
+	
+	/* Setting some style to the graph */
+	
 	private XYMultipleSeriesRenderer getDemoRenderer() {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setMargins(new int[] { 20, 30, 15, 0 });

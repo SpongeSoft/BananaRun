@@ -236,7 +236,7 @@ public class ListBarGraphs extends Activity {
 
 	
 	/*
-	 * Defining the function for plotting the bar chart
+	 * Defining the functions for plotting the bar chart
 	 */
 	
 	
