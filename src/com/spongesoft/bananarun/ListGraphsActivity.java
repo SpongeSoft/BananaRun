@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ListGraphsActivity extends Activity {
@@ -31,6 +32,15 @@ public class ListGraphsActivity extends Activity {
 	private static final int ID_DISTANCE = 1;
 	private static final int ID_SPEED = 2;
 	SharedPreferences preferences;
+	
+	TextView meanSpeed;
+	TextView averageTime;
+	TextView timePerDistance;
+	TextView totalDistance;
+	TextView totalKilocalories;
+	
+	double[] sessionsInfo;
+	
 	DBManagement entry;
 	double[][] arr;
 	long id_race;
@@ -47,12 +57,41 @@ public class ListGraphsActivity extends Activity {
 				.getDefaultSharedPreferences(getApplicationContext());
 
 		entry = new DBManagement(this);
-
+		
 		/*
 		 * Intent currentIntent = getIntent(); double id_race =
 		 * currentIntent.getDoubleExtra("statsID", -1.0);
 		 */
 		final long id_race = preferences.getLong("statsID", -1);
+
+		
+		/* Set the TextView values */
+		meanSpeed = (TextView) findViewById(R.id.sessionStatsMeanSpeed);
+		averageTime = (TextView) findViewById(R.id.sessionStatsMeanTime);
+		timePerDistance = (TextView) findViewById(R.id.sessionStatsTimePerDistance);
+		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
+		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
+		
+		entry.open();
+		
+		
+		sessionsInfo = new double[5];
+		
+		double[] singleSession = entry.getParamsForSpecificRace(id_race);
+		sessionsInfo[0] +=singleSession[2]; //Average speed
+		sessionsInfo[1] +=singleSession[3]; //Total time
+		sessionsInfo[2] +=singleSession[4]; //Total distance
+		sessionsInfo[3] +=singleSession[5]; //Average time per Km
+		sessionsInfo[4] +=singleSession[6]; //Calories burnt
+		
+		AuxMethods aux = new AuxMethods(preferences);
+		meanSpeed.setText(aux.getDistance(sessionsInfo[0])+"");
+		averageTime.setText((sessionsInfo[1])+" min");
+		totalDistance.setText(aux.getDistance(sessionsInfo[2]));
+		timePerDistance.setText((sessionsInfo[3])+"");
+		totalKilocalories.setText(sessionsInfo[4]+"");
+		
+		entry.close();
 
 		ActionItem nextItem = new ActionItem(ID_DISTANCE, "Distance",
 				getResources().getDrawable(R.drawable.menu_ok));
