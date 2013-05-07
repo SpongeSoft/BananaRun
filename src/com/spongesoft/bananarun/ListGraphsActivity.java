@@ -91,7 +91,8 @@ public class ListGraphsActivity extends Activity {
 							arr = entry.getRaceParam(id_race, actionId);
 							
 							if(arr!=null){
-							getLineChart(actionItem.getTitle());
+							String title_serie="Distance in ";
+							getLineChart(actionItem.getTitle(),title_serie);
 							}
 							else{
 								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
@@ -101,9 +102,11 @@ public class ListGraphsActivity extends Activity {
 						} else if (actionId == ID_SPEED) {
 											
 							arr = entry.getRaceParam(id_race, actionId);
+							Log.d("actionId", arr[0][0]+"");
 							
 							if(arr!=null){
-							getLineChart(actionItem.getTitle());
+							String title_serie="Speed in ";
+							getLineChart(actionItem.getTitle(),title_serie);
 							}
 							else{
 								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
@@ -115,7 +118,8 @@ public class ListGraphsActivity extends Activity {
 							arr = entry.getRaceParam(id_race, actionId);
 							
 							if(arr!=null){
-							getLineChart(actionItem.getTitle());
+							String title_serie="Altitude in ";
+							getLineChart(actionItem.getTitle(),title_serie);
 							}
 							else{
 								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
@@ -151,40 +155,39 @@ public class ListGraphsActivity extends Activity {
 	}
 	
 
-	public void getLineChart(String name){
+	public void getLineChart(String name,String title){
 	setLineSettings(mRenderer,name); 
-    Intent intent = ChartFactory.getLineChartIntent(this, getDemoDataset(), mRenderer);
+    Intent intent = ChartFactory.getLineChartIntent(this, getDemoDataset(title), mRenderer);
     startActivity(intent);
     }
 
 
 private void setLineSettings(XYMultipleSeriesRenderer renderer,String name) {
 renderer.setChartTitle(name);
-renderer.setXTitle("x values");
-renderer.setYTitle("y values");
 renderer.setApplyBackgroundColor(false);
-renderer.setRange(new double[] {0,6,-70,40});
+//renderer.setRange(new double[] {0,6,-70,40});
 renderer.setFitLegend(false);
 renderer.setAxesColor(Color.BLACK);
 renderer.setShowGrid(true);
 renderer.setXAxisMin(0.5);
-renderer.setXAxisMax(setmaxvalueX(arr));
+//renderer.setXAxisMax(setmaxvalueX(arr));
 renderer.setYAxisMin(0);
 renderer.setZoomEnabled(false);
+renderer.setZoomButtonsVisible(true);
 renderer.setYAxisMax(setmaxvalueY(arr));
 	}	
 
 
-private XYMultipleSeriesDataset getDemoDataset() {
+private XYMultipleSeriesDataset getDemoDataset(String title) {
 
 	   
     XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
    
 	
-    XYSeries firstSeries = new XYSeries("Sample series One");
+    XYSeries firstSeries = new XYSeries(title);
     for (int i = 0; i < arr.length; i++)
-      firstSeries.add(arr[0][i], arr[i][0]);
+      firstSeries.add(i, arr[i][0]);
     dataset.addSeries(firstSeries);
  
 	
@@ -222,8 +225,8 @@ public int setmaxvalueY( double arr[][]){
 public int setmaxvalueX( double arr[][]){
 	 double max_value=arr[0][0];
 	 for (int i = 1; i < arr.length; i++){
-		 if(max_value<arr[0][i]){
-			 max_value=arr[0][i];
+		 if(max_value<arr[i][1]){
+			 max_value=arr[i][1];
 		 }
 		 
 		 

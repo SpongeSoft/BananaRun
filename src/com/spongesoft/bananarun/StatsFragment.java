@@ -44,7 +44,7 @@ public class StatsFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
-	int[] firstData = { 23, 56 };
+	
 
 	ArrayAdapter<String> adapter;
 	SharedPreferences preferences;
@@ -188,38 +188,6 @@ public class StatsFragment extends Fragment {
 		return StatsView;
 	}
 
-	private XYMultipleSeriesDataset getBarDemoDataset() {
-		XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
-		CategorySeries firstSeries = new CategorySeries("Growth of Company1");
-		CategorySeries secondSeries = new CategorySeries("Growth of Company2");
-		for (int i = 0; i < firstData.length; i++)
-			firstSeries.add(firstData[i]);
-		barChartDataset.addSeries(firstSeries.toXYSeries());
-
-		return barChartDataset;
-	}
-
-	public XYMultipleSeriesRenderer getBarChartRenderer() {
-		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-		renderer.setAxisTitleTextSize(20);
-		renderer.setChartTitleTextSize(18);
-		renderer.setLabelsTextSize(18);
-		renderer.setLegendTextSize(18);
-		renderer.setMargins(new int[] { 20, 30, 15, 0 });
-		SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-		r.setColor(Color.BLUE);
-		renderer.addSeriesRenderer(r);
-		return renderer;
-	}
-
-	private void setBarChartSettings(XYMultipleSeriesRenderer renderer) {
-		renderer.setChartTitle("run1 vs run2");
-		renderer.setXTitle("Time");
-		renderer.setYTitle("Kilometers");
-		renderer.setXAxisMin(0.5);
-		renderer.setXAxisMax(560);
-		renderer.setYAxisMin(0);
-		renderer.setYAxisMax(50);
-	}
+	
 
 }
