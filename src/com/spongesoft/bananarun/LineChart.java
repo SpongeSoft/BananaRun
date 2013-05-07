@@ -27,6 +27,7 @@ public class LineChart extends Activity {
 	private GraphicalView mChartView;
 	DBManagement entry;
 	double[][] arr;
+	double[] seriesFirstY = {20,-20,67,180,-45,24,99,-34,-8};
 	SharedPreferences preferences;
 	@SuppressWarnings("deprecation")
 	@Override
@@ -77,13 +78,14 @@ public class LineChart extends Activity {
 		   
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
  
+       
+		
         XYSeries firstSeries = new XYSeries("Sample series One");
-		if (arr != null) {
-			for (int i = 0; i < arr.length; i++)
-			firstSeries.add(i, arr[i][0]);
-	        dataset.addSeries(firstSeries);
+        for (int i = 0; i < 9; i++)
+          firstSeries.add(i, seriesFirstY[i]);
+        dataset.addSeries(firstSeries);
 	 
-		}
+		
 		return dataset;
 	}
 
