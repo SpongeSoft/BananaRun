@@ -155,7 +155,8 @@ public class SessionSettingsActivity extends Activity {
 				Intent serviceIntent = new Intent(getBaseContext(), LocationService.class);
 				serviceIntent.putExtra("race_id", race);
         		getBaseContext().startService(serviceIntent);
-
+        		
+        		finish();
 				// finishActivity(MainActivity);
 				}
 			}
