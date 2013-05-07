@@ -86,11 +86,11 @@ public class ListGraphsActivity extends Activity {
 		AuxMethods aux = new AuxMethods(preferences);
 		String distanceUnit = aux.getDistanceUnits();
 		
-		meanSpeed.setText(aux.getDistance(sessionsInfo[0]) + "/h");
-		averageTime.setText((sessionsInfo[1]) + " min");
-		totalDistance.setText(aux.getDistance(sessionsInfo[2]));
-		timePerDistance.setText((aux.stripDecimals(sessionsInfo[3]))+"min/"+distanceUnit);
-		totalKilocalories.setText(aux.stripDecimals(sessionsInfo[4]) + "");
+		meanSpeed.setText((" " + aux.stripDecimals(sessionsInfo[0])) + " "+distanceUnit+"/h.");
+		averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1])/60))+" min.");
+		totalDistance.setText(" " + aux.getDistance(sessionsInfo[2])+" "+distanceUnit);
+		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3])/60)+" "+distanceUnit+"/h");
+		totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
 
 		entry.close();
 
