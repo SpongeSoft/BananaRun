@@ -241,8 +241,9 @@ public class LocationService extends Service implements LocationListener, OnInit
 					manager.updateRace((long) race);
 					manager.close();
 					running = false;
-					stopReceiving();
 					sendBroadcast(new Intent("xyz"));
+					stopReceiving();
+
 				}
 			} else if (pickerType == 0) {
 				int time = timeSeconds / 60;
@@ -250,8 +251,9 @@ public class LocationService extends Service implements LocationListener, OnInit
 					manager.updateRace((long) race);
 					manager.close();
 					running = false;
-					stopReceiving();
 					sendBroadcast(new Intent("xyz"));
+					stopReceiving();
+
 				}
 			}
 		}
