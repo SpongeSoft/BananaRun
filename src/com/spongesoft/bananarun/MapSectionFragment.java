@@ -223,6 +223,10 @@ public class MapSectionFragment extends Fragment {
 				mMarker.setPosition(position);
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
 				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f));
+				}else{
+					mMap.animateCamera(CameraUpdateFactory.newLatLng(mMarker.getPosition()));
+					mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17.0f));
+
 				}
 			}
 				
