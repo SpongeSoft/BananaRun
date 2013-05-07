@@ -38,6 +38,7 @@ public class SessionFragment extends Fragment {
 	
 	@Override
 	public void onDestroy() {
+		//unRegister
 		stopReceiver();
 		super.onDestroy();
 	}
@@ -52,12 +53,14 @@ public class SessionFragment extends Fragment {
 	public void onResume() {
         final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
         this.getActivity().registerReceiver(mReceiver, myFilter);
+        getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
 		super.onResume();
 	}
 
 	private void stopReceiver() {
 		try {
 			this.getActivity().unregisterReceiver(mReceiver);
+			this.getActivity().unregisterReceiver(abcd);
 		} catch(IllegalArgumentException e) {
 			Log.d("receiver", "Unregistered receiver more than once!");
 		}
@@ -71,6 +74,8 @@ public class SessionFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
 		
         final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
         this.getActivity().registerReceiver(mReceiver, myFilter);
@@ -163,23 +168,13 @@ public class SessionFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 
-				chronometer.stop(); //Stop timer
-				chronometer.setBase(SystemClock.elapsedRealtime()); //Restart timer value
-				Log.d("Chronometer","Chronometer state is: "+state);
-				
 				//Send broadcast to stop service.
-
 		            final Intent intent = new Intent("com.spongesoft.bananarun.TO_SERVICE");
-
 		            intent.putExtra("data", "stop");
-
 		            v.getContext().sendBroadcast(intent);
 		            
-		        Intent backToHome = new Intent (getActivity().getApplicationContext(), MainActivity.class);
-		        startActivity(backToHome);
-		        getActivity().finish();
+		            stop();
 			}
-
 		});
 
 		return SessionView;
@@ -199,6 +194,14 @@ public class SessionFragment extends Fragment {
 	            }
 	
 	};
+	
+	private final BroadcastReceiver abcd = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+        	stop();                                
+        }
+};
+	
 	private void updateStats() {
 		ContentValues stats = manager.getStats(race_id);
 		kmCounter.setText(aux.getDistance(Double.parseDouble(stats.getAsString(manager.KEY_S_TOTAL_DISTANCE))));
@@ -206,4 +209,16 @@ public class SessionFragment extends Fragment {
 		
 		Log.d("stats", "raceID: "+race_id+" total_dist: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE)+"total_time: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE));
 	}
+	
+	private void stop(){
+		chronometer.stop(); //Stop timer
+		chronometer.setBase(SystemClock.elapsedRealtime()); //Restart timer value
+		Log.d("Chronometer","Chronometer state is: "+state);
+		
+		Intent backToHome = new Intent (getActivity().getApplicationContext(), MainActivity.class);
+        startActivity(backToHome);
+        getActivity().finish();
+		
+	}
+	
 }
