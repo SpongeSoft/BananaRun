@@ -143,6 +143,7 @@ public class SessionSettingsActivity extends Activity {
 				/* Set LastID  */
 				SharedPreferences.Editor editor = prefs.edit();
 				editor.putInt("lastRaceID", race);
+				
 				editor.commit();
 				
 				/* Create an intent and start the new Activity */
