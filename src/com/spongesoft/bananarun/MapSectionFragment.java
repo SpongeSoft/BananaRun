@@ -217,7 +217,8 @@ public class MapSectionFragment extends Fragment {
 				mMapView.invalidate();
 				*/
 				
-				LatLng position = new LatLng(latitude, longitude);
+				List<LatLng> positions = mPolyline.getPoints();
+				LatLng position = positions.get(positions.size()-1);
 				mMarker.setPosition(position);
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
 				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f));
@@ -296,6 +297,7 @@ public class MapSectionFragment extends Fragment {
 			List<LatLng> points = manager.getPoints(race);
 			mPolyline.setPoints(points);
 			//Only move if the UI is not locked
+			mMarker.setPosition(points.get(points.size()-1));
 			if(!parentActivity.isLocked()) {
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(points.get(points.size()-1)));
 			}
