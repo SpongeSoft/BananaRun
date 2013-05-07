@@ -53,7 +53,7 @@
     <string name="averageSpeedStr">Average Speed:</string>
     <string name="averageTimeStr">Average Time:</string>
     <string name="totalDistanceStr">Total Distance:</string>
-    <string name="timePerDistanceStr">Time Per Distance:</string>
+    <string name="timePerDistanceStr">Time/distance:</string>
     <string name="kilocaloriesStr">Kilocalories:</string>
 	<string name="timeStat">Time</string>
 	<string name="distStat">Distance</string>
@@ -65,5 +65,7 @@
 	<string name="delete">Delete?</string>
     <string name="sureDelete">Are you sure you want to delete session</string>
     <string name="cancel">Cancel</string>
+    <string name="overview">Overview:</string>
+	<string name="selectGraph">Select a graph here</string>
     
 </resources>

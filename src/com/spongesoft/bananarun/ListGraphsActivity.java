@@ -39,6 +39,7 @@ public class ListGraphsActivity extends Activity {
 	TextView timePerDistance;
 	TextView totalDistance;
 	TextView totalKilocalories;
+	TextView overview;
 
 	double[] sessionsInfo;
 
@@ -66,6 +67,7 @@ public class ListGraphsActivity extends Activity {
 		final long id_race = preferences.getLong("statsID", -1);
 
 		/* Set the TextView values */
+		overview = (TextView) findViewById(R.id.overview);
 		meanSpeed = (TextView) findViewById(R.id.sessionStatsMeanSpeed);
 		averageTime = (TextView) findViewById(R.id.sessionStatsMeanTime);
 		timePerDistance = (TextView) findViewById(R.id.sessionStatsTimePerDistance);
@@ -86,10 +88,10 @@ public class ListGraphsActivity extends Activity {
 		AuxMethods aux = new AuxMethods(preferences);
 		String distanceUnit = aux.getDistanceUnits();
 		
-		meanSpeed.setText((" " + aux.stripDecimals(sessionsInfo[0])) + " "+distanceUnit+"/h.");
+		meanSpeed.setText((" " + aux.stripDecimals(sessionsInfo[0])) + " m/s.");
 		averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1])/60))+" min.");
 		totalDistance.setText(" " + aux.getDistance(sessionsInfo[2]));
-		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3])/60)+" h/"+distanceUnit);
+		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3])/60)+" min/"+distanceUnit+".");
 		totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
 
 		entry.close();
@@ -204,6 +206,8 @@ public class ListGraphsActivity extends Activity {
 		Typeface font = Typeface.createFromAsset(this.getAssets(),
 				"fonts/bradbunr.ttf");
 		btn1.setTypeface(font);
+		overview.setTypeface(font);
+		
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

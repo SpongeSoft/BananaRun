@@ -51,7 +51,7 @@
     <string name="averageSpeedStr">Velocidad media:</string>
     <string name="averageTimeStr">Tiempo medio:</string>
     <string name="totalDistanceStr">Distancia total:</string>
-    <string name="timePerDistanceStr">Distancia/tiempo:</string>
+    <string name="timePerDistanceStr">Tiempo/dist:</string>
     <string name="kilocaloriesStr">Kilocalorias:</string>
 	<string name="timeStat">Tiempo</string>
 	<string name="distStat">Distancia</string>
@@ -63,5 +63,7 @@
 	<string name="delete">¿Borrar?</string>
 	<string name="sureDelete">¿Seguro que quieres borrar la sesión</string>
 	<string name="cancel">Cancelar</string>
+	<string name="overview">Resumen:</string>
+	<string name="selectGraph">Elige gráfica aquí</string>
     
 </resources>
