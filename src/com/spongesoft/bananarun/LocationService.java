@@ -28,7 +28,8 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.widget.Toast;
 
-public class LocationService extends Service implements LocationListener, OnInitListener {
+public class LocationService extends Service implements LocationListener,
+		OnInitListener {
 	LocationManager locationManager;
 	Location previousLocation;
 	boolean running = true;
@@ -38,10 +39,11 @@ public class LocationService extends Service implements LocationListener, OnInit
 	int pickerValue;
 	double[] infoArray;
 	String unitsSystem;
-	
+
 	TextToSpeech talker;
 
 	int lastDistanceSaid = 0;
+
 	@Override
 	public void onLocationChanged(Location loc) {
 		if (running) {
@@ -85,9 +87,8 @@ public class LocationService extends Service implements LocationListener, OnInit
 		manager.open();
 
 		run();
-		
+
 		talker = new TextToSpeech(this, this);
-		
 
 		return START_REDELIVER_INTENT;
 	}
@@ -116,11 +117,10 @@ public class LocationService extends Service implements LocationListener, OnInit
 		unregisterReceiver(mReceiver);
 		this.stopForeground(true);
 
-		
-	      if (talker != null) {
-	    	           talker.stop();
-	    	           talker.shutdown();
-	    	        }
+		if (talker != null) {
+			talker.stop();
+			talker.shutdown();
+		}
 
 		super.onDestroy();
 
@@ -148,11 +148,12 @@ public class LocationService extends Service implements LocationListener, OnInit
 
 		Location location = locationManager
 				.getLastKnownLocation(locationManager.GPS_PROVIDER);
-		if(location==null){
+		if (location == null) {
 			location = locationManager
-			.getLastKnownLocation(locationManager.NETWORK_PROVIDER);}
-		
-		if(location != null) {
+					.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+		}
+
+		if (location != null) {
 			manager.setLocation((long) race, location.getLatitude(),
 					location.getLongitude(), location.getAltitude(), 0,
 					location.getSpeed());
@@ -189,7 +190,7 @@ public class LocationService extends Service implements LocationListener, OnInit
 				// R.drawable.some_big_img))
 				.setTicker("Now running!").setWhen(System.currentTimeMillis())
 				.setAutoCancel(true).setContentTitle("Running!")
-				.setContentText("Click to see statistics and more!");
+				.setContentText(getResources().getString(R.string.servText));
 		Notification n = builder.getNotification();
 		nm.notify(143214321, n);
 
@@ -218,16 +219,11 @@ public class LocationService extends Service implements LocationListener, OnInit
 	};
 
 	private void FinishOnLimit() {
-		
+
 		ContentValues stats = manager.getStats((long) race);
 		int distance = stats.getAsInteger(manager.KEY_S_TOTAL_DISTANCE);
-		int distanceKm = distance / 1000;
 		int timeSeconds = stats.getAsInteger(manager.KEY_S_TOTAL_TIME);
-		if(distanceKm > lastDistanceSaid) {
-			lastDistanceSaid = distanceKm;
-			talker.speak("Llevas "+lastDistanceSaid+" kilómetros", TextToSpeech.QUEUE_FLUSH, null);
-		}
-		
+
 		if (pickerType != 2) {
 
 			if (pickerType == 1) {
@@ -241,6 +237,9 @@ public class LocationService extends Service implements LocationListener, OnInit
 					manager.updateRace((long) race);
 					manager.close();
 					running = false;
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.limitTTS),
+							Toast.LENGTH_LONG).show();
 					sendBroadcast(new Intent("xyz"));
 					stopReceiving();
 
@@ -251,17 +250,26 @@ public class LocationService extends Service implements LocationListener, OnInit
 					manager.updateRace((long) race);
 					manager.close();
 					running = false;
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.limitTTS),
+							Toast.LENGTH_LONG).show();
 					sendBroadcast(new Intent("xyz"));
 					stopReceiving();
-
 				}
 			}
+		}
+		int distanceKm = distance / 1000;
+		if (distanceKm > lastDistanceSaid) {
+			lastDistanceSaid = distanceKm;
+			talker.speak(lastDistanceSaid + " " + getResources().getString(R.string.kmLang),
+					TextToSpeech.QUEUE_FLUSH, null);
 		}
 	}
 
 	@Override
 	public void onInit(int arg0) {
-		talker.speak("Empezando la carrera. ¡Ánimo!", TextToSpeech.QUEUE_FLUSH, null);
+		talker.speak("Empezando la carrera. ¡Ánimo!", TextToSpeech.QUEUE_FLUSH,
+				null);
 
 	}
 

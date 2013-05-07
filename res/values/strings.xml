@@ -67,5 +67,8 @@
     <string name="cancel">Cancel</string>
     <string name="overview">Overview:</string>
 	<string name="selectGraph">Select a graph here</string>
+	<string name="limitTTS">You have reached the limit, the race is over.</string>
+	<string name="servText">Click to see statistics and more!</string>
+	<string name="kmLang">Kilometers</string>
     
 </resources>
