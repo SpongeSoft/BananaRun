@@ -111,7 +111,7 @@ public class ListBarGraphs extends Activity {
 						getBarChart(actionItem.getTitle());
 						}
 						else{
-							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
 						}
 				} else if (actionId == ID_DOWN) {
 					arr = entry.getSessionsParam(1);
@@ -120,7 +120,7 @@ public class ListBarGraphs extends Activity {
 					getBarChart(actionItem.getTitle());
 					}
 					else{
-						Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
 					}
 					
 				} else if (actionId == ID_UP){
@@ -130,7 +130,7 @@ public class ListBarGraphs extends Activity {
 						getBarChart(actionItem.getTitle());
 						}
 						else{
-							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
 						}
 				}
 				else if (actionId == ID_OK){
@@ -140,7 +140,7 @@ public class ListBarGraphs extends Activity {
 						getBarChart(actionItem.getTitle());
 						}
 						else{
-							Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), "Empty register", Toast.LENGTH_SHORT).show();
 						}
 			}
 				entry.close();
@@ -171,6 +171,8 @@ public class ListBarGraphs extends Activity {
 		double[][] allSessions = entry.getSessionsIdsAndDistance();
 		if(allSessions!=null){
 		int numSession = allSessions[0].length;
+		
+		
 		sessionsInfo = new double[5];
 		
 		for(int i=0;i<numSession;i++){
