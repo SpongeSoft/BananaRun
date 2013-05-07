@@ -53,6 +53,8 @@ public class LocationService extends Service implements LocationListener {
 			}
 			previousLocation = loc;
 
+			FinishOnLimit();
+			
 			final Intent intent = new Intent(
 					"com.spongesoft.bananarun.LOCATION_UPDATED");
 			intent.putExtra("data", loc);
@@ -215,13 +217,20 @@ public class LocationService extends Service implements LocationListener {
 					manager.close();
 					running = false;
 					stopReceiving();
+					
+					Log.d("mierda", "mierda!");
+					sendBroadcast(new Intent("xyz"));
 				}
 			} else if(pickerType == 0){
 				int time = (int) (infoArray[3]/60);
+				Log.d("mierda", time +":"+ pickerValue);
 				if(time >= pickerValue) {
 					manager.close();
 					running = false;
 					stopReceiving();
+					
+					Log.d("mierda", "mierda!");
+					sendBroadcast(new Intent("xyz"));
 				}
 				
 			}
