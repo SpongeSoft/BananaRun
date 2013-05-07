@@ -88,8 +88,8 @@ public class ListGraphsActivity extends Activity {
 		
 		meanSpeed.setText((" " + aux.stripDecimals(sessionsInfo[0])) + " "+distanceUnit+"/h.");
 		averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1])/60))+" min.");
-		totalDistance.setText(" " + aux.getDistance(sessionsInfo[2])+" "+distanceUnit);
-		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3])/60)+" "+distanceUnit+"/h");
+		totalDistance.setText(" " + aux.getDistance(sessionsInfo[2]));
+		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3])/60)+" h/"+distanceUnit);
 		totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
 
 		entry.close();

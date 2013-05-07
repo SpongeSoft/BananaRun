@@ -205,10 +205,12 @@ public class ListBarGraphs extends Activity {
 			}
 
 			AuxMethods aux = new AuxMethods(preferences);
-			meanSpeed.setText((" " + aux.stripDecimals(sessionsInfo[0] / numSession)) + " m/s.");
+			String distanceUnit = aux.getDistanceUnits();
+
+			meanSpeed.setText((" " + aux.stripDecimals((sessionsInfo[0] / numSession)) + " "+distanceUnit+"/h."));
 			averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1]/numSession)/60))+" min.");
 			totalDistance.setText(" " + aux.getDistance(sessionsInfo[2]));
-			timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3] / numSession)/60));
+			timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3] / numSession)/60)+" h/"+distanceUnit);
 			totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
 
 			entry.close();
