@@ -8,6 +8,8 @@
     <string name="menu_settings">Settings</string>
     <string name="logo_description">Start Button</string>
     <string name="logo_prefs_description">Preferences Button</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_map">Mapa</string>
 
     <!-- Preferences strings from example -->
     <string name="pref_send_report">Send crash reports</string>
