@@ -277,7 +277,7 @@ public class MapSectionFragment extends Fragment {
 				// Get back the mutable Circle
 				// mCircle = mMap.addCircle(circleOptions);
 
-				PolylineOptions rectOptions = new PolylineOptions().width(25).color(Color.BLUE);
+				PolylineOptions rectOptions = new PolylineOptions().width(7).color(Color.BLUE);
 				// //.add(new LatLng(0,0));
 				// Get back the mutable Polyline
 				mPolyline = mMap.addPolyline(rectOptions);
