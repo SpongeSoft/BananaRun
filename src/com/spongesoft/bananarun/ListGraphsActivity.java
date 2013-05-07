@@ -52,10 +52,6 @@ public class ListGraphsActivity extends Activity {
 		final long id_race  = preferences.getLong("statsID", -1);
 		
 
-		
-	
-
-
 		ActionItem nextItem = new ActionItem(ID_DISTANCE, "Distance",
 				getResources().getDrawable(R.drawable.menu_ok));
 		ActionItem prevItem = new ActionItem(ID_SPEED, "Speed", getResources()
@@ -172,10 +168,10 @@ renderer.setFitLegend(false);
 renderer.setAxesColor(Color.BLACK);
 renderer.setShowGrid(true);
 renderer.setXAxisMin(0.5);
-renderer.setXAxisMax(10.5);
+renderer.setXAxisMax(setmaxvalueX(arr));
 renderer.setYAxisMin(0);
 renderer.setZoomEnabled(false);
-renderer.setYAxisMax(setmaxvalue(arr));
+renderer.setYAxisMax(setmaxvalueY(arr));
 	}	
 
 
@@ -188,7 +184,7 @@ private XYMultipleSeriesDataset getDemoDataset() {
 	
     XYSeries firstSeries = new XYSeries("Sample series One");
     for (int i = 0; i < arr.length; i++)
-      firstSeries.add(i, arr[i][0]);
+      firstSeries.add(arr[0][i], arr[i][0]);
     dataset.addSeries(firstSeries);
  
 	
@@ -210,11 +206,24 @@ private XYMultipleSeriesRenderer getDemoRenderer() {
         renderer.addSeriesRenderer(r);
         return renderer;
 }
-public int setmaxvalue( double arr[][]){
+public int setmaxvalueY( double arr[][]){
 	 double max_value=arr[0][0];
 	 for (int i = 1; i < arr.length; i++){
 		 if(max_value<arr[i][0]){
 			 max_value=arr[i][0];
+		 }
+		 
+		 
+	 }
+	
+	return (int)max_value;
+	
+}
+public int setmaxvalueX( double arr[][]){
+	 double max_value=arr[0][0];
+	 for (int i = 1; i < arr.length; i++){
+		 if(max_value<arr[0][i]){
+			 max_value=arr[0][i];
 		 }
 		 
 		 
