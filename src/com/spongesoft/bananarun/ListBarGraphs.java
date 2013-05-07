@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 /** 
  * This is based on the example found in the following web
  * http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
@@ -36,8 +35,7 @@ public class ListBarGraphs extends Activity {
 	private static final int ID_DOWN = 2;
 	private static final int ID_SEARCH = 3;
 	private static final int ID_OK = 6;
-	
-	
+
 	DBManagement entry;
 	double[][] arr;
 
@@ -52,7 +50,6 @@ public class ListBarGraphs extends Activity {
 	double[] sessionsInfo;
 
 	@Override
-	
 	/**
 	 *Display a layout with a button and general statistics
 	 */
@@ -73,9 +70,9 @@ public class ListBarGraphs extends Activity {
 		timePerDistance = (TextView) findViewById(R.id.sessionStatsTimePerDistance);
 		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
 		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
-		
+
 		/* Defining action items */
-		
+
 		ActionItem nextItem = new ActionItem(ID_DOWN, getResources().getString(
 				R.string.timeStat), getResources().getDrawable(
 				R.drawable.menu_ok));
@@ -115,7 +112,8 @@ public class ListBarGraphs extends Activity {
 						ActionItem actionItem = quickAction.getActionItem(pos);
 						entry.open();
 
-						// here we can filter which action item was clicked with actionId parameter
+						// here we can filter which action item was clicked with
+						// actionId parameter
 						if (actionId == ID_SEARCH) {
 							arr = entry.getSessionsParam(0);
 
@@ -189,7 +187,7 @@ public class ListBarGraphs extends Activity {
 				"fonts/bradbunr.ttf");
 		btn1.setTypeface(font);
 		overview.setTypeface(font);
-		
+
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -198,9 +196,9 @@ public class ListBarGraphs extends Activity {
 		});
 
 		entry.open();
-		
+
 		/* Checking if there are entries to get average values */
-		
+
 		double[][] allSessions = entry.getSessionsIdsAndDistance();
 		if (allSessions != null) {
 			int numSession = entry.getRaceCount();
@@ -220,13 +218,20 @@ public class ListBarGraphs extends Activity {
 
 			AuxMethods aux = new AuxMethods(preferences);
 			String distanceUnit = aux.getDistanceUnits();
-			
+
 			/* Printing the values in the screen */
-			meanSpeed.setText((" " + aux.stripDecimals((sessionsInfo[0] / numSession)) + " m/s."));
-			averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1]/numSession)/60))+" min.");
+			meanSpeed
+					.setText((" "
+							+ aux.stripDecimals((sessionsInfo[0] / numSession)) + " m/s."));
+			averageTime.setText((" " + aux
+					.stripDecimals((sessionsInfo[1] / numSession) / 60))
+					+ " min.");
 			totalDistance.setText(" " + aux.getDistance(sessionsInfo[2]));
-			timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3] / numSession)/60)+" min/"+distanceUnit+".");
-			totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
+			timePerDistance.setText(" "
+					+ aux.stripDecimals((sessionsInfo[3] / numSession) / 60)
+					+ " min/" + distanceUnit + ".");
+			totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])
+					+ " KCal.");
 
 			entry.close();
 		} else {
@@ -234,12 +239,10 @@ public class ListBarGraphs extends Activity {
 		}
 	}
 
-	
 	/*
 	 * Defining the functions for plotting the bar chart
 	 */
-	
-	
+
 	public void getBarChart(String name) {
 		XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
 		setBarChartSettings(barChartRenderer, name);
@@ -247,7 +250,7 @@ public class ListBarGraphs extends Activity {
 				getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
 		startActivity(intent);
 	}
-	
+
 	/* Taken the values to be printed */
 
 	private XYMultipleSeriesDataset getBarDemoDataset() {
@@ -259,8 +262,9 @@ public class ListBarGraphs extends Activity {
 
 		return barChartDataset;
 	}
+
 	/* Setting some style to the graph */
-	
+
 	public XYMultipleSeriesRenderer getBarChartRenderer() {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setAxisTitleTextSize(20);
@@ -275,12 +279,12 @@ public class ListBarGraphs extends Activity {
 	}
 
 	/* Setting some style to the graph */
-	
+
 	private void setBarChartSettings(XYMultipleSeriesRenderer renderer,
 			String name) {
 		renderer.setChartTitle(name);
 		renderer.setYTitle(name);
-		//renderer.setYAxisMax(setmaxvalue(arr));
+		// renderer.setYAxisMax(setmaxvalue(arr));
 		renderer.setXLabels(RESULT_OK);
 		renderer.setYLabels(RESULT_OK);
 	}
