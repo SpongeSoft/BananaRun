@@ -16,7 +16,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.spongesoft.bananarun.LineChart;
 import com.spongesoft.bananarun.MainActivity;
 import com.spongesoft.bananarun.R;
 
@@ -187,11 +186,15 @@ public class ListGraphsActivity extends Activity {
 		renderer.setAxesColor(Color.BLACK);
 		renderer.setShowGrid(true);
 		//renderer.setXAxisMin(0.5);
+		// renderer.setXAxisMax(setmaxvalueX(arr));
 		//renderer.setXAxisMax(10.5);
 		//renderer.setYAxisMin(0);
 		renderer.setZoomEnabled(false);
 		renderer.setZoomButtonsVisible(true);
 		//renderer.setYAxisMax(setmaxvalueY(arr));
+		renderer.setXLabels(RESULT_OK);
+		renderer.setYLabels(RESULT_OK);
+
 	}
 
 	private XYMultipleSeriesDataset getDemoDataset(String title) {
