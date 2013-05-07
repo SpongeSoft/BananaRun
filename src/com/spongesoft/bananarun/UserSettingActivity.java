@@ -11,6 +11,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
+/* This Activity shows the user a series of options that can be used to set limits
+ * for a new race or session. When configured appropiately, the user can start the
+ * new sesion. */
 public class UserSettingActivity extends PreferenceActivity {
 
 	@SuppressWarnings("deprecation")
@@ -18,18 +21,25 @@ public class UserSettingActivity extends PreferenceActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		/* Load preferences */
+		/* Load preferences from XML layout */
 		addPreferencesFromResource(R.xml.settings);
 
+		/* Retrieve the application's global preferences */
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
+		/*
+		 * Retrieve the previous preferences to show the updated values to the
+		 * user
+		 */
 		String height = settings.getString("prefUserHeight", "No val");
 		String weight = settings.getString("prefUserWeight", "No Val");
 		String unit = settings.getString("prefUnitSystem", "1");
 
+		/* Create Preferences editor to update preference values */
 		final SharedPreferences.Editor editor = settings.edit();
 
+		/* Update preference value related to the user's height */
 		final EditTextPreference hVal = (EditTextPreference) findPreference("prefUserHeight");
 		hVal.setSummary(height.toString());
 		hVal.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -37,7 +47,7 @@ public class UserSettingActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference,
 					Object newValue) {
-				// TODO Auto-generated method stub
+
 				hVal.setSummary(newValue.toString());
 				editor.putString("prefUserHeight", newValue.toString());
 				editor.commit();
@@ -45,6 +55,7 @@ public class UserSettingActivity extends PreferenceActivity {
 			}
 		});
 
+		/* Update preference value related to the user's weight */
 		final EditTextPreference wVal = (EditTextPreference) findPreference("prefUserWeight");
 		wVal.setSummary(weight.toString());
 		wVal.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -52,7 +63,6 @@ public class UserSettingActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference,
 					Object newValue) {
-				// TODO Auto-generated method stub
 				wVal.setSummary(newValue.toString());
 				editor.putString("prefUserWeight", newValue.toString());
 				editor.commit();
@@ -60,6 +70,7 @@ public class UserSettingActivity extends PreferenceActivity {
 			}
 		});
 
+		/* Update preference value related to the unit system */
 		final ListPreference Units = (ListPreference) findPreference("prefUnitSystem");
 		if (unit.toString().equals("1")) {
 			Units.setSummary("Metric system");
@@ -71,7 +82,7 @@ public class UserSettingActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference,
 					Object newValue) {
-				// TODO Auto-generated method stub
+
 				if (newValue.toString().equals("1")) {
 					Units.setSummary("Metric system");
 				} else if (newValue.toString().equals("2")) {
@@ -84,13 +95,17 @@ public class UserSettingActivity extends PreferenceActivity {
 			}
 		});
 
+		/*
+		 * Update the preference value related to the GPS configuration. Based
+		 * on the code from:
+		 * http://stackoverflow.com/questions/623225/android-go
+		 * -to-settings-screen
+		 */
 		Preference gpsPref = (Preference) findPreference("prefGps");
 		gpsPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
-			// http://stackoverflow.com/questions/623225/android-go-to-settings-screen
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				// TODO Auto-generated method stub
 				startActivityForResult(
 						new Intent(
 								android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS),
