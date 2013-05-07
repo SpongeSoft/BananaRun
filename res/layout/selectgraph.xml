@@ -123,28 +123,5 @@
 	                android:layout_marginRight="10sp"
 	                android:textSize="20sp"
 	                android:textStyle="normal" />
-	            
-	            <TextView
-	                android:id="@+id/sessionStatsMaximumAltitudeStr"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@id/sessionStatsKilocaloriesStr"
-	                android:layout_marginLeft="10sp"
-	                android:layout_marginTop="15sp"
-	                android:text="@string/maxAltitudeStr"
-	                android:textStyle="bold"
-	                android:textSize="20sp" />
 
-	            <TextView
-	                android:id="@+id/sessionMaximumAltitude"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_toRightOf="@id/sessionStatsMaximumAltitudeStr"
-	                android:layout_alignBaseline="@id/sessionStatsMaximumAltitudeStr"
-	                android:layout_marginRight="10sp"
-	                android:textSize="20sp"
-	                android:textStyle="normal" />
-
-	
-	
 </RelativeLayout>

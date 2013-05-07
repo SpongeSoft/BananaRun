@@ -53,6 +53,5 @@
     <string name="totalDistanceStr">Total Distance:</string>
     <string name="timePerDistanceStr">Time Per Distance</string>
     <string name="kilocaloriesStr">Kilocalories:</string>
-    <string name="maxAltitudeStr">Maximum Altitude:</string>
 
 </resources>

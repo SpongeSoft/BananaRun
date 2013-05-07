@@ -20,5 +20,14 @@
     <string name="statHeader">Sesiones:</string>
     <string name="defaultMessage">¡Pulsa el botón \'Run\' para comenzar tu aventura!</string>
     <string name="GPSerror">¡Por favor, activa el GPS para empezar!</string>
+    <string name="last_session">Última sesión:</string>
+    
+    
+    <string name="sessionDate">Fecha de sesión:</string>
+    <string name="averageSpeedStr">Velocidad Media:</string>
+    <string name="averageTimeStr">Tiempo medio:</string>
+    <string name="totalDistanceStr">Distancia total:</string>
+    <string name="timePerDistanceStr">Tiempo por distancia</string>
+    <string name="kilocaloriesStr">Kilocalorías:</string>
 
 </resources>

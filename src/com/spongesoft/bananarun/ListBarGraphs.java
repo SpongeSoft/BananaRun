@@ -47,7 +47,6 @@ public class ListBarGraphs extends Activity {
 	TextView timePerDistance;
 	TextView totalDistance;
 	TextView totalKilocalories;
-	TextView maximumAltitude;
 	
 	SharedPreferences preferences;
 	double[] sessionsInfo;
@@ -72,7 +71,6 @@ public class ListBarGraphs extends Activity {
 		timePerDistance = (TextView) findViewById(R.id.sessionStatsTimePerDistance);
 		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
 		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
-		maximumAltitude = (TextView) findViewById(R.id.sessionMaximumAltitude);
 		
 		entry.open();
 		double[][] allSessions = entry.getSessionsIdsAndDistance();
