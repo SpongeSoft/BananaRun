@@ -176,7 +176,6 @@ public class HomeFragment extends Fragment {
 			
 			entry.close();
 		}
-		
 
 		/* Updating weather info on screen every 5 minutes */
 		handler = new Handler();
