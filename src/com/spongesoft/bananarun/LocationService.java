@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,10 +23,12 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.widget.Toast;
 
-public class LocationService extends Service implements LocationListener {
+public class LocationService extends Service implements LocationListener, OnInitListener {
 	LocationManager locationManager;
 	Location previousLocation;
 	boolean running = true;
@@ -35,7 +38,10 @@ public class LocationService extends Service implements LocationListener {
 	int pickerValue;
 	double[] infoArray;
 	String unitsSystem;
+	
+	TextToSpeech talker;
 
+	int lastDistanceSaid = 0;
 	@Override
 	public void onLocationChanged(Location loc) {
 		if (running) {
@@ -79,6 +85,9 @@ public class LocationService extends Service implements LocationListener {
 		manager.open();
 
 		run();
+		
+		talker = new TextToSpeech(this, this);
+		
 
 		return START_REDELIVER_INTENT;
 	}
@@ -107,6 +116,12 @@ public class LocationService extends Service implements LocationListener {
 		unregisterReceiver(mReceiver);
 		this.stopForeground(true);
 
+		
+	      if (talker != null) {
+	    	           talker.stop();
+	    	           talker.shutdown();
+	    	        }
+
 		super.onDestroy();
 
 	}
@@ -133,14 +148,15 @@ public class LocationService extends Service implements LocationListener {
 
 		Location location = locationManager
 				.getLastKnownLocation(locationManager.GPS_PROVIDER);
-		/*if(location==null){
-			Location location = locationManager
-			.getLastKnownLocation(locationManager.NETWORK_PROVIDER);}*/
+		if(location==null){
+			location = locationManager
+			.getLastKnownLocation(locationManager.NETWORK_PROVIDER);}
 		
-		manager.setLocation((long) race, location.getLatitude(),
-				location.getLongitude(), location.getAltitude(), 0,
-				location.getSpeed());
-
+		if(location != null) {
+			manager.setLocation((long) race, location.getLatitude(),
+					location.getLongitude(), location.getAltitude(), 0,
+					location.getSpeed());
+		}
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		pickerType = prefs.getInt("pickerType", 2);
@@ -202,14 +218,19 @@ public class LocationService extends Service implements LocationListener {
 	};
 
 	private void FinishOnLimit() {
-
+		ContentValues stats = manager.getStats((long) race);
+		int distance = stats.getAsInteger(manager.KEY_S_TOTAL_DISTANCE);
+		int distanceKm = distance / 1000;
+		int timeSeconds = stats.getAsInteger(manager.KEY_S_TOTAL_TIME);
+		if(distanceKm > lastDistanceSaid) {
+			lastDistanceSaid = distanceKm;
+			talker.speak("Llevas "+lastDistanceSaid+" kilometros", TextToSpeech.QUEUE_FLUSH, null);
+		}
+		
 		if (pickerType != 2) {
 
-			manager.updateRace((long) race);
-			infoArray = manager.getParamsForSpecificRace((long) race);
-			if (pickerType == 1) {
 
-				int distance = (int) infoArray[4];
+			if (pickerType == 1) {
 				if (unitsSystem.equals("1")) {
 					distance = distance / 1000;
 				} else if (unitsSystem.equals("2")) {
@@ -224,7 +245,7 @@ public class LocationService extends Service implements LocationListener {
 					sendBroadcast(new Intent("xyz"));
 				}
 			} else if (pickerType == 0) {
-				int time = (int) (infoArray[3] / 60);
+				int time = timeSeconds / 60;
 				Log.d("mierda", time + ":" + pickerValue);
 				if (time >= pickerValue) {
 					manager.close();
@@ -236,6 +257,12 @@ public class LocationService extends Service implements LocationListener {
 
 			}
 		}
+	}
+
+	@Override
+	public void onInit(int arg0) {
+		talker.speak("Empezando la carrera. ¡Ánimo!", TextToSpeech.QUEUE_FLUSH, null);
+
 	}
 
 }
