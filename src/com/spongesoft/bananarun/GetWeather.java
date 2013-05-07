@@ -25,12 +25,11 @@ import org.xml.sax.SAXException;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 public class GetWeather {
 
+	/* Global variables */
 	AsyncTask<Void, Void, Void> task;
-	TextView weather;
 	String description;
 	String city;
 	String region;
@@ -40,11 +39,16 @@ public class GetWeather {
 	String code;
 	String weatherStatus;
 
+	/* Class constructor. When created, the class executes a new thread */
 	public GetWeather(String woeid) {
 		String sel_woeid = woeid;
 		task = new MyQueryYahooWeatherTask(sel_woeid).execute();
 	}
 
+	/*
+	 * Thread class, that will retrieve the current weather using the WOEID as
+	 * the argument
+	 */
 	private class MyQueryYahooWeatherTask extends AsyncTask<Void, Void, Void> {
 
 		String woeid;
@@ -56,11 +60,14 @@ public class GetWeather {
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
+			// Build HTTP query and get HTTP result
 			weatherString = QueryYahooWeather();
+
+			// Convert result to parseable format
 			Document weatherDoc = convertStringToDocument(weatherString);
 
 			if (weatherDoc != null) {
-				parseWeather(weatherDoc);
+				parseWeather(weatherDoc); // Parse result
 			}
 			return null;
 		}
@@ -76,11 +83,12 @@ public class GetWeather {
 		private String QueryYahooWeather() {
 			String qResult = "";
 			String queryString = "http://weather.yahooapis.com/forecastrss?w="
-					+ woeid + "&u=c";
+					+ woeid + "&u=c"; // HTTP query to Yahoo! Weather
 
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpGet httpGet = new HttpGet(queryString);
 
+			/* Send query and get its response */
 			try {
 				HttpEntity httpEntity = httpClient.execute(httpGet).getEntity();
 
@@ -96,7 +104,7 @@ public class GetWeather {
 						stringBuilder.append(stringReadLine + "\n");
 					}
 
-					qResult = stringBuilder.toString();
+					qResult = stringBuilder.toString(); // HTTP Result
 				}
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
@@ -108,6 +116,13 @@ public class GetWeather {
 			return qResult;
 		}
 
+		/*
+		 * Given a String variable, convert it to a parseable object. Based on
+		 * the code provided in the following link:
+		 * http://www.yousaytoo.com/get-
+		 * description-from-yahoo-weather-rss-feed-and
+		 * -display-in-webview/2083194
+		 */
 		private Document convertStringToDocument(String src) {
 			Document dest = null;
 
@@ -129,9 +144,18 @@ public class GetWeather {
 			return dest;
 		}
 
+		/*
+		 * Method used to parse a Document variable and manipulate its data.
+		 * Here, the Document is checked to have the keys and values related to
+		 * a Yahoo! Weather valid HTTP result. Based on the code from the
+		 * following weppage:
+		 * http://android-er.blogspot.com.es/2012/10/search-woeid
+		 * -and-query-yahoo-weather.html
+		 */
 		private void parseWeather(Document srcDoc) {
 
-			// <description>Yahoo! Weather for New York, NY</description>
+			// Description tag contains child elements related to errors and
+			// number of results
 			NodeList descNodelist = srcDoc.getElementsByTagName("description");
 			if (descNodelist != null && descNodelist.getLength() > 0) {
 				description = descNodelist.item(0).getTextContent();
@@ -139,14 +163,17 @@ public class GetWeather {
 				description = "EMPTY";
 			}
 
+			// WOEID not related to a valid location?
 			if (description.equals("Yahoo! Weather Error")) {
 				temperature = "?";
 				Log.d("parseWeather", "City not found!");
 				return;
 			}
 
-			// <yweather:location city="New York" region="NY"
-			// country="United States"/>
+			/*
+			 * <yweather:location> tag contains the required information about
+			 * the location's current weather (temperature and weather code).
+			 */
 			NodeList locationNodeList = srcDoc
 					.getElementsByTagName("yweather:condition");
 			if (locationNodeList != null && locationNodeList.getLength() > 0) {
@@ -157,11 +184,7 @@ public class GetWeather {
 						.getNodeValue().toString();
 				code = (String) locNamedNodeMap.getNamedItem("code")
 						.getNodeValue().toString();
-				// int fTemperature = Integer.parseInt(temperature);
-				// Log.d("parseWeather","initial temperature= "+temperature+", fTemperature= "+fTemperature);
-				// double cTemperature = (52 - 32) * (5.0/9.0);
-				// Log.d("parseWeather","cTemperature="+cTemperature);
-				// temperature = Double.toString(Math.floor(cTemperature));
+
 				Log.d("parseWeather", "temperature=" + temperature);
 				weatherStatus = locNamedNodeMap.getNamedItem("text")
 						.getNodeValue().toString();
@@ -175,10 +198,15 @@ public class GetWeather {
 
 	}
 
+	/* Retrieve the temperature from this class object */
 	public String getTemperature() {
 		return this.temperature;
 	}
 
+	/*
+	 * Function that will wait for the thread defined in this class to finish
+	 * completely
+	 */
 	public Void waitForResult() throws InterruptedException, ExecutionException {
 		if (task != null) {
 			return task.get();
