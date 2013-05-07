@@ -1,9 +1,5 @@
 package com.spongesoft.bananarun;
 
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -285,7 +281,7 @@ public class DBManagement {
 	}
 	
 	/**
-	 * Returns the params of a specific race.
+	 * Returns the ALL of the params of a specific race.
 	 * As an Array!
 	 * @param raceID: the ID of the race
 	 * @param param: the parameter:
@@ -429,6 +425,49 @@ public class DBManagement {
 		return result;
 	}
 		
+	/**
+	 * Returns ALL properties for a single race
+	 * @param raceID: The race we want all values as
+	 * @return an array containing all values in the following positions
+	 * 		- array[0] --> _id (redundant? yes! but idc)
+	 * 		- array[1] --> Date
+	 * 		- array[2] --> Average Speed
+	 * 		- array[3] --> Total time
+	 * 		- array[4] --> Total distance
+	 * 		- array[5] --> Average time per km
+	 * 		- array[6] --> Calories burnt
+	 */
+	public double[] getParamsForSpecificRace(long raceID){
+		double[] result = new double[7];
+		
+		Cursor c = ourDB.rawQuery("SELECT * " + 
+				" FROM " + DATABASE_SESSION_TABLE +
+				" WHERE " + KEY_S_RACEID + " = " + raceID, null);
+		
+		if (c.moveToFirst()){
+			while(!c.isAfterLast()){
+				Double data = c.getDouble(c.getColumnIndex(KEY_S_RACEID));
+				result[0] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_DATE));
+				result[1] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_AVG_SPEED));
+				result[2] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_TOTAL_TIME));
+				result[3] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_TOTAL_DISTANCE));
+				result[4] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_AVG_TIME_PER_KM));
+				result[5] = data;
+				data = c.getDouble(c.getColumnIndex(KEY_S_KCAL));
+				result[6] = data;
+				c.moveToNext();
+			}
+		}
+		c.close();
+		
+		return result;
+	}
+	
 	/**
 	 * Deletes an entry based on the ID from the race.
 	 * @param raceID
