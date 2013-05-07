@@ -145,8 +145,8 @@ public class StatsFragment extends Fragment {
 
 				AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 				adb.setTitle(getResources().getString(R.string.delete));
-				adb.setMessage(getResources().getString(R.string.sureDelete) + " " + (pos+1) + "?");
 				final int positionToRemove = (int) distance[pos][0];
+				adb.setMessage(getResources().getString(R.string.sureDelete) + " " + (positionToRemove+1) + "?");
 				adb.setNegativeButton(getResources().getString(R.string.cancel), null);
 				final int position = pos;
 				adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
