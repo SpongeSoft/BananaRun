@@ -1,7 +1,7 @@
 
 package com.spongesoft.bananarun;
 
-//Hello, DietApp!
+//Hello, Banana Run!
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
