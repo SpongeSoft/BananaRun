@@ -33,6 +33,7 @@
 	        android:shadowRadius="5"
         	android:textStyle="bold"
             android:paddingTop="50sp"
+            android:text="0.0"
             android:textSize="80sp" />
 
         <Chronometer

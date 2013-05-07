@@ -19,6 +19,6 @@
     <string name="gpsmsg">Recuerda: ¡Activa el GPS!</string>
     <string name="statHeader">Sesiones:</string>
     <string name="defaultMessage">¡Pulsa el botón \'Run\' para comenzar tu aventura!</string>
-    
+    <string name="GPSerror">¡Por favor, activa el GPS para empezar!</string>
 
 </resources>

@@ -33,7 +33,7 @@ public class LocationService extends Service implements LocationListener {
 	@Override
 	public void onLocationChanged(Location loc) {
 		if(running) {
-		Toast.makeText(this,"Lat: " + String.valueOf(loc.getLatitude()) + " Long: " + String.valueOf(loc.getLongitude()),Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this,"Lat: " + String.valueOf(loc.getLatitude()) + " Long: " + String.valueOf(loc.getLongitude()),Toast.LENGTH_SHORT).show();
 		if(previousLocation == null) {
 			manager.setLocation((long) race, loc.getLatitude(), loc.getLongitude(), loc.getAltitude(), 0, loc.getSpeed());
 		}else{
@@ -55,7 +55,7 @@ public class LocationService extends Service implements LocationListener {
 	    Bundle extras = intent.getExtras();
 	    race = extras.getInt("race_id");
 	    
-        Toast.makeText(this, "Service started, race id: "+race, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service started, race id: "+race, Toast.LENGTH_LONG).show();
         manager = new DBManagement(this);
         createNotification();
         manager.open();
@@ -107,15 +107,19 @@ public class LocationService extends Service implements LocationListener {
 
 	        criteria.setAccuracy(Criteria.ACCURACY_FINE);
 	        criteria.setSpeedRequired(true);
-	        criteria.setAltitudeRequired(false);
+	        criteria.setAltitudeRequired(true);
 	        criteria.setBearingRequired(false);
 	        criteria.setCostAllowed(true);
 	        criteria.setPowerRequirement(Criteria.POWER_LOW);
 	        //Acquire a reference to the system Location Manager
 	        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+	        
+	        Location location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+			manager.setLocation((long) race, location.getLatitude(), location.getLongitude(), location.getAltitude(), 0, location.getSpeed());
+	        
 	        // Define a listener that responds to location updates
 	      	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-	      	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+	      	//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	 }
 	 
 	 

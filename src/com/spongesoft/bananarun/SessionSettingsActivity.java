@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class SessionSettingsActivity extends Activity {
@@ -114,6 +117,17 @@ public class SessionSettingsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
+				/* Check Internet status */
+				//final ConnectivityManager con = (ConnectivityManager)getSystemService(
+				//				getBaseContext().LOCATION_SERVICE);
+				final LocationManager man = (LocationManager)getSystemService(
+										getBaseContext().LOCATION_SERVICE);
+				
+				if(!man.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+					Toast.makeText(getBaseContext(),getResources().getString(R.string.GPSerror),Toast.LENGTH_SHORT).show();
+				} else {
+					
+					
 				int pickerVal = np.getValue(); //Store picker value
 				updatePrefsLimit(prefs, pickerVal); //Into preferences
 				
@@ -142,6 +156,7 @@ public class SessionSettingsActivity extends Activity {
         		getBaseContext().startService(serviceIntent);
 
 				// finishActivity(MainActivity);
+				}
 			}
 		});
 

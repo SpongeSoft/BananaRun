@@ -1,5 +1,7 @@
 package com.spongesoft.bananarun;
 
+import java.util.concurrent.TimeUnit;
+
 import com.spongesoft.bananarun.R;
 
 import android.app.Activity;
@@ -165,11 +167,13 @@ public class HomeFragment extends Fragment {
 		}else{
 			entry.open();
 			double[] infoArray =  entry.getParamsForSpecificRace((long)lastRaceID);
-			java.util.Date time=new java.util.Date((long)infoArray[3]*1000);
+
 			AuxMethods aux = new AuxMethods(generalPrefs);
 			String dist = aux.getDistance(infoArray[4]);
+			
 			lastDistance.setText(dist);
-			lastTime.setText(time+"");
+			lastTime.setText((int)(infoArray[3]/60)+":"+(int)(infoArray[3]%60)+"");
+			
 			entry.close();
 		}
 		
