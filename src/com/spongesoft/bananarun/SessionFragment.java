@@ -40,7 +40,7 @@ public class SessionFragment extends Fragment {
 	
 	@Override
 	public void onDestroy() {
-		//unRegister
+		//unRegister receiver
 		stopReceiver();
 		super.onDestroy();
 	}
@@ -53,6 +53,7 @@ public class SessionFragment extends Fragment {
 
 	@Override
 	public void onResume() {
+		/* Register receivers */
         final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
         this.getActivity().registerReceiver(mReceiver, myFilter);
         this.getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
@@ -61,6 +62,7 @@ public class SessionFragment extends Fragment {
 
 	private void stopReceiver() {
 		try {
+			/* Unregister receivers */
 			this.getActivity().unregisterReceiver(mReceiver);
 			this.getActivity().unregisterReceiver(abcd);
 		} catch(IllegalArgumentException e) {
@@ -77,17 +79,17 @@ public class SessionFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		
-		
         final IntentFilter myFilter = new IntentFilter("com.spongesoft.bananarun.LOCATION_UPDATED");
+        
+        /* Retrieve receivers */
         this.getActivity().registerReceiver(mReceiver, myFilter);
         this.getActivity().registerReceiver(abcd, new IntentFilter("xyz"));
-		// Create a new TextView and set its text to the fragment's section
-		// number argument value.
 		
+		/* Get current session ID for database manipulation */
 		race_id = getArguments().getLong("race_id");
-		manager = new DBManagement(this.getActivity());
+		manager = new DBManagement(this.getActivity()); //Database Helper Object
 		manager.open();
+		
 		final View SessionView = inflater.inflate(R.layout.new_session,
 				container, false);
 		
@@ -96,7 +98,6 @@ public class SessionFragment extends Fragment {
 		chronometer = (Chronometer) SessionView.findViewById(R.id.chronometer);
 		
 		kmCounter = (TextView) SessionView.findViewById(R.id.kmeter);
-		//timeMeter = (TextView) SessionView.findViewById(R.id.timer);
 		ImageView weatherIcon = (ImageView) SessionView.findViewById(R.id.sessionWeatherIcon);
 		TextView sessionTemp = (TextView) SessionView.findViewById(R.id.temperature);
 
@@ -114,7 +115,6 @@ public class SessionFragment extends Fragment {
 				"fonts/bradbunr.ttf");
 		
 		kmCounter.setTypeface(font);		
-		//timeMeter.setTypeface(font);
 		chronometer.setTypeface(font);
 		sessionTemp.setTypeface(font);
 
@@ -122,8 +122,11 @@ public class SessionFragment extends Fragment {
 		weatherIcon.setImageResource(weatherCode);
 		sessionTemp.setText(temp + "º");
 		
+		/* Reference music icon and define its behaviour */
 		musicIcon = (ImageView) SessionView.findViewById(R.id.musicIcon);
 		
+		/* Music icon behaviour: redirect the user to her favourite music player.
+		 * Based on the code from: http://stackoverflow.com/questions/9324354/how-to-open-audio-player-in-android-as-an-intent*/
 		musicIcon.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -138,45 +141,8 @@ public class SessionFragment extends Fragment {
 		chronometer.start(); //Start timer
 		
 		Log.d("Chronometer","Chronometer state is: "+state);
-		
-		/* Chronometer all-in-one Start/Pause/Continue button. It initializes 
-		 * the chronometer's timer. When started, the button allows the user to 
-		 * pause the chronometer and resume it afterwards.
-		 * State 0: default state. Timer is set to 0 and stopped.
-		 * State 1: Timer running.
-		 * State 2: Timer paused. */
-		/*startBtn.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if (state == 0) {
-					chronometer.setBase(SystemClock.elapsedRealtime()); //Reset timer
-					chronometer.start(); //Start timer
-					state = 1;
-					startBtn.setText("Pause");
-					Log.d("Chronometer","Chronometer state is: "+state);
-
-				} else if (state == 1) {
-					chronometerCounter = SystemClock.elapsedRealtime(); //Store last timer value
-					chronometer.stop(); //Stop timer
-					state = 2;
-					startBtn.setText("Continue");
-					Log.d("Chronometer","Chronometer state is: "+state);
-
-				} else if (state == 2) {
-					chronometer.setBase(chronometer.getBase()
-							+ SystemClock.elapsedRealtime()
-							- chronometerCounter); //Resume timer with the last value as the initial one
-					chronometer.start(); //Resume timer
-					state = 1;
-					startBtn.setText("Pause");
-					Log.d("Chronometer","Chronometer state is: "+state);
-
-				}
-			}
-		});*/
-
-		/* Button used to stop and reset the chronometer's timer. */
+		/* Button used to stop and reset the chronometer's timer and stop the Location Receiver */
 		stopBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -200,26 +166,26 @@ public class SessionFragment extends Fragment {
 	//We use this to receive the broadcast when a location has been updated
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
-	            public void onReceive(Context context, Intent intent) {		
-	                       // Log.d("BroadcastService", "Service received: " + intent.getCharSequenceExtra("data"));
-	                       // String message = intent.getStringExtra("data");
+		/* Update screen's distance information*/
+	            public void onReceive(Context context, Intent intent) {
 	                        updateStats();
 
 	            }
 	
 	};
 	
+	/* BroadcastReceiver used to determine when to stop the Location Service */
 	private final BroadcastReceiver abcd = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
         	stop();                                
         }
 };
-	
+
+	/* Update screen information */
 	private void updateStats() {
 		ContentValues stats = manager.getStats(race_id);
 		kmCounter.setText(aux.getDistance(Double.parseDouble(stats.getAsString(manager.KEY_S_TOTAL_DISTANCE))));
-		//timeMeter.setText(stats.getAsString(manager.KEY_S_TOTAL_TIME));
 		
 		Log.d("stats", "raceID: "+race_id+" total_dist: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE)+"total_time: "+stats.getAsString(manager.KEY_S_TOTAL_DISTANCE));
 	}
@@ -229,6 +195,7 @@ public class SessionFragment extends Fragment {
 		chronometer.setBase(SystemClock.elapsedRealtime()); //Restart timer value
 		Log.d("Chronometer","Chronometer state is: "+state);
 		
+		/* Go back to Home Fragment */
 		Intent backToHome = new Intent (getActivity().getApplicationContext(), MainActivity.class);
         startActivity(backToHome);
         this.getActivity().finish();
