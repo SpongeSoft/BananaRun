@@ -33,5 +33,13 @@ public class AuxMethods {
 		
         return dist + Unit;
 	}
-	
+
+	public int[] getHeightAndWeight(){
+		
+		int[] abundle = new int[2];
+		abundle[0] = preferences.getInt("prefUserHeight", 75);
+		abundle[1] = preferences.getInt("prefUserWeight", 178);
+		
+		return abundle;
+	}
 }

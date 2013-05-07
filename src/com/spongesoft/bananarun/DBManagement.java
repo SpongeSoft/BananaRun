@@ -6,11 +6,13 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.preference.PreferenceManager;
 import android.util.FloatMath;
 import android.util.Log;
 
@@ -55,7 +57,7 @@ public class DBManagement {
 	public static final String KEY_L_DISTANCE = "distance";
 	public static final String KEY_L_SECONDS = "seconds";
 	public static final String KEY_L_SPEED = "speed";
-
+	
 	/**
 	 * DbHelper class, creates a simple way to add and remove data from the
 	 * database.
@@ -237,9 +239,12 @@ public class DBManagement {
 		cv.put(KEY_S_AVG_TIME_PER_KM, (totalTime/totalDist));
 		
 		// --------------- Kcal --------------- //
-		double weight = 73.5;
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(ourContext);
+		AuxMethods aux = new AuxMethods(prefs);
+		int HyW[] = aux.getHeightAndWeight();
 		double constFactor = 0.0175;
-		double kcal = constFactor * totalDist * weight * totalTime;
+		double kcal = constFactor * totalDist * HyW[1] * totalTime;
 		cv.put(KEY_S_KCAL, kcal);
 		
 		cursor.close();

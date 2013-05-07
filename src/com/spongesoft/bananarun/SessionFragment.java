@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class SessionFragment extends Fragment {
 
 	/* Global components: buttons, chronometer and preferences */
 	ImageView stopBtn;
+	ImageView musicIcon;
 	Chronometer chronometer;
 	long chronometerCounter;
 	int state;
@@ -119,6 +121,17 @@ public class SessionFragment extends Fragment {
 		weatherIcon.setImageResource(weatherCode);
 		sessionTemp.setText(temp + "º");
 		
+		musicIcon = (ImageView) SessionView.findViewById(R.id.musicIcon);
+		
+		musicIcon.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent =new Intent(MediaStore.INTENT_ACTION_MUSIC_PLAYER);
+				startActivity(intent);
+				
+			}
+		});
 		
 		chronometer.setBase(SystemClock.elapsedRealtime()); //Reset timer
 		chronometer.start(); //Start timer
