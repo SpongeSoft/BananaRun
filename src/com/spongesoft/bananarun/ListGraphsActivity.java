@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -34,23 +35,26 @@ public class ListGraphsActivity extends Activity {
 	SharedPreferences preferences;
 	DBManagement entry;
 	double[][] arr;
-	long id_race ; 
+	long id_race;
+	double distance[][];
+	double total_distance[];
 	private XYMultipleSeriesRenderer mRenderer = getDemoRenderer();
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.selectgraph);
-		preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 
 		entry = new DBManagement(this);
-	
-		/*Intent currentIntent = getIntent();
-		double id_race = currentIntent.getDoubleExtra("statsID", -1.0);
-*/		
-		final long id_race  = preferences.getLong("statsID", -1);
-		
+
+		/*
+		 * Intent currentIntent = getIntent(); double id_race =
+		 * currentIntent.getDoubleExtra("statsID", -1.0);
+		 */
+		final long id_race = preferences.getLong("statsID", -1);
 
 		ActionItem nextItem = new ActionItem(ID_DISTANCE, "Distance",
 				getResources().getDrawable(R.drawable.menu_ok));
@@ -83,49 +87,80 @@ public class ListGraphsActivity extends Activity {
 							int actionId) {
 						ActionItem actionItem = quickAction.getActionItem(pos);
 						entry.open();
-						Log.d("actionId", actionId+"");
+						Log.d("actionId", actionId + "");
 						// here we can filter which action item was clicked with
 						// pos or actionId parameter
 						if (actionId == ID_DISTANCE) {
-												
+
 							arr = entry.getRaceParam(id_race, actionId);
-							
-							if(arr!=null){
-							String title_serie="Distance in ";
-							getLineChart(actionItem.getTitle(),title_serie);
-							}
-							else{
-								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
+							if (arr != null) {
+
+								total_distance = entry
+										.getParamsForSpecificRace(id_race);
+								if (total_distance[4] > 10) {
+									String title_serie = "Distance in ";
+									getLineChart(actionItem.getTitle(),
+											title_serie);
+								} else {
+									Toast.makeText(getApplicationContext(),
+											"Registro vacio",
+											Toast.LENGTH_SHORT).show();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(),
+										"Registro vacio", Toast.LENGTH_SHORT)
+										.show();
 							}
 
 							entry.close();
 						} else if (actionId == ID_SPEED) {
-											
+
 							arr = entry.getRaceParam(id_race, actionId);
-							Log.d("actionId", arr[0][0]+"");
-							
-							if(arr!=null){
-							String title_serie="Speed in ";
-							getLineChart(actionItem.getTitle(),title_serie);
+							if (arr != null) {
+
+								total_distance = entry
+										.getParamsForSpecificRace(id_race);
+								if (total_distance[4] > 10) {
+									String title_serie = "Speed in m/s";
+									getLineChart(actionItem.getTitle(),
+											title_serie);
+								} else {
+									Toast.makeText(getApplicationContext(),
+											"Registro vacio",
+											Toast.LENGTH_SHORT).show();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(),
+										"Registro vacio", Toast.LENGTH_SHORT)
+										.show();
 							}
-							else{
-								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
-							}
+
 							entry.close();
-							
+
 						} else if (actionId == ID_ALTITUDE) {
-												
+
 							arr = entry.getRaceParam(id_race, actionId);
-							
-							if(arr!=null){
-							String title_serie="Altitude in ";
-							getLineChart(actionItem.getTitle(),title_serie);
+							if (arr != null) {
+
+								total_distance = entry
+										.getParamsForSpecificRace(id_race);
+								if (total_distance[4] > 10) {
+									String title_serie = "Altitude in ";
+									getLineChart(actionItem.getTitle(),
+											title_serie);
+								} else {
+									Toast.makeText(getApplicationContext(),
+											"Registro vacio",
+											Toast.LENGTH_SHORT).show();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(),
+										"Registro vacio", Toast.LENGTH_SHORT)
+										.show();
 							}
-							else{
-								Toast.makeText(getApplicationContext(), "Registro vacio", Toast.LENGTH_SHORT).show();
-							}
+
 							entry.close();
-							
+
 						}
 					}
 				});
@@ -145,6 +180,10 @@ public class ListGraphsActivity extends Activity {
 
 		// show on btn1
 		Button btn1 = (Button) this.findViewById(R.id.btn1);
+		Typeface font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/bradbunr.ttf");
+		btn1.setTypeface(font);
+
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -153,98 +192,89 @@ public class ListGraphsActivity extends Activity {
 		});
 
 	}
-	
 
-	public void getLineChart(String name,String title){
-	setLineSettings(mRenderer,name); 
-    Intent intent = ChartFactory.getLineChartIntent(this, getDemoDataset(title,name), mRenderer);
-    startActivity(intent);
-    }
+	public void getLineChart(String name, String title) {
+		setLineSettings(mRenderer, name);
+		Intent intent = ChartFactory.getLineChartIntent(this,
+				getDemoDataset(title, name), mRenderer);
+		startActivity(intent);
+	}
 
+	private void setLineSettings(XYMultipleSeriesRenderer renderer, String name) {
+		renderer.setChartTitle(name);
+		renderer.setApplyBackgroundColor(false);
+		// renderer.setRange(new double[] {0,6,-70,40});
+		renderer.setFitLegend(false);
+		renderer.setAxesColor(Color.BLACK);
+		renderer.setShowGrid(true);
+		renderer.setXAxisMin(0.5);
+		// renderer.setXAxisMax(setmaxvalueX(arr));
+		renderer.setYAxisMin(0);
+		renderer.setZoomEnabled(false);
+		renderer.setZoomButtonsVisible(true);
+		renderer.setYAxisMax(setmaxvalueY(arr));
+	}
 
-private void setLineSettings(XYMultipleSeriesRenderer renderer,String name) {
-renderer.setChartTitle(name);
-renderer.setApplyBackgroundColor(false);
-//renderer.setRange(new double[] {0,6,-70,40});
-renderer.setFitLegend(false);
-renderer.setAxesColor(Color.BLACK);
-renderer.setShowGrid(true);
-renderer.setXAxisMin(0.5);
-//renderer.setXAxisMax(setmaxvalueX(arr));
-renderer.setYAxisMin(0);
-renderer.setZoomEnabled(false);
-renderer.setZoomButtonsVisible(true);
-renderer.setYAxisMax(setmaxvalueY(arr));
-	}	
+	private XYMultipleSeriesDataset getDemoDataset(String title, String name) {
 
+		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		XYSeries firstSeries = new XYSeries(title);
+		/*
+		 * double sum=0; if(name.equals("Distance")){
+		 * 
+		 * for (int i = 0; i < arr.length; i++) { sum+= arr[i][0];
+		 * firstSeries.add(i,sum); dataset.addSeries(firstSeries); }
+		 * 
+		 * }else {
+		 */
+		for (int i = 0; i < arr.length; i++)
+			firstSeries.add(i, arr[i][0]);
+		dataset.addSeries(firstSeries);
+		// }
 
-private XYMultipleSeriesDataset getDemoDataset(String title,String name) {
+		return dataset;
+	}
 
-	   
-    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-    XYSeries firstSeries = new XYSeries(title);
-    double sum=0;
-   if(name.equals("Distance")){
-	
-    for (int i = 0; i < arr.length; i++)
-    {
-    	sum+= arr[i][0];
-      firstSeries.add(i,sum);
-    dataset.addSeries(firstSeries);
-    }
-    
-   }else
-   {
-	   for (int i = 0; i < arr.length; i++)
-		      firstSeries.add(i, arr[i][0]);
-		    dataset.addSeries(firstSeries);   
-   }
- 
-	
-	return dataset;
-}
+	private XYMultipleSeriesRenderer getDemoRenderer() {
+		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+		renderer.setMargins(new int[] { 20, 30, 15, 0 });
+		XYSeriesRenderer r = new XYSeriesRenderer();
+		renderer.setAxisTitleTextSize(20);
+		renderer.setChartTitleTextSize(18);
+		renderer.setLabelsTextSize(18);
+		renderer.setLegendTextSize(18);
+		renderer.setMargins(new int[] { 40, 20, 20, 0 });
+		r.setPointStyle(PointStyle.CIRCLE);
+		r.setFillPoints(true);
+		r.setColor(Color.BLUE);
+		renderer.addSeriesRenderer(r);
+		return renderer;
+	}
 
-private XYMultipleSeriesRenderer getDemoRenderer() {
-	   XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        renderer.setMargins(new int[] { 20, 30, 15, 0 });
-        XYSeriesRenderer r = new XYSeriesRenderer();
-        renderer.setAxisTitleTextSize(20);
-        renderer.setChartTitleTextSize(18);
-        renderer.setLabelsTextSize(18);
-        renderer.setLegendTextSize(18);
-        renderer.setMargins(new int[] {40, 20, 20, 0});
-        r.setPointStyle(PointStyle.CIRCLE);
-        r.setFillPoints(true);
-       r.setColor(Color.BLUE);
-        renderer.addSeriesRenderer(r);
-        return renderer;
-}
-public int setmaxvalueY( double arr[][]){
-	 double max_value=arr[0][0];
-	 for (int i = 1; i < arr.length; i++){
-		 if(max_value<arr[i][0]){
-			 max_value=arr[i][0];
-		 }
-		 
-		 
-	 }
-	
-	return (int)max_value;
-	
-}
-public int setmaxvalueX( double arr[][]){
-	 double max_value=arr[0][0];
-	 for (int i = 1; i < arr.length; i++){
-		 if(max_value<arr[i][1]){
-			 max_value=arr[i][1];
-		 }
-		 
-		 
-	 }
-	
-	return (int)max_value;
-	
-}
-	
-	
+	public int setmaxvalueY(double arr[][]) {
+		double max_value = arr[0][0];
+		for (int i = 1; i < arr.length; i++) {
+			if (max_value < arr[i][0]) {
+				max_value = arr[i][0];
+			}
+
+		}
+
+		return (int) max_value;
+
+	}
+
+	public int setmaxvalueX(double arr[][]) {
+		double max_value = arr[0][0];
+		for (int i = 1; i < arr.length; i++) {
+			if (max_value < arr[i][1]) {
+				max_value = arr[i][1];
+			}
+
+		}
+
+		return (int) max_value;
+
+	}
+
 }
