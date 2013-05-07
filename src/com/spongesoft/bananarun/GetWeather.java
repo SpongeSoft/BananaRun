@@ -36,19 +36,9 @@ public class GetWeather {
 	String region;
 	String country;
 
-	String windChill;
-	String windDirection;
-	String windSpeed;
-
 	public String temperature;
 	String code;
 	String weatherStatus;
-
-	String sunrise;
-	String sunset;
-
-	String conditiontext;
-	String conditiondate;
 
 	public GetWeather(String woeid) {
 		String sel_woeid = woeid;
@@ -179,59 +169,6 @@ public class GetWeather {
 				city = "EMPTY";
 				region = "EMPTY";
 				country = "EMPTY";
-			}
-
-			// <yweather:wind chill="60" direction="0" speed="0"/>
-			NodeList windNodeList = srcDoc
-					.getElementsByTagName("yweather:wind");
-			if (windNodeList != null && windNodeList.getLength() > 0) {
-				Node windNode = windNodeList.item(0);
-				NamedNodeMap windNamedNodeMap = windNode.getAttributes();
-
-				windChill = windNamedNodeMap.getNamedItem("chill")
-						.getNodeValue().toString();
-				windDirection = windNamedNodeMap.getNamedItem("direction")
-						.getNodeValue().toString();
-				windSpeed = windNamedNodeMap.getNamedItem("speed")
-						.getNodeValue().toString();
-			} else {
-				windChill = "EMPTY";
-				windDirection = "EMPTY";
-				windSpeed = "EMPTY";
-			}
-
-			// <yweather:astronomy sunrise="6:52 am" sunset="7:10 pm"/>
-			NodeList astNodeList = srcDoc
-					.getElementsByTagName("yweather:astronomy");
-			if (astNodeList != null && astNodeList.getLength() > 0) {
-				Node astNode = astNodeList.item(0);
-				NamedNodeMap astNamedNodeMap = astNode.getAttributes();
-
-				sunrise = astNamedNodeMap.getNamedItem("sunrise")
-						.getNodeValue().toString();
-				sunset = astNamedNodeMap.getNamedItem("sunset").getNodeValue()
-						.toString();
-			} else {
-				sunrise = "EMPTY";
-				sunset = "EMPTY";
-			}
-
-			// <yweather:condition text="Fair" code="33" temp="60"
-			// date="Fri, 23 Mar 2012 8:49 pm EDT"/>
-			NodeList conditionNodeList = srcDoc
-					.getElementsByTagName("yweather:condition");
-			if (conditionNodeList != null && conditionNodeList.getLength() > 0) {
-				Node conditionNode = conditionNodeList.item(0);
-				NamedNodeMap conditionNamedNodeMap = conditionNode
-						.getAttributes();
-
-				conditiontext = conditionNamedNodeMap.getNamedItem("text")
-						.getNodeValue().toString();
-				conditiondate = conditionNamedNodeMap.getNamedItem("date")
-						.getNodeValue().toString();
-			} else {
-				conditiontext = "EMPTY";
-				conditiondate = "EMPTY";
 			}
 
 		}
