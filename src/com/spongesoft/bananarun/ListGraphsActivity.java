@@ -20,16 +20,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 /** 
  * This is based on the example found in the following web
  * http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
  */
 
 /**
- * The Activity will show a list of specific values from a session and graphs of them
+ * The Activity will show a list of specific values from a session and graphs of
+ * them
  */
-
 
 public class ListGraphsActivity extends Activity {
 	// action id
@@ -79,7 +78,7 @@ public class ListGraphsActivity extends Activity {
 
 		/* Printing the values in the screen */
 		entry.open();
-		
+
 		sessionsInfo = new double[5];
 
 		double[] singleSession = entry.getParamsForSpecificRace(id_race);
@@ -91,17 +90,20 @@ public class ListGraphsActivity extends Activity {
 
 		AuxMethods aux = new AuxMethods(preferences);
 		String distanceUnit = aux.getDistanceUnits();
-		
+
 		meanSpeed.setText((" " + aux.stripDecimals(sessionsInfo[0])) + " m/s.");
-		averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1])/60))+" min.");
+		averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1]) / 60))
+				+ " min.");
 		totalDistance.setText(" " + aux.getDistance(sessionsInfo[2]));
-		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3])/60)+" min/"+distanceUnit+".");
-		totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])+ " KCal.");
+		timePerDistance.setText(" " + aux.stripDecimals((sessionsInfo[3]) / 60)
+				+ " min/" + distanceUnit + ".");
+		totalKilocalories.setText(" " + aux.stripDecimals(sessionsInfo[4])
+				+ " KCal.");
 
 		entry.close();
-		
+
 		/* Defining action items */
-		
+
 		ActionItem nextItem = new ActionItem(ID_DISTANCE, getResources()
 				.getString(R.string.distStat), getResources().getDrawable(
 				R.drawable.menu_ok));
@@ -213,7 +215,7 @@ public class ListGraphsActivity extends Activity {
 				"fonts/bradbunr.ttf");
 		btn1.setTypeface(font);
 		overview.setTypeface(font);
-		
+
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -222,8 +224,7 @@ public class ListGraphsActivity extends Activity {
 		});
 
 	}
-	
-	
+
 	/*
 	 * Defining the functions for plotting the line chart
 	 */
@@ -241,9 +242,9 @@ public class ListGraphsActivity extends Activity {
 				getDemoDataset2(title), mRenderer);
 		startActivity(intent);
 	}
-	
+
 	/* Setting some style to the graph */
-	
+
 	private void setLineSettings(XYMultipleSeriesRenderer renderer, String name) {
 		renderer.setChartTitle(name);
 		renderer.setApplyBackgroundColor(false);
@@ -256,7 +257,7 @@ public class ListGraphsActivity extends Activity {
 		renderer.setYLabels(RESULT_OK);
 
 	}
-	
+
 	/* Taken the values to be printed if is not the distance graph */
 
 	private XYMultipleSeriesDataset getDemoDataset(String title) {
@@ -270,8 +271,8 @@ public class ListGraphsActivity extends Activity {
 
 		return dataset;
 	}
-	
-	/* Taken the values to be printed if is the distance graph*/
+
+	/* Taken the values to be printed if is the distance graph */
 
 	private XYMultipleSeriesDataset getDemoDataset2(String title) {
 
@@ -286,9 +287,9 @@ public class ListGraphsActivity extends Activity {
 
 		return dataset;
 	}
-	
+
 	/* Setting some style to the graph */
-	
+
 	private XYMultipleSeriesRenderer getDemoRenderer() {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setMargins(new int[] { 20, 30, 15, 0 });
