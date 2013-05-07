@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="unitSystems">
+        <item name="1">Sistema métrico</item>
+        <item name="2">Sistema imperial</item>
+    </string-array>
+    <string-array name="unitSystemsValues">
+        <item name="1">1</item>
+        <item name="2">2</item>
+    </string-array>
+    
+    <string-array name="motivationalMessages">
+        <item name="1">Corre, platano!</item>
+        <item name="2">Puedes tirar la toalla. O usarla para limpiarte el sudor de la frente.</item>
+        <item name="3">No dejes que la fatiga te haga un cobarde.</item>
+        <item name="4">Entrenar la mente para correr es el primer paso, y el más difícil.</item>
+    	<item name="5">No dejas de correr por envejecer, envejeces por dejar de correr.</item>
+    	<item name="6">Los corredores siempre llegan a la meta, aunque alguien la haya pasado antes.</item>
+    </string-array>
+
+</resources>
