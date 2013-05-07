@@ -18,6 +18,7 @@
     <string name="general_stats">Estadísticas generales</string>
     <string name="gpsmsg">Recuerda: ¡Activa el GPS!</string>
     <string name="statHeader">Sesiones:</string>
+    <string name="defaultMessage">¡Pulsa el botón \'Run\' para comenzar tu aventura!</string>
     
 
 </resources>

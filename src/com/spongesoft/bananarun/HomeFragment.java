@@ -2,6 +2,7 @@ package com.spongesoft.bananarun;
 
 import com.spongesoft.bananarun.R;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -35,11 +36,18 @@ public class HomeFragment extends Fragment {
 	SharedPreferences generalPrefs;
 	Handler handler;
 	String temp;
+	DBManagement entry;
 	int wCode;
 
 	public HomeFragment() {
 	}
 
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		entry = new DBManagement(activity);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -154,6 +162,10 @@ public class HomeFragment extends Fragment {
 			lastTime.setVisibility(View.INVISIBLE);
 			
 			lastSession.setText(getResources().getString(R.string.defaultMessage));
+		}else{
+			double[] infoArray =  entry.getParamsForSpecificRace(lastRaceID);
+			lastDistance.setText(infoArray[4]+"");
+			lastTime.setText(infoArray[3]+"");
 		}
 		
 
