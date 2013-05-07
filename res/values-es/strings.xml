@@ -60,5 +60,8 @@
 	<string name="toastStat">Registro vacio</string>
 	<string name="speedStat2">Velocidad</string>
 	<string name="session">Sesión</string>
+	<string name="delete">¿Borrar?</string>
+	<string name="sureDelete">¿Seguro que quieres borrar la sesión</string>
+	<string name="cancel">Cancelar</string>
     
 </resources>

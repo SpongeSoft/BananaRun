@@ -75,8 +75,6 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View StatsView = inflater.inflate(R.layout.stats, container,
 				false);
-	
-		//Log.d("valor", "" + arr.length);
 		
 		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
@@ -103,7 +101,6 @@ public class StatsFragment extends Fragment {
 		entry.open();
 		int numSessions = entry.getRaceCount();
 		distance = entry.getSessionsIdsAndDistance();
-		//int numSessions = distance[0].length;
 		entry.close();
 		AuxMethods aux = new AuxMethods(preferences);
 		
@@ -133,7 +130,6 @@ public class StatsFragment extends Fragment {
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putLong("statsID",(long) raceID);
 				editor.commit();
-				//newSession.putExtra("statsID", raceID);
 				
 				StatsView.getContext().startActivity(newSession);
 				}
@@ -144,15 +140,14 @@ public class StatsFragment extends Fragment {
 
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int pos, long id) {
-				// TODO Auto-generated method stub
 
 				Log.v("long clicked", "pos" + " " + pos);
 
 				AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
-				adb.setTitle("Delete?");
-				adb.setMessage("Are you sure you want to delete " + pos + "?");
+				adb.setTitle(getResources().getString(R.string.delete));
+				adb.setMessage(getResources().getString(R.string.sureDelete) + " " + (pos+1) + "?");
 				final int positionToRemove = (int) distance[pos][0];
-				adb.setNegativeButton("Cancel", null);
+				adb.setNegativeButton(getResources().getString(R.string.cancel), null);
 				final int position = pos;
 				adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -169,23 +164,6 @@ public class StatsFragment extends Fragment {
 				return true;
 			}
 		});
-
-		/*
-		 * TextView tv = (TextView) HomeView.findViewById(R.id.tvSQLinfo);
-		 * entry.open(); entry.setRace(); String result =
-		 * entry.getRaceAvgSpeed(); tv.setText(result);
-		 * 
-		 * 
-		 * 
-		 * // TextView pref = (TextView) HomeView.findViewById(R.id.pref);
-		 * 
-		 * SharedPreferences settings =
-		 * PreferenceManager.getDefaultSharedPreferences
-		 * (getActivity().getBaseContext()); String height =
-		 * settings.getString("prefUserHeight", "No val"); String weight =
-		 * settings.getString("prefUserWeight", "0"); pref.setText("vals: " +
-		 * height + ", " + weight);
-		 */
 
 		return StatsView;
 	}
