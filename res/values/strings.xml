@@ -61,5 +61,6 @@
 	<string name="speedStat">Average Speed</string>
 	<string name="toastStat">Empty Register</string>
 	<string name="speedStat2">Speed</string>
+	<string name="session">Session</string>
     
 </resources>

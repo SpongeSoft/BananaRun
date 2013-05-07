@@ -29,7 +29,7 @@
     <string name="timelimit">Límite de tiempo</string>
     <string name="distancelimit">Límite de distancia</string>
     <string name="freerunning">Carrera sin límites</string>
-    <string name="limitstring">¿Cualquier límite?</string>
+    <string name="limitstring">¿Límites?</string>
     <string name="last_distance">----</string>
     <string name="last_time">----</string>
     <string name="last_session">Última sesión:</string>
@@ -59,5 +59,6 @@
 	<string name="speedStat">Velocidad media</string>
 	<string name="toastStat">Registro vacio</string>
 	<string name="speedStat2">Velocidad</string>
+	<string name="session">Sesión</string>
     
 </resources>

@@ -111,7 +111,7 @@ public class StatsFragment extends Fragment {
 		ArrayList<String> list = new ArrayList<String>();
 		if (distance != null) {
 			for (int j = 0; j < numSessions; j++) {
-				list.add("Session " + (j + 1) + " - " + aux.getDistance(distance[j][1]));
+				list.add(getResources().getString(R.string.session)+" " + (j + 1) + " - " + aux.getDistance(distance[j][1]));
 			}
 		}
 

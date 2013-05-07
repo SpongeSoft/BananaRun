@@ -243,8 +243,8 @@ public class DBManagement {
 				.getDefaultSharedPreferences(ourContext);
 		AuxMethods aux = new AuxMethods(prefs);
 		int HyW[] = aux.getHeightAndWeight();
-		double constFactor = 0.00000000000175;
-		double kcal = constFactor * totalDist * HyW[1] * totalTime;
+		double constFactor = 0.000000000175;
+		double kcal = constFactor * totalDist * HyW[1] * HyW[2] * totalTime;
 		cv.put(KEY_S_KCAL, kcal);
 		
 		cursor.close();
