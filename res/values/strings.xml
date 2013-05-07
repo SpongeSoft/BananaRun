@@ -46,5 +46,13 @@
     <string name="general_stats">General Statistics</string>
     <string name="defaultMessage">Press the \'Run\' button to start your adventure!</string>
     <string name="GPSerror">Please, enable GPS to get started!</string>
+    
+    <string name="sessionDate">Session Date:</string>
+    <string name="averageSpeedStr">Average Speed:</string>
+    <string name="averageTimeStr">Average Time:</string>
+    <string name="totalDistanceStr">Total Distance:</string>
+    <string name="timePerDistanceStr">Time Per Distance</string>
+    <string name="kilocaloriesStr">Kilocalories:</string>
+    <string name="maxAltitudeStr">Maximum Altitude:</string>
 
 </resources>

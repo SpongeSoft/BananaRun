@@ -9,11 +9,12 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
-import com.spongesoft.bananarun.LineChart;
 import com.spongesoft.bananarun.MainActivity;
 import com.spongesoft.bananarun.R;
 
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ListBarGraphs extends Activity {
@@ -36,13 +38,62 @@ public class ListBarGraphs extends Activity {
 
 	DBManagement entry;
 	double[][] arr;
+	
+	TextView meanSpeed;
+	TextView averageTime;
+	TextView timePerDistance;
+	TextView totalDistance;
+	TextView totalKilocalories;
+	TextView maximumAltitude;
+	
+	SharedPreferences preferences;
+	double[] sessionsInfo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.selectgraph);
+		
+		preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		
 		entry = new DBManagement(this);
+		
+		/* Set the TextView values */
+		meanSpeed = (TextView) findViewById(R.id.sessionStatsMeanSpeed);
+		averageTime = (TextView) findViewById(R.id.sessionStatsMeanTime);
+		timePerDistance = (TextView) findViewById(R.id.sessionStatsTimePerDistance);
+		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
+		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
+		maximumAltitude = (TextView) findViewById(R.id.sessionMaximumAltitude);
+		
+		entry.open();
+		double[][] allSessions = entry.getSessionsIdsAndDistance();
+		int numSession = allSessions[0].length;
+		sessionsInfo = new double[5];
+		
+		for(int i=0;i<numSession;i++){
+			double[] singleSession = entry.getParamsForSpecificRace((long)allSessions[i][0]);
+			sessionsInfo[0] +=singleSession[2]; //Average speed
+			sessionsInfo[1] +=singleSession[3]; //Total time
+			sessionsInfo[2] +=singleSession[4]; //Total distance
+			sessionsInfo[3] +=singleSession[5]; //Average time per Km
+			sessionsInfo[4] +=singleSession[6]; //Calories burnt
+		}
+		
+		AuxMethods aux = new AuxMethods(preferences);
+		meanSpeed.setText((sessionsInfo[0]/numSession)+"");
+		averageTime.setText((sessionsInfo[1]/numSession)+"");
+		totalDistance.setText(aux.getDistance(sessionsInfo[2]));
+		timePerDistance.setText((sessionsInfo[3]/numSession)+"");
+		totalKilocalories.setText(sessionsInfo[4]+"");
+		
+		entry.close();
+	
+		
+	
+		
+		
 
 		ActionItem nextItem = new ActionItem(ID_DOWN, "Time", getResources()
 				.getDrawable(R.drawable.menu_ok));
@@ -195,9 +246,11 @@ public class ListBarGraphs extends Activity {
 		renderer.setYTitle(name);
 		// renderer.setShowLegend(false);
 		// renderer.setXAxisMin(0.5);
-		renderer.setXAxisMax(10);
-		renderer.setYAxisMin(0);
-		renderer.setYAxisMax(setmaxvalue(arr));
+		//renderer.setXAxisMax(10);
+		//renderer.setYAxisMin(0);
+		//renderer.setYAxisMax(setmaxvalue(arr));
+		renderer.setXLabels(RESULT_OK);
+		renderer.setYLabels(RESULT_OK);
 	}
 
 	public int setmaxvalue(double arr[][]) {
