@@ -26,7 +26,9 @@ import android.widget.Toast;
  * http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
  */
 
-
+/**
+ * The Activity will show a list of general values and graphs of them
+ */
 
 public class ListBarGraphs extends Activity {
 	// action id
@@ -35,7 +37,7 @@ public class ListBarGraphs extends Activity {
 	private static final int ID_SEARCH = 3;
 	private static final int ID_OK = 6;
 	
-
+	
 	DBManagement entry;
 	double[][] arr;
 
@@ -50,6 +52,10 @@ public class ListBarGraphs extends Activity {
 	double[] sessionsInfo;
 
 	@Override
+	
+	/**
+	 *Display a layout with a button and general statistics
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -67,7 +73,9 @@ public class ListBarGraphs extends Activity {
 		timePerDistance = (TextView) findViewById(R.id.sessionStatsTimePerDistance);
 		totalDistance = (TextView) findViewById(R.id.sessionStatsDistance);
 		totalKilocalories = (TextView) findViewById(R.id.sessionStatsKilocalories);
-
+		
+		/* Defining action items */
+		
 		ActionItem nextItem = new ActionItem(ID_DOWN, getResources().getString(
 				R.string.timeStat), getResources().getDrawable(
 				R.drawable.menu_ok));
@@ -107,8 +115,7 @@ public class ListBarGraphs extends Activity {
 						ActionItem actionItem = quickAction.getActionItem(pos);
 						entry.open();
 
-						// here we can filter which action item was clicked with
-						// pos or actionId parameter
+						// here we can filter which action item was clicked with actionId parameter
 						if (actionId == ID_SEARCH) {
 							arr = entry.getSessionsParam(0);
 
@@ -191,6 +198,9 @@ public class ListBarGraphs extends Activity {
 		});
 
 		entry.open();
+		
+		/* Checking if there are entries to get average values */
+		
 		double[][] allSessions = entry.getSessionsIdsAndDistance();
 		if (allSessions != null) {
 			int numSession = entry.getRaceCount();
@@ -210,7 +220,8 @@ public class ListBarGraphs extends Activity {
 
 			AuxMethods aux = new AuxMethods(preferences);
 			String distanceUnit = aux.getDistanceUnits();
-
+			
+			/* Printing the values in the screen */
 			meanSpeed.setText((" " + aux.stripDecimals((sessionsInfo[0] / numSession)) + " m/s."));
 			averageTime.setText((" " + aux.stripDecimals((sessionsInfo[1]/numSession)/60))+" min.");
 			totalDistance.setText(" " + aux.getDistance(sessionsInfo[2]));
@@ -223,6 +234,12 @@ public class ListBarGraphs extends Activity {
 		}
 	}
 
+	
+	/*
+	 * Defining the function for plotting the bar chart
+	 */
+	
+	
 	public void getBarChart(String name) {
 		XYMultipleSeriesRenderer barChartRenderer = getBarChartRenderer();
 		setBarChartSettings(barChartRenderer, name);
@@ -230,6 +247,8 @@ public class ListBarGraphs extends Activity {
 				getBarDemoDataset(), barChartRenderer, Type.DEFAULT);
 		startActivity(intent);
 	}
+	
+	/* Taken the values to be printed */
 
 	private XYMultipleSeriesDataset getBarDemoDataset() {
 		XYMultipleSeriesDataset barChartDataset = new XYMultipleSeriesDataset();
@@ -240,7 +259,8 @@ public class ListBarGraphs extends Activity {
 
 		return barChartDataset;
 	}
-
+	/* Setting some style to the graph */
+	
 	public XYMultipleSeriesRenderer getBarChartRenderer() {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setAxisTitleTextSize(20);
@@ -254,6 +274,8 @@ public class ListBarGraphs extends Activity {
 		return renderer;
 	}
 
+	/* Setting some style to the graph */
+	
 	private void setBarChartSettings(XYMultipleSeriesRenderer renderer,
 			String name) {
 		renderer.setChartTitle(name);
