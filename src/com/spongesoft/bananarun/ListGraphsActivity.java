@@ -157,7 +157,7 @@ public class ListGraphsActivity extends Activity {
 
 	public void getLineChart(String name,String title){
 	setLineSettings(mRenderer,name); 
-    Intent intent = ChartFactory.getLineChartIntent(this, getDemoDataset(title), mRenderer);
+    Intent intent = ChartFactory.getLineChartIntent(this, getDemoDataset(title,name), mRenderer);
     startActivity(intent);
     }
 
@@ -178,17 +178,27 @@ renderer.setYAxisMax(setmaxvalueY(arr));
 	}	
 
 
-private XYMultipleSeriesDataset getDemoDataset(String title) {
+private XYMultipleSeriesDataset getDemoDataset(String title,String name) {
 
 	   
     XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-
-   
-	
     XYSeries firstSeries = new XYSeries(title);
+    double sum=0;
+   if(name.equals("Distance")){
+	
     for (int i = 0; i < arr.length; i++)
-      firstSeries.add(i, arr[i][0]);
+    {
+    	sum+= arr[i][0];
+      firstSeries.add(i,sum);
     dataset.addSeries(firstSeries);
+    }
+    
+   }else
+   {
+	   for (int i = 0; i < arr.length; i++)
+		      firstSeries.add(i, arr[i][0]);
+		    dataset.addSeries(firstSeries);   
+   }
  
 	
 	return dataset;
