@@ -180,11 +180,10 @@ public class ListGraphsActivity extends Activity {
 
 		// show on btn1
 		Button btn1 = (Button) this.findViewById(R.id.btn1);
-		Typeface font = Typeface.createFromAsset(this
-				.getAssets(), "fonts/bradbunr.ttf");
+		Typeface font = Typeface.createFromAsset(this.getAssets(),
+				"fonts/bradbunr.ttf");
 		btn1.setTypeface(font);
-		
-		
+
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -220,20 +219,18 @@ public class ListGraphsActivity extends Activity {
 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		XYSeries firstSeries = new XYSeries(title);
-		double sum = 0;
-		if (name.equals("Distance")) {
-
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i][0];
-				firstSeries.add(i, sum);
-				dataset.addSeries(firstSeries);
-			}
-
-		} else {
-			for (int i = 0; i < arr.length; i++)
-				firstSeries.add(i, arr[i][0]);
-			dataset.addSeries(firstSeries);
-		}
+		/*
+		 * double sum=0; if(name.equals("Distance")){
+		 * 
+		 * for (int i = 0; i < arr.length; i++) { sum+= arr[i][0];
+		 * firstSeries.add(i,sum); dataset.addSeries(firstSeries); }
+		 * 
+		 * }else {
+		 */
+		for (int i = 0; i < arr.length; i++)
+			firstSeries.add(i, arr[i][0]);
+		dataset.addSeries(firstSeries);
+		// }
 
 		return dataset;
 	}
