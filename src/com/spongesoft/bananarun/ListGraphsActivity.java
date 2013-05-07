@@ -89,8 +89,8 @@ public class ListGraphsActivity extends Activity {
 						if (actionId == ID_DISTANCE) {
 												
 							arr = entry.getRaceParam(id_race, actionId);
-							
-							if(arr!=null){
+							Log.d("arr",arr+"");
+							if(arr!=null && arr[1][0]!=0.0){
 							String title_serie="Distance in ";
 							getLineChart(actionItem.getTitle(),title_serie);
 							}
@@ -102,9 +102,9 @@ public class ListGraphsActivity extends Activity {
 						} else if (actionId == ID_SPEED) {
 											
 							arr = entry.getRaceParam(id_race, actionId);
-							Log.d("actionId", arr[0][0]+"");
+							Log.d("actionId", arr[1][0]+"");
 							
-							if(arr!=null){
+							if(arr!=null && arr[1][0]!=0.0){
 							String title_serie="Speed in ";
 							getLineChart(actionItem.getTitle(),title_serie);
 							}
@@ -117,7 +117,7 @@ public class ListGraphsActivity extends Activity {
 												
 							arr = entry.getRaceParam(id_race, actionId);
 							
-							if(arr!=null){
+							if(arr!=null && arr[1][0]!=0.0){
 							String title_serie="Altitude in ";
 							getLineChart(actionItem.getTitle(),title_serie);
 							}
