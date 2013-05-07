@@ -54,7 +54,7 @@ public class LocationService extends Service implements LocationListener {
 			previousLocation = loc;
 
 			FinishOnLimit();
-			
+
 			final Intent intent = new Intent(
 					"com.spongesoft.bananarun.LOCATION_UPDATED");
 			intent.putExtra("data", loc);
@@ -133,10 +133,14 @@ public class LocationService extends Service implements LocationListener {
 
 		Location location = locationManager
 				.getLastKnownLocation(locationManager.GPS_PROVIDER);
+		/*if(location==null){
+			Location location = locationManager
+			.getLastKnownLocation(locationManager.NETWORK_PROVIDER);}*/
+		
 		manager.setLocation((long) race, location.getLatitude(),
 				location.getLongitude(), location.getAltitude(), 0,
 				location.getSpeed());
-		
+
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		pickerType = prefs.getInt("pickerType", 2);
@@ -164,7 +168,7 @@ public class LocationService extends Service implements LocationListener {
 		Notification.Builder builder = new Notification.Builder(this);
 
 		builder.setContentIntent(contentIntent)
-				.setSmallIcon(R.drawable.preferences_button)
+				.setSmallIcon(R.drawable.ic_launcher)
 				// .setLargeIcon(BitmapFactory.decodeResource(res,
 				// R.drawable.some_big_img))
 				.setTicker("Now running!").setWhen(System.currentTimeMillis())
@@ -200,39 +204,36 @@ public class LocationService extends Service implements LocationListener {
 	private void FinishOnLimit() {
 
 		if (pickerType != 2) {
-			
+
 			manager.updateRace((long) race);
-			infoArray =  manager.getParamsForSpecificRace((long)race);
+			infoArray = manager.getParamsForSpecificRace((long) race);
 			if (pickerType == 1) {
-				
-				
+
 				int distance = (int) infoArray[4];
-				if(unitsSystem.equals("1")){
-					distance = distance/1000;
-				} else if(unitsSystem.equals("2")){
-					distance = (int) (distance*1.609);
+				if (unitsSystem.equals("1")) {
+					distance = distance / 1000;
+				} else if (unitsSystem.equals("2")) {
+					distance = (int) (distance * 1.609);
 				}
-				
-				if(distance >= pickerValue){
+
+				if (distance >= pickerValue) {
 					manager.close();
 					running = false;
 					stopReceiving();
-					
-					Log.d("mierda", "mierda!");
+
 					sendBroadcast(new Intent("xyz"));
 				}
-			} else if(pickerType == 0){
-				int time = (int) (infoArray[3]/60);
-				Log.d("mierda", time +":"+ pickerValue);
-				if(time >= pickerValue) {
+			} else if (pickerType == 0) {
+				int time = (int) (infoArray[3] / 60);
+				Log.d("mierda", time + ":" + pickerValue);
+				if (time >= pickerValue) {
 					manager.close();
 					running = false;
 					stopReceiving();
-					
-					Log.d("mierda", "mierda!");
+
 					sendBroadcast(new Intent("xyz"));
 				}
-				
+
 			}
 		}
 	}
