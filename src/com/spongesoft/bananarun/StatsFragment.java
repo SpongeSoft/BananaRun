@@ -44,14 +44,9 @@ public class StatsFragment extends Fragment {
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
-	
-
+	/* Global variables */
 	ArrayAdapter<String> adapter;
 	SharedPreferences preferences;
-
-	/**
-	 * Buttons and whatnot
-	 */
 	DBManagement entry;
 	double[][] arr;
 	double distance[][];
@@ -75,67 +70,104 @@ public class StatsFragment extends Fragment {
 		// number argument value.
 		final View StatsView = inflater.inflate(R.layout.stats, container,
 				false);
-		
-		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
+		/* Retrieve application's global preferences */
+		preferences = PreferenceManager
+				.getDefaultSharedPreferences(getActivity()
+						.getApplicationContext());
+
+		/* Reference elements from XML layout */
 		Button genStats = (Button) StatsView.findViewById(R.id.generalStats);
 		ListView lv = (ListView) StatsView.findViewById(R.id.statsListview);
 		TextView Sessions = (TextView) StatsView.findViewById(R.id.header);
-		
-		Typeface font = Typeface.createFromAsset(getActivity()
-				.getAssets(), "fonts/bradbunr.ttf");
+
+		/* Apply text font to TextViews */
+		Typeface font = Typeface.createFromAsset(getActivity().getAssets(),
+				"fonts/bradbunr.ttf");
 		Sessions.setTypeface(font);
 		genStats.setTypeface(font);
-		
-		
+
+		/*
+		 * When pressed, the 'General Statistics' button redirects the user to a
+		 * new screen with a summary of the global sessions progress, and a
+		 * button to show different graphs related to the general statistics
+		 */
 		genStats.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent newSession = new Intent(getActivity().getBaseContext(),
 						ListBarGraphs.class);
-				
+
 				StatsView.getContext().startActivity(newSession);
 			}
 		});
 
-		entry.open();
-		int numSessions = entry.getRaceCount();
-		distance = entry.getSessionsIdsAndDistance();
-		entry.close();
-		AuxMethods aux = new AuxMethods(preferences);
-		
+		/*
+		 * Obtain the number of races currently stored in the database and
+		 * display the sessions in a ListView
+		 */
 
+		entry.open(); // Open Database
+		int numSessions = entry.getRaceCount(); // Get number of races
+		distance = entry.getSessionsIdsAndDistance(); // Get races' distances
+		entry.close(); // Close database
+		AuxMethods aux = new AuxMethods(preferences);
+
+		/*
+		 * Fill array adapter with the name of each session and its
+		 * corresponding distance
+		 */
 		ArrayList<String> list = new ArrayList<String>();
 		if (distance != null) {
 			for (int j = 0; j < numSessions; j++) {
-				list.add(getResources().getString(R.string.session)+" " + (j + 1) + " - " + aux.getDistance(distance[j][1]));
+				list.add(getResources().getString(R.string.session) + " "
+						+ (j + 1) + " - " + aux.getDistance(distance[j][1]));
 			}
 		}
 
+		/* Link adapter to ListView */
 		adapter = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, list);
 		lv.setAdapter(adapter);
 
+		/* Behaviour of the ListView when an item is pressed */
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+			/*
+			 * When clicked, the application redirects the user to a new screen
+			 * where she can look at a summary of the selected session's
+			 * statistics, and also a button which will redirect her to another
+			 * screen for the graph display
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, final View view,
 					int position, long id) {
-				if(distance!=null) {
-				Intent newSession = new Intent(getActivity().getBaseContext(),
-						ListGraphsActivity.class);
-				
-				
-				double raceID = distance[position][0];
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putLong("statsID",(long) raceID);
-				editor.commit();
-				
-				StatsView.getContext().startActivity(newSession);
+				if (distance != null) {
+					Intent newSession = new Intent(getActivity()
+							.getBaseContext(), ListGraphsActivity.class);
+
+					/*
+					 * Insert the selected session's ID into the preferences so
+					 * that the new screen can use it
+					 */
+					double raceID = distance[position][0];
+					SharedPreferences.Editor editor = preferences.edit();
+					editor.putLong("statsID", (long) raceID);
+					editor.commit();
+
+					/* Start specific session's statistics activity */
+					StatsView.getContext().startActivity(newSession);
 				}
 			}
 		});
 
+		/*
+		 * When the user clicks during one or two seconds over one of the
+		 * ListView session items, the Application pops up a dialog where the
+		 * user can decide whether the session should be deleted or not. If the
+		 * user presses 'Yes', the session is deleted from the Database.
+		 * Otherwise, the session is still in the DB.
+		 */
 		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
@@ -143,23 +175,33 @@ public class StatsFragment extends Fragment {
 
 				Log.v("long clicked", "pos" + " " + pos);
 
+				/* Build dialog alert */
 				AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 				adb.setTitle(getResources().getString(R.string.delete));
+
+				/* ID of the race to delete */
 				final int positionToRemove = (int) distance[pos][0];
+
 				adb.setMessage(getResources().getString(R.string.sureDelete));
-				adb.setNegativeButton(getResources().getString(R.string.cancel), null);
-				final int position = pos;
-				adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						entry.open();
-						entry.deleteRace(positionToRemove);
-						distance = entry.getSessionsIdsAndDistance();
-						entry.close();
-						adapter.remove(adapter.getItem(position));
-						adapter.notifyDataSetChanged();
-					}
-				});
-				adb.show();
+				adb.setNegativeButton(
+						getResources().getString(R.string.cancel), null);
+				final int position = pos; // Item position in ListView
+				adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() { // YES
+							public void onClick(DialogInterface dialog,
+									int which) {
+								entry.open();
+
+								/* Delete race and update sessions' indexes */
+								entry.deleteRace(positionToRemove);
+								distance = entry.getSessionsIdsAndDistance();
+
+								/* Close database helper and update ListView */
+								entry.close();
+								adapter.remove(adapter.getItem(position));
+								adapter.notifyDataSetChanged();
+							}
+						});
+				adb.show(); // Show Dialog
 
 				return true;
 			}
@@ -167,7 +209,5 @@ public class StatsFragment extends Fragment {
 
 		return StatsView;
 	}
-
-	
 
 }
