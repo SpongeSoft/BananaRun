@@ -1,13 +1,11 @@
 package com.spongesoft.bananarun;
 
 import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,17 +13,20 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-
-import com.spongesoft.bananarun.MainActivity;
 import com.spongesoft.bananarun.R;
-
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+/** 
+ * This is based on the example found in the following web
+ * http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
+ */
+
+
 
 public class ListGraphsActivity extends Activity {
 	// action id
@@ -91,10 +92,12 @@ public class ListGraphsActivity extends Activity {
 
 		entry.close();
 
-		ActionItem nextItem = new ActionItem(ID_DISTANCE, getResources().getString(R.string.distStat),
-				getResources().getDrawable(R.drawable.menu_ok));
-		ActionItem prevItem = new ActionItem(ID_SPEED, getResources().getString(R.string.speedStat2), getResources()
-				.getDrawable(R.drawable.menu_ok));
+		ActionItem nextItem = new ActionItem(ID_DISTANCE, getResources()
+				.getString(R.string.distStat), getResources().getDrawable(
+				R.drawable.menu_ok));
+		ActionItem prevItem = new ActionItem(ID_SPEED, getResources()
+				.getString(R.string.speedStat2), getResources().getDrawable(
+				R.drawable.menu_ok));
 
 		// use setSticky(true) to disable QuickAction dialog being dismissed
 		// after an item is clicked
@@ -134,10 +137,18 @@ public class ListGraphsActivity extends Activity {
 									getLineChart2(actionItem.getTitle(),
 											title_serie);
 								} else {
-									Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
+									Toast.makeText(
+											getApplicationContext(),
+											getResources().getString(
+													R.string.toastStat),
+											Toast.LENGTH_SHORT).show();
 								}
 							} else {
-								Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
+								Toast.makeText(
+										getApplicationContext(),
+										getResources().getString(
+												R.string.toastStat),
+										Toast.LENGTH_SHORT).show();
 							}
 
 							entry.close();
@@ -153,10 +164,18 @@ public class ListGraphsActivity extends Activity {
 									getLineChart1(actionItem.getTitle(),
 											title_serie);
 								} else {
-									Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
+									Toast.makeText(
+											getApplicationContext(),
+											getResources().getString(
+													R.string.toastStat),
+											Toast.LENGTH_SHORT).show();
 								}
 							} else {
-								Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastStat), Toast.LENGTH_SHORT).show();
+								Toast.makeText(
+										getApplicationContext(),
+										getResources().getString(
+												R.string.toastStat),
+										Toast.LENGTH_SHORT).show();
 							}
 
 							entry.close();
@@ -209,17 +228,11 @@ public class ListGraphsActivity extends Activity {
 	private void setLineSettings(XYMultipleSeriesRenderer renderer, String name) {
 		renderer.setChartTitle(name);
 		renderer.setApplyBackgroundColor(false);
-		// renderer.setRange(new double[] {0,6,-70,40});
 		renderer.setFitLegend(false);
 		renderer.setAxesColor(Color.BLACK);
 		renderer.setShowGrid(true);
-		// renderer.setXAxisMin(0.5);
-		// renderer.setXAxisMax(setmaxvalueX(arr));
-		// renderer.setXAxisMax(10.5);
-		// renderer.setYAxisMin(0);
 		renderer.setZoomEnabled(false);
 		renderer.setZoomButtonsVisible(true);
-		// renderer.setYAxisMax(setmaxvalueY(arr));
 		renderer.setXLabels(RESULT_OK);
 		renderer.setYLabels(RESULT_OK);
 
