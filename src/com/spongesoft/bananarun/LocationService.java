@@ -133,6 +133,10 @@ public class LocationService extends Service implements LocationListener {
 
 		Location location = locationManager
 				.getLastKnownLocation(locationManager.GPS_PROVIDER);
+		/*if(location==null){
+			Location location = locationManager
+			.getLastKnownLocation(locationManager.NETWORK_PROVIDER);}*/
+		
 		manager.setLocation((long) race, location.getLatitude(),
 				location.getLongitude(), location.getAltitude(), 0,
 				location.getSpeed());
@@ -217,7 +221,6 @@ public class LocationService extends Service implements LocationListener {
 					running = false;
 					stopReceiving();
 
-					Log.d("mierda", "mierda!");
 					sendBroadcast(new Intent("xyz"));
 				}
 			} else if (pickerType == 0) {
@@ -228,7 +231,6 @@ public class LocationService extends Service implements LocationListener {
 					running = false;
 					stopReceiving();
 
-					Log.d("mierda", "mierda!");
 					sendBroadcast(new Intent("xyz"));
 				}
 
