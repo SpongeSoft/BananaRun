@@ -47,6 +47,13 @@ public class AuxMethods {
 	public double stripDecimals(double value) {
 		DecimalFormat twoDForm = new DecimalFormat("#.##",new DecimalFormatSymbols(Locale.US));
 		return Double.valueOf(twoDForm.format(value));
-
+	}
+	
+	public String getDistanceUnits() {
+		String distUnit = preferences.getString("prefUnitSystem", "1");
+		if(distUnit.equals("2")){
+			return "Mi";
+		}
+		return "Km";
 	}
 }
