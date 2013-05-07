@@ -438,6 +438,7 @@ public class DBManagement {
 	 * 		- array[6] --> Calories burnt
 	 */
 	public double[] getParamsForSpecificRace(long raceID){
+		
 		double[] result = new double[7];
 		
 		Cursor c = ourDB.rawQuery("SELECT * " + 
