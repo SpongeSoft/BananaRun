@@ -477,8 +477,10 @@ public class DBManagement {
 	 */
 	public void deleteRace(long raceID) throws SQLException {
 		// TODO Auto-generated method stub
-		ourDB.delete(DATABASE_SESSION_TABLE, KEY_S_RACEID + "=" + raceID, null);
-		ourDB.delete(DATABASE_LOCATION_TABLE, KEY_L_RACEID + "=" + raceID, null);
+		int i= ourDB.delete(DATABASE_SESSION_TABLE, KEY_S_RACEID + "=" + raceID, null);
+		int j= ourDB.delete(DATABASE_LOCATION_TABLE, KEY_L_RACEID + "=" + raceID, null);
+		Log.d("deleteRace","RaceID: "+raceID+" NumOfRows: "+i+", "+j);
+
 	}
 
 	public String getRace(long raceID, int param){

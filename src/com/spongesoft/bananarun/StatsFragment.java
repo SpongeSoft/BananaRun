@@ -151,14 +151,15 @@ public class StatsFragment extends Fragment {
 				AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 				adb.setTitle("Delete?");
 				adb.setMessage("Are you sure you want to delete " + pos + "?");
-				final int positionToRemove = pos;
+				final int positionToRemove = (int) distance[pos][0];
 				adb.setNegativeButton("Cancel", null);
+				final int position = pos;
 				adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						entry.open();
 						entry.deleteRace(positionToRemove);
 						entry.close();
-						adapter.remove(adapter.getItem(positionToRemove));
+						adapter.remove(adapter.getItem(position));
 						adapter.notifyDataSetChanged();
 					}
 				});
