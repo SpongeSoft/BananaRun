@@ -63,7 +63,7 @@
 	<string name="speedStat2">Speed</string>
 	<string name="session">Session</string>
 	<string name="delete">Delete?</string>
-    <string name="sureDelete">Are you sure you want to delete session</string>
+    <string name="sureDelete">Are you sure you want to delete the session?</string>
     <string name="cancel">Cancel</string>
     <string name="overview">Overview:</string>
 	<string name="selectGraph">Select a graph here</string>

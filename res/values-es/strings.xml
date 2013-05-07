@@ -61,7 +61,7 @@
 	<string name="speedStat2">Velocidad</string>
 	<string name="session">Sesión</string>
 	<string name="delete">¿Borrar?</string>
-	<string name="sureDelete">¿Seguro que quieres borrar la sesión</string>
+	<string name="sureDelete">¿Seguro que quieres borrar la sesión?</string>
 	<string name="cancel">Cancelar</string>
 	<string name="overview">Resumen:</string>
 	<string name="selectGraph">Elige gráfica aquí</string>
