@@ -101,13 +101,14 @@ public class MapSectionFragment extends Fragment {
 	Document weatherDoc;
 	String weatherString;
 
+	LocationManager locationManager;
+	
 	final String yahooPlaceApisBase = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20geo.placefinder%20where%20text%3D%22";
 	final String yahooapisFormat = "%22%20and%20gflags%3D%22R%22&diagnostics=true";
 	String yahooPlaceAPIsQuery;
 
 	public MapSectionFragment() {
 	}
-
 
 	@Override
 	public void onDestroy() {
@@ -167,7 +168,6 @@ public class MapSectionFragment extends Fragment {
 		locateBtn = (ImageView) inflatedView.findViewById(R.id.locationButton);
 
 		/* Buttons behaviour */
-
 		lockBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -181,9 +181,6 @@ public class MapSectionFragment extends Fragment {
 				}
 			}
 		});
-
-		// TODO -->
-		// http://stackoverflow.com/questions/4146848/how-would-i-make-my-google-map-zoom-in-to-my-current-location
 
 		/*
 		 * Layer button: toggle map layer type when pressed. There are two layer
@@ -326,6 +323,7 @@ public class MapSectionFragment extends Fragment {
 
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f));
 	}
+	
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
         public void onReceive(Context context, Intent intent) {		
@@ -338,7 +336,7 @@ public class MapSectionFragment extends Fragment {
 };
 	public void startLocation() {
 		// Acquire a reference to the system Location Manager
-		LocationManager locationManager = (LocationManager) getActivity()
+		locationManager = (LocationManager) getActivity()
 				.getSystemService(Context.LOCATION_SERVICE);
 
 		// Define a listener that responds to location updates
@@ -377,11 +375,13 @@ public class MapSectionFragment extends Fragment {
 		};
 
 		// Register the listener with the Location Manager to receive location
-		// updates
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
+		// updatesç
+		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+		locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
+		/*locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
 				0, locationListener);
 		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+				LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);*/
 
 	}
 

@@ -35,5 +35,6 @@
     <string name="last_session">Last Session:</string>
     <string name="gpsmsg">Remember: enable the GPS!</string>
     <string name="statHeader">Sessions:</string>
+    <string name="defaultMessage">Press the \'Run\' button to start your adventure!</string>
 
 </resources>
