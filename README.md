@@ -1,9 +1,9 @@
-DietApp
-=======
+Banana Run
+==========
 
 ###What is it?
 
-DietApp is an Android Application that makes running fun again. Created for a project at UC3M, DietApp has grown to be an excellent piece of software everyone can use to track their daily running activities.
+Banana Run is an Android Application that makes running fun again. Created for a project at UC3M, Banana Run has grown to be an excellent piece of software everyone can use to track their daily running activities.
 
 ###Features
 
@@ -17,7 +17,9 @@ DietApp is an Android Application that makes running fun again. Created for a pr
 
 ####Small disclaimer
 
-Ass you may imagine, this is far from perfect so there maybe one or two little bugs around we didn't get to fix before releasing
+Ass you may imagine, this is far from perfect so there maybe one or two little bugs around we didn't get to fix before releasing.
+
+Also, the app was originally called DietApp but we had to change the name of the app during development, so there may be a few places that __Banana Run__ is reffered to as __DietApp__
 
 ###Installation
 
