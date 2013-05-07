@@ -62,5 +62,8 @@
 	<string name="toastStat">Empty Register</string>
 	<string name="speedStat2">Speed</string>
 	<string name="session">Session</string>
+	<string name="delete">Delete?</string>
+    <string name="sureDelete">Are you sure you want to delete session</string>
+    <string name="cancel">Cancel</string>
     
 </resources>
