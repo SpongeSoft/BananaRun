@@ -37,6 +37,7 @@
     <string name="statHeader">Sessions:</string>
 
     <string name="calories">Calories: </string>
+    
     <string name="timer">Time: </string>
     <string name="motivation">Motivation:</string>
     <string name="lockmap">Lock map</string>
