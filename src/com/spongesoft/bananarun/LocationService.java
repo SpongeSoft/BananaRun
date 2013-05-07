@@ -224,7 +224,7 @@ public class LocationService extends Service implements LocationListener, OnInit
 		int timeSeconds = stats.getAsInteger(manager.KEY_S_TOTAL_TIME);
 		if(distanceKm > lastDistanceSaid) {
 			lastDistanceSaid = distanceKm;
-			talker.speak("Llevas "+lastDistanceSaid+" kilometros", TextToSpeech.QUEUE_FLUSH, null);
+			talker.speak("Llevas "+lastDistanceSaid+" kilómetros", TextToSpeech.QUEUE_FLUSH, null);
 		}
 		
 		if (pickerType != 2) {
