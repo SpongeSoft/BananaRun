@@ -441,9 +441,10 @@ public class DBManagement {
 		
 		double[] result = new double[7];
 		
-		Cursor c = ourDB.rawQuery("SELECT * " + 
-				" FROM " + DATABASE_SESSION_TABLE +
-				" WHERE " + KEY_S_RACEID + " = " + raceID, null);
+		String query = "SELECT * FROM " + DATABASE_SESSION_TABLE +
+				" WHERE " + KEY_S_RACEID + " = " + raceID;
+		
+		Cursor c = ourDB.rawQuery(query, null);
 		
 		if (c.moveToFirst()){
 			while(!c.isAfterLast()){
