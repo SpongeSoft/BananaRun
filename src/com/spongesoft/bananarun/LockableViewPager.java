@@ -5,13 +5,13 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-// uses code from: http://stackoverflow.com/questions/9650265/how-do-disable-paging-by-swiping-with-finger-in-viewpager-but-still-be-able-to-s
+/*Based on the code from: 
+ * http://stackoverflow.com/questions/9650265/how-do-disable-paging-by-swiping-with-finger-in-viewpager-but-still-be-able-to-s */
 public class LockableViewPager extends android.support.v4.view.ViewPager {
-	private boolean isLocked = false;
+	private boolean isLocked = false; //Flag
 	
     public LockableViewPager(Context arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
     public LockableViewPager(Context context, AttributeSet attrs) {
@@ -38,14 +38,17 @@ public class LockableViewPager extends android.support.v4.view.ViewPager {
     	}
     }
     
+    /* Retrieve ViewPager status */
     public boolean isLocked() {
     	return isLocked;
     }
     
+    /* Lock ViewPager */
     public void lock() {
     	isLocked = true;
     }
     
+    /* Unlock ViewPager */
     public void unlock() {
     	isLocked = false;
     }
