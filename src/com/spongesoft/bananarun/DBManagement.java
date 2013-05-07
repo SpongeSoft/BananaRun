@@ -531,8 +531,6 @@ public class DBManagement {
 				columns, 
 				KEY_L_RACEID + "=" + raceID, 
 				null, null, null, null);
-		String query = "SELECT latitude, longitude FROM " + DATABASE_LOCATION_TABLE + " WHERE " + KEY_L_RACEID + " = " + raceID;
-		Cursor cursor = ourDB.rawQuery(query, null);
 
 		
 		List<LatLng> list = new LinkedList<LatLng>();
