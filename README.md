@@ -53,7 +53,7 @@ MIT
   [Alejandro Martinez]: https://github.com/zenitraM
   [Juan Luis Sanz]: https://github.com/kadaki01
   [Jorge Lavin]: https://github.com/navlin07
-  [our small presentation]: http://www.slideshare.net/jorgelm1701/banana-run
+  [our small presentation]: https://docs.google.com/presentation/d/1yZTa0svIMpHmxEV4cC8TzIGkyIihestrBGr7crs1QUA/pub?start=false&loop=false&delayms=3000
   
 
     
