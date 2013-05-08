@@ -17,7 +17,7 @@ Banana Run is an Android Application that makes running fun again. Created for a
 
 ####Small disclaimer
 
-Ass you may imagine, this is far from perfect so there maybe one or two little bugs around we didn't get to fix before releasing.
+As you may imagine, this is far from perfect so there maybe one or two little bugs around we didn't get to fix before releasing.
 
 Also, the app was originally called DietApp but we had to change the name of the app during development, so there may be a few places that __Banana Run__ is reffered to as __DietApp__
 
