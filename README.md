@@ -3,7 +3,7 @@ Banana Run
 
 ###What is it?
 
-Banana Run is an Android Application that makes running fun again. Created for a project at UC3M, Banana Run has grown to be an excellent piece of software everyone can use to track their daily running activities.
+Banana Run is an Android Application that makes running fun again. Created for a project at UC3M, Banana Run has grown to be an excellent piece of software everyone can use to track their daily running activities. Need more info? check out [our small presentation]
 
 ###Features
 
@@ -53,6 +53,7 @@ MIT
   [Alejandro Martinez]: https://github.com/zenitraM
   [Juan Luis Sanz]: https://github.com/kadaki01
   [Jorge Lavin]: https://github.com/navlin07
+  [our small presentation]: http://www.slideshare.net/jorgelm1701/banana-run
   
 
     
